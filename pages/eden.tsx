@@ -1,34 +1,29 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { GetServerSideProps } from "next";
+import axios from "axios";
+import Link from "next/link";
 import React from "react";
-import { Oferta } from "../lib/components/interface/oferta";
+import styles from "../styles/Home.module.css";
 
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/oferts/eden");
-  const { data } = await res.json();
+export const getServerSideProps = async () => {
+  const { data: lotesED } = await axios.get("http://localhost:3000/api/eden");
   return {
     props: {
-      data,
+      lotesED,
     },
   };
 };
 
-type Props = {
-  data: Oferta[];
-};
-
-const OfertED = ({ data }: Props) => {
+const OfertED = ({ lotesED }) => {
   return (
     <>
-      <div className="bg-lime-200 sm:bg-lime-200 md:bg-lime-200 lg:bg-lime-200 xl:bg-lime-200 xl:max-h-full">
-        <h2 className="text-center text-5xl font-normal leading-normal mb-5 font-semibold text-blue-500">
+      <div className={styles.limiter}>
+        <h2 className="text-center text-4xl leading-normal font-semibold text-white my-4">
           LOTES DISPONIBLES - EL EDEN
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
-              <tr>
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
+            <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
+              <tr className="text-center">
                 <th scope="col" className="px-6 py-3">
                   Codigo
                 </th>
@@ -42,37 +37,47 @@ const OfertED = ({ data }: Props) => {
                   Area
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Disponibilidad
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Lista
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Oferta
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {data.map((ofertED, index) => {
-                return (
-                  <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    key={index}
-                  >
-                    <td className="px-6 py-4">{ofertED.mae_codinv}</td>
-                    <td className="px-6 py-4">{ofertED.mae_desinv}</td>
-                    <td className="px-6 py-4">
-                      {ofertED.mae_preact.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </td>
-                    <td className="px-6 py-4">{ofertED.mae_prevt4} m2</td>
-                    <td className="px-6 py-4">
-                      <a
-                        href="/oferts/new"
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        Oferta
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
+            <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-full">
+              {lotesED.data.map((ofertED, index) => (
+                <tr className="text-center" key={index}>
+                  <td className="px-6 py-3">{ofertED.mae_codinv}</td>
+                  <td className="px-6 py-3">{ofertED.mae_desinv}</td>
+                  <td className="px-6 py-3">
+                    {ofertED.mae_preact.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </td>
+                  <td className="px-6 py-3">{ofertED.mae_prevt4} m2</td>
+                  <td className="px-6 py-3">{ofertED.mae_codmar}</td>
+                  <td className="px-6 py-3">
+                    <Link
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      href={`/eden/lotes/${ofertED.mae_codinv}`}
+                    >
+                      Ofertas
+                    </Link>
+                  </td>
+                  <td className="px-6 py-3">
+                    <a
+                      href="/oferts/new"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Crear oferta
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
