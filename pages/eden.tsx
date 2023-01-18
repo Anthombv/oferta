@@ -16,8 +16,8 @@ export const getServerSideProps = async () => {
 const OfertED = ({ lotesED }) => {
   return (
     <>
-      <div className={styles.limiter}>
-        <h2 className="text-center text-4xl leading-normal font-semibold text-white my-4">
+      <div className={styles.limiterEden}>
+        <h2 className="text-center text-4xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL EDEN
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">

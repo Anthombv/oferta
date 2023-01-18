@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Router from "next/router";
 import React from "react";
@@ -6,110 +6,108 @@ import React from "react";
 const Home = () => {
   return (
     <>
-      <div className="bg-red-500 sm:bg-red-500 md:bg-red-500 lg:bg-red-500 xl:bg-red-500 xl:h-screen md:h-full">
+      <div className="bg-red-500 sm:bg-red-500 md:bg-red-500 lg:bg-red-500 xl:bg-red-500 lg:h-screen xl:h-screen md:h-screen">
         <h2 className="text-center text-6xl font-normal leading-normal mt-0 text-white">
           Nuestros Proyectos
         </h2>
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-5">
-          <div className="cursor-pointer rounded overflow-hidden shadow-lg transform inset-0 bg-white transition duration-500 hover:scale-110 hover:bg-lime-100">
-            <img
-              className="mx-auto w-48 h-48"
-              src="https://www.grupoancon.com/wp-content/uploads/2020/07/logo-eden-1.svg"
-              alt="Mountain"
-            />
-            <div className="px-3 py-2">
-              <div className="font-bold text-xl mb-2">EL EDEN</div>
-              <hr />
-              <p className="text-gray-700 text-base mb-2 text-justify">
-                La hermosa naturaleza, el clima cálido, la ubicación geográfica
-                y sus maravillosas áreas comunales, convierten a nuestra
-                urbanización El Edén en el lugar perfecto para desestresarse,
-                adoptar hábitos saludables y compartir tiempo en familia.
-              </p>
-              <hr />
-              <div>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded mt-4 mb-2"
-                  onClick={() => Router.push({ pathname: "/eden" })}
-                >
-                  Lotes disponibles
-                </button>
+        <div className="p-10 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-16 h-auto">
+          {/* Eden */}
+          <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
+            <a href="/eden">
+              <img
+                src="https://grupoancon.com/wp-content/uploads/2020/07/eden-4.jpg"
+                alt=""
+                sizes="40"
+                className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
+              />
+              <div className="flex absolute justify-items-center justify-center text-center top-0 left-0 hover:bg-gradient-to-r from-red-500 to-orange-500 h-full hover:opacity-90">
+                <div className="px-2">
+                  <img
+                    className="mx-auto w-28 h-28"
+                    src="https://www.grupoancon.com/wp-content/uploads/2020/07/logo-eden-1.svg"
+                    alt=""
+                  />
+                  <h1 className="font-bold text-sm text-white">EL EDEN</h1>
+                  <p className="text-white text-sm text-justify">
+                    La hermosa naturaleza, el clima cálido, la ubicación
+                    geográfica y sus maravillosas áreas comunales.
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
-
-          <div className="cursor-pointer rounded overflow-hidden shadow-lg bg-white transform inset-0 transition duration-500 hover:scale-110 hover:bg-orange-100">
-            <img
-              className="mx-auto w-48 h-48"
-              src="https://www.grupoancon.com/wp-content/uploads/2021/07/logo-mirador.svg"
-              alt="Mountain"
-            />
-            <div className="px-3 py-2">
-              <div className="font-bold text-xl mb-2">MIRADOR DEL LAGO</div>
-              <hr />
-              <p className="text-gray-700 text-base mb-5">
-                “El Mirador del lago” es un verdadero paraíso terrenal, donde
-                usted y sus seres queridos tendrán el placer de sentir paz,
-                tranquilidad y armonía.
-              </p>
-              <hr />
-              <div>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded mt-4 mb-2"
-                  onClick={() => Router.push({ pathname: "/mirador" })}
-                >
-                  Lotes disponibles
-                </button>
+          {/* Mirador del lago */}
+          <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
+            <a href="/mirador">
+              <img
+                src="https://grupoancon.com/wp-content/uploads/2021/07/mirador-Q1.jpg"
+                alt=""
+                className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
+              />
+              <div className="flex absolute justify-items-center justify-center text-center top-0 left-0 hover:bg-gradient-to-r from-blue-400 to-indigo-600 h-full hover:opacity-90">
+                <div className="px-2">
+                  <img
+                    className="mx-auto w-28 h-28"
+                    src="https://www.grupoancon.com/wp-content/uploads/2021/07/logo-mirador.svg"
+                    alt=""
+                  />
+                  <h1 className="font-bold text-sm text-white">
+                    MIRADOR DEL LAGO
+                  </h1>
+                  <p className="text-sm text-justify text-white">
+                    “El Mirador del lago” es un verdadero paraíso terrenal,
+                    donde usted y sus seres queridos tendrán el placer de sentir
+                    paz, tranquilidad y armonía.
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
-
-          <div className="cursor-pointer rounded overflow-hidden shadow-lg bg-white transform inset-0 transition duration-500 hover:scale-110 hover:bg-violet-100">
-            <img
-              className="mx-auto w-48 h-48"
-              src="https://www.grupoancon.com/wp-content/uploads/2020/07/manantial-1.png"
-              alt="Mountain"
-            />
-            <div className="px-3 py-2">
-              <div className="font-bold text-xl mb-2">EL MANANTIAL</div>
-              <hr />
-              <p className="text-gray-700 text-base mb-2">
-                Diversión y Libertad es lo que usted encontrará en nuestra
-                urbanización El Manantial ubicada en el km 135 de la vía La
-                Independencia - Calacalí.
-              </p>
-              <hr />
-              <div>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded mt-4 mb-2"
-                  onClick={() => Router.push({ pathname: "/manantial" })}
-                >
-                  Lotes disponibles
-                </button>
+          {/* Manantial */}
+          <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
+            <a href="/manantial">
+              <img
+                src="	https://grupoancon.com/wp-content/uploads/2020/07/manantial-4.jpg"
+                alt=""
+                className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
+              />
+              <div className="flex absolute justify-items-center justify-center text-center top-0 left-0 hover:bg-gradient-to-r from-emerald-400 to-green-800 h-full hover:opacity-90">
+                <div className="px-2">
+                  <img
+                    className="mx-auto w-28 h-28"
+                    src="https://www.grupoancon.com/wp-content/uploads/2020/07/manantial-1.png"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold text-sm">EL MANANTIAL</h1>
+                  <p className="text-white text-sm text-justify">
+                    Diversión y Libertad es lo que usted encontrará en nuestra
+                    urbanización El Manantial ubicada en el km 135 de la vía La
+                    Independencia - Calacalí.
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
-
-          <div className="cursor-pointer rounded overflow-hidden shadow-lg bg-white transform inset-0 transition duration-500 hover:scale-110 hover:bg-blue-100">
-            <img
-              className="mx-auto w-48 h-48"
-              src="https://www.grupoancon.com/wp-content/uploads/2021/07/logo_el_jardin-sf.png"
-              alt="Mountain"
-            />
-            <div className="px-3 py-2">
-              <div className="font-bold text-xl mb-2">EL JARDIN</div>
-              <hr />
-              <p className="text-gray-700 text-base mb-5">Lorem ipsum</p>
-              <hr />
-              <div>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded mt-4 mb-2"
-                  onClick={() => Router.push({ pathname: "/jardin" })}
-                >
-                  Lotes disponibles
-                </button>
+          {/* Jardin */}
+          <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
+            <a href="/jardin">
+              <img
+                src="https://grupoancon.com/wp-content/uploads/2020/07/manantial-4.jpg"
+                alt=""
+                className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
+              />
+              <div className="flex absolute justify-items-center justify-center text-center top-0 left-0 hover:bg-gradient-to-r from-yellow-500 to-lime-400 h-full w-full hover:opacity-90">
+                <div className="px-2">
+                  <img
+                    className="mx-auto w-28 h-28"
+                    src="https://www.grupoancon.com/wp-content/uploads/2021/07/logo_el_jardin-sf.png"
+                    alt=""
+                  />
+                  <h1 className="text-white font-bold text-sm">EL JARDIN</h1>
+                  <p className="text-white text-sm text-justify">Lorem ipsum</p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>

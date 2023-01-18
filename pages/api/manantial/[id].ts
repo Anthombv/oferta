@@ -22,7 +22,7 @@ export default async function handler(
 }
 
 const getLotesEMOn = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.body;
+  const { id } = req.query;
   await dataBase.query(
     "SELECT * FROM invmae WHERE invmae.mae_regsan = '39' && invmae.mae_codmar = '3.- LIBRE' && mae_codinv = ?",
     [id],

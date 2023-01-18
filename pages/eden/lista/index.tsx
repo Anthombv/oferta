@@ -13,7 +13,6 @@ export const getServerSideProps = async () => {
 };
 
 const OfertasEden = ({ oferts }) => {
-  //console.log(oferts.data);
   return (
     <>
       <div>

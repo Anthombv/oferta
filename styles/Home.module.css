@@ -1,8 +1,39 @@
-.limiter{
+.limiterEden {
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
-  background: linear-gradient(45deg, #4158d0, #c850c0);
+  background: linear-gradient(135deg, #cdf0cf 50%, #195222 50%);
   position: absolute;
 }
 
+.limiterMirador {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(215deg, #87a3f1 50%, #335192 50%);
+  position: absolute;
+}
+
+.limiterManantial {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(10deg, #c9f3d2 50%, #315c3c 30%);
+  position: absolute;
+}
+
+.limiterJardin {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(80deg, #d3666f 50%, #edeeb0 50%);
+  position: absolute;
+}
+
+.limite {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+  background: linear-gradient(180deg, #752f2f, #201318);
+}

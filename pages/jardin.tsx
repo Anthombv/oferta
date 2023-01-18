@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   const { data: lotesEJ } = await axios.get("http://localhost:3000/api/jardin");
@@ -15,8 +16,8 @@ export const getServerSideProps = async () => {
 const OfertEJ = ({ lotesEJ }) => {
   return (
     <>
-      <div className="bg-yellow-50 sm:bg-yellow-50 md:bg-yellow-50 lg:bg-yellow-50 xl:bg-yellow-50 xl:h-full">
-        <h2 className="text-center text-5xl leading-normal mb-5 font-semibold text-green-500">
+      <div className={styles.limiterJardin}>
+        <h2 className="text-center text-5xl leading-normal mb-5 font-semibold text-black">
           LOTES DISPONIBLES - EL JARDIN
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">

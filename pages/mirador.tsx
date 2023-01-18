@@ -2,6 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import styles from "../styles/Home.module.css";
+
 
 export const getServerSideProps = async () => {
   const { data: lotesML } = await axios.get("http://localhost:3000/api/mirador");
@@ -15,8 +17,8 @@ export const getServerSideProps = async () => {
 const OfertML = ({ lotesML }) => {
   return (
     <>
-      <div className="bg-lime-200 sm:bg-lime-200 md:bg-lime-200 lg:bg-lime-200 xl:bg-blue-800 xl:max-h-full">
-        <h2 className="text-center text-5xl font-normal leading-normal mb-5 text-green-200">
+      <div className={styles.limiterMirador}>
+        <h2 className="text-center text-5xl font-semibold leading-normal mb-5 text-black">
           LOTES DISPONIBLES - MIRADOR DEL LAGO
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">

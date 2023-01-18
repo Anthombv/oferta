@@ -5,7 +5,6 @@ export const getServerSideProps = async (context) => {
   const { data: oneLotEM } = await axios.get(
     "http://localhost:3000/api/manantial/" + context.query.id
   );
-  console.log(context.query.id);
   return {
     props: {
       oneLotEM,

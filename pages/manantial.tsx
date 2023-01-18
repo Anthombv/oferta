@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   const { data: lotesEM } = await axios.get(
@@ -17,8 +18,8 @@ export const getServerSideProps = async () => {
 const OfertEM = ({ lotesEM }) => {
   return (
     <>
-      <div className="bg-emerald-50 sm:bg-emerald-50 md:bg-emerald-50 lg:bg-emerald-50 xl:bg-emerald-50 xl:h-screen md:h-screen">
-        <h2 className="text-center text-5xl leading-normal mb-5 font-semibold text-amber-400">
+      <div className={styles.limiterManantial}>
+        <h2 className="text-center text-5xl leading-normal mb-5 font-semibold text-white">
           LOTES DISPONIBLES - EL MANANTIAL
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
@@ -49,8 +50,7 @@ const OfertEM = ({ lotesEM }) => {
               </tr>
             </thead>
             <tbody>
-              {lotesEM.data.map((ofertEM, index) => {
-                return (
+              {lotesEM.data.map((ofertEM, index) => (
                   <tr
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     key={index}
@@ -82,8 +82,7 @@ const OfertEM = ({ lotesEM }) => {
                       </a>
                     </td>
                   </tr>
-                );
-              })}
+              ))}
             </tbody>
           </table>
         </div>
