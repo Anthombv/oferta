@@ -4,9 +4,10 @@ import Link from "next/link";
 import React from "react";
 import styles from "../styles/Home.module.css";
 
-
 export const getServerSideProps = async () => {
-  const { data: lotesML } = await axios.get("http://localhost:3000/api/mirador");
+  const { data: lotesML } = await axios.get(
+    "http://localhost:3000/api/mirador"
+  );
   return {
     props: {
       lotesML,
@@ -26,10 +27,7 @@ const OfertML = ({ lotesML }) => {
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Codigo
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Nombre Proyecto
+                  Lote
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Precio
@@ -53,7 +51,6 @@ const OfertML = ({ lotesML }) => {
                     key={index}
                   >
                     <td className="px-6 py-4">{ofertML.mae_codinv}</td>
-                    <td className="px-6 py-4">{ofertML.mae_desinv}</td>
                     <td className="px-6 py-4">
                       {ofertML.mae_preact.toLocaleString("en-US", {
                         style: "currency",
@@ -66,7 +63,7 @@ const OfertML = ({ lotesML }) => {
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         href={`/mirador/lotes/${ofertML.mae_codinv}`}
                       >
-                        Oferta
+                        Ofertas
                       </Link>
                     </td>
                     <td className="px-6 py-4">

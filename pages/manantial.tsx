@@ -23,14 +23,11 @@ const OfertEM = ({ lotesEM }) => {
           LOTES DISPONIBLES - EL MANANTIAL
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Codigo
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Nombre Proyecto
+                  Lote
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Precio
@@ -51,37 +48,36 @@ const OfertEM = ({ lotesEM }) => {
             </thead>
             <tbody>
               {lotesEM.data.map((ofertEM, index) => (
-                  <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    key={index}
-                  >
-                    <td className="px-6 py-4">{ofertEM.mae_codinv}</td>
-                    <td className="px-6 py-4">{ofertEM.mae_desinv}</td>
-                    <td className="px-6 py-4">
-                      {ofertEM.mae_preact.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </td>
-                    <td className="px-6 py-4">{ofertEM.mae_prevt4} m2</td>
-                    <td className="px-6 py-3">{ofertEM.mae_codmar}</td>
-                    <td className="px-6 py-4">
-                      <Link
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        href={`/manantial/lotes/${ofertEM.mae_codinv}`}
-                      >
-                        Lista
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4">
-                      <a
-                        href="/oferts/new"
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        Oferta
-                      </a>
-                    </td>
-                  </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key={index}
+                >
+                  <td className="px-6 py-4">{ofertEM.mae_codinv}</td>
+                  <td className="px-6 py-4">
+                    {ofertEM.mae_preact.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </td>
+                  <td className="px-6 py-4">{ofertEM.mae_prevt4} m2</td>
+                  <td className="px-6 py-3">{ofertEM.mae_codmar}</td>
+                  <td className="px-6 py-4">
+                    <Link
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      href={`/manantial/lotes/${ofertEM.mae_codinv}`}
+                    >
+                      Ofertas
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="/oferts/new"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Crear Oferta
+                    </a>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

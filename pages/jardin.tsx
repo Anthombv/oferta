@@ -21,14 +21,11 @@ const OfertEJ = ({ lotesEJ }) => {
           LOTES DISPONIBLES - EL JARDIN
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
-              <tr>
+              <tr className="text-center">
                 <th scope="col" className="px-6 py-3">
-                  Codigo
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Nombre Proyecto
+                  Lote
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Precio
@@ -51,11 +48,10 @@ const OfertEJ = ({ lotesEJ }) => {
               {lotesEJ.data.map((ofertEJ, index) => {
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={index}
                   >
                     <td className="px-6 py-4">{ofertEJ.mae_codinv}</td>
-                    <td className="px-6 py-4">{ofertEJ.mae_desinv}</td>
                     <td className="px-6 py-4">
                       {ofertEJ.mae_preact.toLocaleString("en-US", {
                         style: "currency",
@@ -69,7 +65,7 @@ const OfertEJ = ({ lotesEJ }) => {
                         href={`/jardin/lotes/${ofertEJ.mae_codinv}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
-                        Oferta
+                        Ofertas
                       </Link>
                     </td>
                     <td className="px-6 py-4">
@@ -77,7 +73,7 @@ const OfertEJ = ({ lotesEJ }) => {
                         href="/oferts/new"
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
-                        Oferta
+                        Crear Oferta
                       </a>
                     </td>
                   </tr>
