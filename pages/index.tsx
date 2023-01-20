@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
-import Router from "next/router";
+
 import React from "react";
 
 const Home = () => {
   return (
     <>
-      <div className="bg-red-500 sm:bg-red-500 md:bg-red-500 lg:bg-red-500 xl:bg-red-500 lg:h-screen xl:h-screen md:h-screen">
-        <h2 className="text-center text-6xl font-normal leading-normal mt-0 text-white">
-          Nuestros Proyectos
+      <div className="relative lg:h-screen xl:h-screen sm:h-full md:h-full sm:relative md:absolute lg:absolute h-full 2xl:h-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
+        <h2 className="text-center text-6xl font-bold leading-normal mt-0 text-white">
+          Sistema de Oferta de Lotes
         </h2>
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-16 h-auto">
+        <p className="text-center text-lg mt-2 text-white mb-5">Seleccione un proyecto</p>
+        <div className="px-12 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-20 mb-5">
           {/* Eden */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
             <a href="/eden">
@@ -110,6 +111,7 @@ const Home = () => {
             </a>
           </div>
         </div>
+        <br /><br /><br />
       </div>
     </>
   );

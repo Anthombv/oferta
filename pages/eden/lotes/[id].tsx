@@ -47,7 +47,7 @@ const ED = ({ oneLotED }) => {
                 <td className="px-6 py-4"></td>
                 <td className="px-6 py-4">
                   <a
-                    href="#"
+                    href="/eden/reporteOferta/"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Reporte
