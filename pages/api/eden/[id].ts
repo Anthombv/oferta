@@ -23,13 +23,13 @@ export default async function handler(
 
 const getLotesEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  await dataBase.query(
-    "SELECT * FROM invmae WHERE invmae.mae_regsan = '40' && invmae.mae_codmar = '3.- LIBRE' && mae_codinv = ?",
+  dataBase.query(
+    "SELECT * FROM oferta WHERE mae_codinv = ?",
     [id],
     function (error, rows, fields) {
       return res.status(200).json({
         message: "Lote numero " + id,
-        data: rows[0],
+        data: rows,
         success: true,
       });
     }

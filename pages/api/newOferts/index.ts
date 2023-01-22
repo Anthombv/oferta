@@ -80,6 +80,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    mae_codinv,
   } = req.body;
 
   dataBase.query("INSERT INTO oferta SET ?", {
@@ -128,6 +129,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    mae_codinv,
   });
   return res.status(200).json({
     cli_name,
@@ -175,6 +177,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    mae_codinv,
   });
 };
 

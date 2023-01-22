@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import React from "react";
@@ -11,16 +12,18 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       oneLotED,
+      loteID: context.query.id,
     },
   };
 };
 
-const ED = ({ oneLotED }) => {
+const ED = ({ oneLotED, loteID }) => {
+  console.log({ oneLotED });
   return (
     <>
       <div className={styles.limiteOfert}>
-        <h1 className="text-center text-white font-bold text-4xl my-5 mx-3">
-          OFERTAS DEL LOTE {oneLotED.data.mae_codinv}
+        <h1 className="text-center text-black font-bold text-4xl my-5 mx-3">
+          OFERTAS DEL LOTE {loteID}
         </h1>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 mx-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -41,19 +44,26 @@ const ED = ({ oneLotED }) => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <td className="px-6 py-4"></td>
-                <td className="px-6 py-4"></td>
-                <td className="px-6 py-4"></td>
-                <td className="px-6 py-4">
-                  <a
-                    href="/eden/reporteOferta/"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              {oneLotED.data.map((item, index) => {
+                return (
+                  <tr
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                    key={index}
                   >
-                    Reporte
-                  </a>
-                </td>
-              </tr>
+                    <td className="px-6 py-4">{item.cli_name}</td>
+                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4">
+                      <a
+                        href="/eden/reporteOferta/"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Reporte
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

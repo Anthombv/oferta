@@ -2,7 +2,7 @@ import axios from "axios";
 import router from "next/router";
 import { useState } from "react";
 
-const OfertForm = () => {
+const OfertForm = ({loteID}: {loteID: string}) => {
   const [ofert, setOfert] = useState({
     cli_name: "",
     cli_sexo: "",
@@ -49,6 +49,7 @@ const OfertForm = () => {
     cli_contac: "",
     cli_state: "",
     cli_observation: "",
+    mae_codinv: "",
   });
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });
@@ -56,6 +57,7 @@ const OfertForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    ofert.mae_codinv = loteID
     const res = await axios.post("/api/newOferts", ofert);
     router.push("/");
   };
@@ -63,7 +65,7 @@ const OfertForm = () => {
   return (
     <>
       <div className="">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600 p-4">
+        <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600 p-4">
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">

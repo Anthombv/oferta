@@ -66,7 +66,7 @@ const OfertED = ({ lotesED }) => {
                   </td>
                   <td className="px-6 py-3">
                     <a
-                      href="/oferts/new"
+                      href={`/oferts/new/${ofertED.mae_codinv}`}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Crear oferta
