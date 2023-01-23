@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
+import Link from "next/link";
 import React from "react";
 import styles from "../../../styles/Home.module.css";
 
@@ -18,7 +19,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const ED = ({ oneLotED, loteID }) => {
-  console.log({ oneLotED });
   return (
     <>
       <div className={styles.limiteOfert}>
@@ -54,12 +54,12 @@ const ED = ({ oneLotED, loteID }) => {
                     <td className="px-6 py-4"></td>
                     <td className="px-6 py-4"></td>
                     <td className="px-6 py-4">
-                      <a
-                        href="/eden/reporteOferta/"
+                      <Link
+                        href={`/reporteOferta/${item.id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Reporte
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 );

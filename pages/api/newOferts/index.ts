@@ -36,7 +36,11 @@ const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
 const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     cli_name,
+    cli_tipoInmueble,
+    cli_estadoCivil,
+    cli_motivoCompra,
     cli_id,
+    fechaCreacion,
     cli_sexo,
     cli_fecNac,
     cli_provin,
@@ -85,7 +89,11 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
 
   dataBase.query("INSERT INTO oferta SET ?", {
     cli_name,
+    cli_tipoInmueble,
+    cli_estadoCivil,
+    cli_motivoCompra,
     cli_id,
+    fechaCreacion,
     cli_sexo,
     cli_fecNac,
     cli_provin,
@@ -133,7 +141,11 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   });
   return res.status(200).json({
     cli_name,
+    cli_tipoInmueble,
+    cli_estadoCivil,
+    cli_motivoCompra,
     cli_id,
+    fechaCreacion,
     cli_sexo,
     cli_fecNac,
     cli_provin,

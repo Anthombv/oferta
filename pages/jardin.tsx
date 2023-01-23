@@ -5,12 +5,22 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
-  const { data: lotesEJ } = await axios.get("https://oferta.grupoancon.com/api/jardin");
-  return {
-    props: {
-      lotesEJ,
-    },
-  };
+  try {
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/jardin"
+    );
+    return {
+      props: {
+        lotesEJ: response.data ? response.data.data : [],
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        lotesEJ: [],
+      },
+    };
+  }
 };
 
 const OfertEJ = ({ lotesEJ }) => {
@@ -45,7 +55,7 @@ const OfertEJ = ({ lotesEJ }) => {
               </tr>
             </thead>
             <tbody>
-              {lotesEJ.data.map((ofertEJ, index) => {
+              {lotesEJ.map((ofertEJ, index) => {
                 return (
                   <tr
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
@@ -70,7 +80,7 @@ const OfertEJ = ({ lotesEJ }) => {
                     </td>
                     <td className="px-6 py-4">
                       <a
-                        href="/oferts/new"
+                        href={`/oferts/new/${ofertEJ.mae_codinv}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Crear Oferta

@@ -5,14 +5,22 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
-  const { data: lotesEM } = await axios.get(
-    "https://oferta.grupoancon.com/api/manantial"
-  );
-  return {
-    props: {
-      lotesEM,
-    },
-  };
+  try {
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/manantial"
+    );
+    return {
+      props: {
+        lotesEM: response.data ? response.data.data : [],
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        lotesEM: [],
+      },
+    };
+  }
 };
 
 const OfertEM = ({ lotesEM }) => {
@@ -47,7 +55,7 @@ const OfertEM = ({ lotesEM }) => {
               </tr>
             </thead>
             <tbody>
-              {lotesEM.data.map((ofertEM, index) => (
+              {lotesEM.map((ofertEM, index) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   key={index}
@@ -71,7 +79,7 @@ const OfertEM = ({ lotesEM }) => {
                   </td>
                   <td className="px-6 py-4">
                     <a
-                      href="/oferts/new"
+                      href={`/oferts/new/${ofertEM.mae_codinv}`}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Crear Oferta

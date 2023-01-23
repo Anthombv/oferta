@@ -1,12 +1,19 @@
+/* eslint-disable react/jsx-key */
 import axios from "axios";
 import router from "next/router";
 import { useState } from "react";
+import { Pendiente } from "../../utils/constans";
+import FormatedDate from "../../utils/date";
 
-const OfertForm = ({loteID}: {loteID: string}) => {
+const OfertForm = ({ loteID }: { loteID: string }) => {
   const [ofert, setOfert] = useState({
     cli_name: "",
     cli_sexo: "",
+    cli_tipoInmueble: "",
+    cli_estadoCivil: "",
+    cli_motivoCompra: "",
     cli_id: "",
+    fechaCreacion: FormatedDate(),
     cli_fecNac: "",
     cli_provin: "",
     cli_ciudad: "",
@@ -47,7 +54,7 @@ const OfertForm = ({loteID}: {loteID: string}) => {
     cli_asesorTelf: 0,
     cli_tipoVenta: "",
     cli_contac: "",
-    cli_state: "",
+    cli_state: Pendiente,
     cli_observation: "",
     mae_codinv: "",
   });
@@ -57,7 +64,9 @@ const OfertForm = ({loteID}: {loteID: string}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    ofert.mae_codinv = loteID
+    ofert.mae_codinv = loteID;
+    ofert.fechaCreacion = FormatedDate();
+    ofert.cli_state = Pendiente;
     const res = await axios.post("/api/newOferts", ofert);
     router.push("/");
   };
@@ -324,6 +333,39 @@ const OfertForm = ({loteID}: {loteID: string}) => {
                   Ahorro actual
                 </label>
               </div>
+              <div className="relative z-0 mb-2 w-full group">
+                <select
+                  id="cli_tipoInmueble"
+                  name="cli_tipoInmueble"
+                  value={ofert.cli_tipoInmueble}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Seleccione el Tipo de Inmueble</option>
+                  <option value="LOCAL">LOCAL</option>
+                  <option value="CASA">CASA</option>
+                  <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                  <option value="SUITE">SUITE</option>
+                  <option value="TERRENO">TERRENO</option>
+                </select>
+              </div>
+              <div className="relative z-0 mb-2 w-full group">
+                <select
+                  id="cli_estadoCivil"
+                  name="cli_estadoCivil"
+                  value={ofert.cli_estadoCivil}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Seleccione el Estado civil del Cliente</option>
+                  <option value="SOLTERO">SOLTERO</option>
+                  <option value="DIVORCIADO">DIVORCIADO</option>
+                  <option value="CASADO">CASADO</option>
+                  <option value="U.LIBRE">U.LIBRE</option>
+                  <option value="SEPARADO">SEPARADO</option>
+                  <option value="VIUDO">VIUDO</option>
+                </select>
+              </div>
             </div>
           </div>
           <div className="bg-teal-50 border border-teal-100 pb-5 px-5 rounded-lg mt-4">
@@ -405,7 +447,7 @@ const OfertForm = ({loteID}: {loteID: string}) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               REFERENCIAS FAMILIARES - CLIENTE
             </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 mb-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -543,9 +585,14 @@ const OfertForm = ({loteID}: {loteID: string}) => {
                 </label>
               </div>
             </div>
-            <div className="relative z-0 mb-2 w-full group">
+            <div className="relative z-0 mb-2 w-full group text-center mt-4">
+              <label className="text-sm text-gray-500 text-center">
+                Motivo de la compra
+              </label>
               <textarea
-                id="message"
+                value={ofert.cli_motivoCompra}
+                name="cli_motivoCompra"
+                onChange={handleChange}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
                 placeholder="Escriba aqui el motivo de la compra..."
               ></textarea>
@@ -846,6 +893,19 @@ const OfertForm = ({loteID}: {loteID: string}) => {
                   <option value="Otros">Otros</option>
                 </select>
               </div>
+            </div>
+            <div className="relative z-0 mb-2 w-full group text-center mt-4">
+              <label className="text-sm text-gray-500 text-center">
+                Observaciones
+              </label>
+              <textarea
+                id="cli_observation"
+                value={ofert.cli_observation}
+                name="cli_observation"
+                onChange={handleChange}
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
+                placeholder="Escriba aqui las observaciones presentadas durante la compra..."
+              ></textarea>
             </div>
           </div>
           <button
