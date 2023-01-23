@@ -1,5 +1,5 @@
 import React, { Component, useRef } from "react";
-import styles from "../../../styles/ReporteOferta.module.css";
+import styles from "../../styles/ReporteOferta.module.css";
 import { useReactToPrint } from "react-to-print";
 
 const ReportOfertED = () => {
