@@ -5,7 +5,7 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
-  const { data: lotesED } = await axios.get("http://localhost:3000/api/eden");
+  const { data: lotesED } = await axios.get("https://oferta.grupoancon.com/api/eden");
   return {
     props: {
       lotesED,

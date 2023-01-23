@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   const { data: lotesEM } = await axios.get(
-    "http://localhost:3000/api/manantial"
+    "https://oferta.grupoancon.com/api/manantial"
   );
   return {
     props: {

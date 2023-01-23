@@ -3,7 +3,7 @@ import React from "react";
 
 export const getServerSideProps = async () => {
   const { data: oferts } = await axios.get(
-    "http://localhost:3000/api/newOferts"
+    "https://oferta.grupoancon.com/api/newOferts"
   );
   return {
     props: {
