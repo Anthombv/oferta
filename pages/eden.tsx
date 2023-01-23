@@ -5,12 +5,20 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
-  const { data: lotesED } = await axios.get("https://oferta.grupoancon.com/api/eden");
-  return {
-    props: {
-      lotesED,
-    },
-  };
+  try {
+    const response = await axios.get("https://oferta.grupoancon.com/api/eden")
+    return {
+      props: {
+        lotesED: response.data ? response.data.data : []
+      }
+    }
+  } catch (e) {
+    return {
+      props: {
+        lotesED: []
+      }
+    }
+  }
 };
 
 const OfertED = ({ lotesED }) => {
@@ -45,7 +53,7 @@ const OfertED = ({ lotesED }) => {
               </tr>
             </thead>
             <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-full">
-              {lotesED.data.map((ofertED, index) => (
+              {lotesED.map((ofertED, index) => (
                 <tr className="text-center" key={index}>
                   <td className="px-6 py-3">{ofertED.mae_codinv}</td>
                   <td className="px-6 py-3">
