@@ -84,6 +84,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    cli_ofrecimiento,
     mae_codinv,
   } = req.body;
 
@@ -137,6 +138,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    cli_ofrecimiento,
     mae_codinv,
   });
   return res.status(200).json({
@@ -189,6 +191,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_contac,
     cli_state,
     cli_observation,
+    cli_ofrecimiento,
     mae_codinv,
   });
 };

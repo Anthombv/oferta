@@ -51,8 +51,8 @@ const ED = ({ oneLotED, loteID }) => {
                     key={index}
                   >
                     <td className="px-6 py-4">{item.cli_name}</td>
-                    <td className="px-6 py-4"></td>
-                    <td className="px-6 py-4"></td>
+                    <td className="px-6 py-4">{item.fechaCreacion}</td>
+                    <td className="px-6 py-4">{item.cli_state}</td>
                     <td className="px-6 py-4">
                       <Link
                         href={`/reporteOferta/${item.id}`}

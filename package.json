@@ -15,7 +15,9 @@
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-to-print": "^2.14.11"
+    "react-select": "^5.7.0",
+    "react-to-print": "^2.14.11",
+    "react-widgets": "^5.8.4"
   },
   "devDependencies": {
     "@types/mysql": "^2.15.21",

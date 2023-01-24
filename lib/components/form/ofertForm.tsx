@@ -4,9 +4,10 @@ import router from "next/router";
 import { useState } from "react";
 import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
+import Select from "react-select";
 
 const OfertForm = ({ loteID }: { loteID: string }) => {
-  const [ofert, setOfert] = useState({
+  const [ofert, setOfert] = useState<any>({
     cli_name: "",
     cli_sexo: "",
     cli_tipoInmueble: "",
@@ -56,17 +57,25 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     cli_contac: "",
     cli_state: Pendiente,
     cli_observation: "",
+    cli_ofrecimiento: "",
     mae_codinv: "",
   });
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });
   };
 
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     ofert.mae_codinv = loteID;
     ofert.fechaCreacion = FormatedDate();
     ofert.cli_state = Pendiente;
+    ofert.cli_ofrecimiento = options.toString();
     const res = await axios.post("/api/newOferts", ofert);
     router.push("/");
   };
@@ -82,6 +91,16 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
             </h2>
+            <Select
+              isMulti
+              name="cli_ofrecimiento"
+              id="cli_ofrecimiento"
+              options={options}
+              value={options}
+              onChange={(ofert) => setOfert(ofert)}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
             <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
@@ -91,6 +110,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor="cli_name"
@@ -108,6 +128,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -125,6 +146,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -139,6 +161,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_sexo"
                   value={ofert.cli_sexo}
                   onChange={handleChange}
+                  required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el sexo del cliente</option>
@@ -153,6 +176,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   id="cli_provin"
                   value={ofert.cli_provin}
                   onChange={handleChange}
+                  required
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
@@ -160,7 +184,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   htmlFor=""
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Provincia
+                  Provincia o Pais
                 </label>
               </div>
               <div className="relative z-0 mb-2 w-full group">
@@ -172,6 +196,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -189,6 +214,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -206,6 +232,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -223,6 +250,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -240,6 +268,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -257,6 +286,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -274,6 +304,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -308,6 +339,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -325,6 +357,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -339,6 +372,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_tipoInmueble"
                   value={ofert.cli_tipoInmueble}
                   onChange={handleChange}
+                  required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el Tipo de Inmueble</option>
@@ -355,6 +389,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_estadoCivil"
                   value={ofert.cli_estadoCivil}
                   onChange={handleChange}
+                  required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el Estado civil del Cliente</option>
@@ -382,6 +417,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -399,6 +435,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -416,6 +453,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -433,6 +471,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -457,6 +496,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -474,6 +514,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -491,6 +532,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -508,6 +550,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -830,6 +873,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -847,6 +891,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  required
                 />
                 <label
                   htmlFor=""
@@ -861,11 +906,14 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_tipoVenta"
                   value={ofert.cli_tipoVenta}
                   onChange={handleChange}
+                  required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione Tipo de Venta</option>
-                  <option value="CONTADO/BIES">CONTADO/BIES</option>
+                  <option value="CONTADO">CONTADO</option>
                   <option value="CREDITO DIRECTO">CREDITO DIRECTO</option>
+                  <option value="BIES">BIES</option>
+                  <option value="MIXTO">MIXTO</option>
                   <option value="TRUEQUE">TRUEQUE</option>
                 </select>
               </div>
@@ -874,23 +922,35 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   id="cli_contac"
                   name="cli_contac"
                   value={ofert.cli_contac}
+                  required
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione como nos contacto</option>
-                  <option value="Hoja Volante">Hoja Volante</option>
-                  <option value="Referido">Referido</option>
-                  <option value="Pagina web">Pagina web</option>
-                  <option value="Oficina">Oficina</option>
-                  <option value="Facebook Personal">Facebook Personal</option>
-                  <option value="Facebook Oficina">Facebook Oficina</option>
-                  <option value="Feria Bies">Feria Bies</option>
-                  <option value="Feria Clave">Feria Clave</option>
-                  <option value="Feria Vivienda">Feria Vivienda</option>
-                  <option value="CC Recreo">CC Recreo</option>
-                  <option value="CC Portal">CC Portal</option>
-                  <option value="Tiktok">Tiktok</option>+
-                  <option value="Otros">Otros</option>
+                  <option value="TRUEQUE">TRUEQUE</option>
+                  <option value="CLIENTE ANTIGUO">CLIENTE ANTIGUO</option>
+                  <option value="OFICINA">OFICINA</option>
+                  <option value="ROTULO">ROTULO</option>
+                  <option value="FUNCIONARIO DE LA EMPRESA">
+                    FUNCIONARIO DE LA EMPRESA
+                  </option>
+                  <option value="TIKTOK">TIKTOK</option>
+                  <option value="CONTACTO PERSONAL">CONTACTO PERSONAL</option>
+                  <option value="CANJE">CANJE</option>
+                  <optgroup label="REFERIDOS">
+                    <option value="REFERIDO EXTERNO">REFERIDO EXTERNO</option>
+                    <option value="REFERIDO CLIENTE">REFERIDO CLIENTE</option>
+                    <option value="REFERIDO FAMILIAR ASESOR">REFERIDO FAMILIAR ASESOR</option>
+                  </optgroup>
+                  <optgroup label="STAND">
+                    <option value="STAND RECREO">STAND RECREO</option>
+                    <option value="STAND CONDADO">STAND CONDADO</option>
+                    <option value="STAND QUICENTRO SUR">STAND QUICENTRO SUR</option>
+                  </optgroup>
+                  <optgroup label="FACEBOOK">
+                    <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>
+                    <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
+                  </optgroup>
                 </select>
               </div>
             </div>

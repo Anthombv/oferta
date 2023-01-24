@@ -16,7 +16,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const ReportOfertED = ({ oneOfertED }) => {
-  console.log({ oneOfertED });
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -69,7 +68,7 @@ const ReportOfertED = ({ oneOfertED }) => {
                   <table
                     align="center"
                     width="98%"
-                    className="border text-center"
+                    className="border text-center mb-4"
                   >
                     <thead className="border border-black">
                       <tr>
@@ -136,7 +135,7 @@ const ReportOfertED = ({ oneOfertED }) => {
                     </div>
                     <div className="relative z-0 mb-4 w-full">
                       <strong>Estado civil: </strong>
-                      <span>{(item.cli_estadoCivil).toUpperCase()}</span>
+                      <span>{item.cli_estadoCivil.toUpperCase()}</span>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 mx-4">
@@ -203,19 +202,19 @@ const ReportOfertED = ({ oneOfertED }) => {
                   <div className="grid grid-cols-2 mx-4">
                     <div className="relative z-0 mb-4 w-full">
                       <strong>Empresa donde Trabaja: </strong>
-                      <span>{(item.cli_trabajo).toUpperCase()}</span>
+                      <span>{item.cli_trabajo.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full">
                       <strong>Cargo Trabajo: </strong>
-                      <span>{(item.cli_cargoT).toUpperCase()}</span>
+                      <span>{item.cli_cargoT.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-2 w-full">
                       <strong>Dirección Trabajo: </strong>
-                      <span>{(item.cli_direccT).toUpperCase()}</span>
+                      <span>{item.cli_direccT.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-2 w-full">
                       <strong>Telf. Trabajo: </strong>
-                      <span>{(item.cli_telefT)}</span>
+                      <span>{item.cli_telefT}</span>
                     </div>
                   </div>
                 </div>
@@ -231,42 +230,40 @@ const ReportOfertED = ({ oneOfertED }) => {
                   <div className="grid grid-cols-2 mx-4">
                     <div className="relative z-0 mb-4 w-full">
                       <strong>1{")"} Referencia Familiar: </strong>
-                      <span>{(item.cli_reFami1).toUpperCase()}</span>
+                      <span>{item.cli_reFami1.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full">
                       <strong>Parentezco: </strong>
-                      <span>{(item.cli_paren1).toUpperCase()}</span>
+                      <span>{item.cli_paren1.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full text-center">
                       <strong>Telf. Fijo: </strong>
-                      <span>{(item.cli_telParen1)}</span>
+                      <span>{item.cli_telParen1}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full text-center">
                       <strong>Telf. Celular: </strong>
-                      <span>{(item.cli_cellParen1)}</span>
+                      <span>{item.cli_cellParen1}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full">
                       <strong>2{")"} Referencia Familiar: </strong>
-                      <span>{(item.cli_reFami2).toUpperCase()}</span>
+                      <span>{item.cli_reFami2.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full">
                       <strong>Parentezco: </strong>
-                      <span>{(item.cli_paren2).toUpperCase()}</span>
+                      <span>{item.cli_paren2.toUpperCase()}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full text-center">
                       <strong>Telf. Fijo: </strong>
-                      <span>{(item.cli_telParen2)}</span>
+                      <span>{item.cli_telParen2}</span>
                     </div>
                     <div className="relative z-0 mb-4 w-full  text-center">
                       <strong>Telf. Celular: </strong>
-                      <span>{(item.cli_cellParen2)}</span>
+                      <span>{item.cli_cellParen2}</span>
                     </div>
                   </div>
                   <div className="mx-4">
                     <strong>¿Qué le motivo la compra?: </strong>
-                    <span>
-                      {(item.cli_motivoCompra).toUpperCase()}
-                    </span>
+                    <span>{item.cli_motivoCompra.toUpperCase()}</span>
                   </div>
                 </div>
               </div>
@@ -282,12 +279,12 @@ const ReportOfertED = ({ oneOfertED }) => {
                     </h2>
                     <div className="mx-4 mb-4">
                       <strong>Apellidos y Nombres: </strong>
-                      <span>{(item.cli_conyuName).toUpperCase()}</span>
+                      <span>{item.cli_conyuName.toUpperCase()}</span>
                     </div>
                     <div className="grid grid-cols-2 mx-4">
                       <div className="relative z-0 mb-4 w-full">
                         <strong>C.I o Pasaporte: </strong>
-                        <span>{(item.cli_conyuID)}</span>
+                        <span>{item.cli_conyuID}</span>
                       </div>
                       <div className="relative z-0 mb-4 w-full">
                         <strong>Telf.Celular: </strong>
@@ -296,16 +293,16 @@ const ReportOfertED = ({ oneOfertED }) => {
                     </div>
                     <div className="mx-4 mb-4">
                       <strong>Empresa donde Trabaja: </strong>
-                      <span>{(item.cli_conyuTrab).toUpperCase()}</span>
+                      <span>{item.cli_conyuTrab.toUpperCase()}</span>
                     </div>
                     <div className="grid grid-cols-2 mx-4">
                       <div className="relative z-0 mb-4 w-full">
                         <strong>Dirreción Trabajo Cónyuge: </strong>{" "}
-                        <span>{(item.cli_conyuDireccT).toUpperCase()}</span>
+                        <span>{item.cli_conyuDireccT.toUpperCase()}</span>
                       </div>
                       <div className="relative z-0 mb-4 w-full">
-                        <strong>Telf. Trabajo:</strong> 
-                        <span>{(item.cli_conyuTelT)}</span>
+                        <strong>Telf. Trabajo:</strong>
+                        <span>{item.cli_conyuTelT}</span>
                       </div>
                     </div>
                     <hr />
@@ -320,27 +317,27 @@ const ReportOfertED = ({ oneOfertED }) => {
                       <div className="grid grid-cols-3 mx-4">
                         <div className="relative z-0 mb-4 w-full col-span-2">
                           <strong>1{")"} Apellidos y Nombres: </strong>
-                          <span>{(item.cli_refName1).toUpperCase()}</span>
+                          <span>{item.cli_refName1.toUpperCase()}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Telf. Celular: </strong>
-                          <span>{(item.cli_refTel1)}</span>
+                          <span>{item.cli_refTel1}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full col-span-2">
                           <strong>2{")"} Apellidos y Nombres: </strong>
-                          <span>{(item.cli_refName2).toUpperCase()}</span>
+                          <span>{item.cli_refName2.toUpperCase()}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Telf. Celular: </strong>
-                          <span>{(item.cli_refTel2)}</span>
+                          <span>{item.cli_refTel2}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full col-span-2">
                           <strong>3{")"} Apellidos y Nombres: </strong>
-                          <span>{(item.cli_refName3).toUpperCase()}</span>
+                          <span>{item.cli_refName3.toUpperCase()}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Telf. Celular: </strong>
-                          <span>{(item.cli_refTel3)}</span>
+                          <span>{item.cli_refTel3}</span>
                         </div>
                       </div>
                     </div>
@@ -357,32 +354,81 @@ const ReportOfertED = ({ oneOfertED }) => {
                           <strong>
                             Asesor Final {"("}Cierre de Venta{")"}:{" "}
                           </strong>
-                          <span>{(item.cli_asesor).toUpperCase}</span>
+                          <span>{item.cli_asesor.toUpperCase}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Telf. Celular: </strong>
-                          <span>{(item.cli_asesorTelf)}</span>
+                          <span>{item.cli_asesorTelf}</span>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 mx-4">
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Tipo de Venta: </strong>
-                          <span>{(item.cli_tipoVenta)}</span>
+                          <span>{item.cli_tipoVenta}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Como nos contacto: </strong>
-                          <span>{(item.cli_contac).toUpperCase()}</span>
+                          <span>{item.cli_contac.toUpperCase()}</span>
                         </div>
                       </div>
-                      <div className="mx-4 mb-4 text-center">
+                      <div className="mx-4 mb-4">
                         <strong>Planificación: </strong>
-                        <span>{(item.cli_state).toUpperCase()}</span>
+                        <span>{item.cli_state.toUpperCase()}</span>
                       </div>
-                      <hr />
+                      <div>
+                        <p className="mt-4 mb-4 mx-4" style={{ width: "98%" }}>
+                          <strong>Observaciones: </strong>
+                          {item.cli_observation}
+                        </p>
+                      </div>
                     </div>
-                    <hr />
-                    <div>
-                      <p>Observaciones</p>
+                    <div className="mb-4">
+                      <table
+                        style={{ width: "98%" }}
+                        className="relative mx-auto border border-black mb-3 mt-8"
+                      >
+                        <tbody>
+                          <tr>
+                            <th style={{ width: "20%" }}>AUTORIZACION</th>
+                            <td>
+                              <p className="text-justify text-xs">
+                                Autorizo expresa e indefinidamente a
+                                Inmobiliaria y Construcciones INMOCONSTRUCCIONES
+                                Cia. Ltda. para que obtenga de cualquier fuente
+                                de información, incluida la Central de Riesgos y
+                                Buros de Información Crediticia autorizados para
+                                operar en el país, mis referencias personales
+                                y/o patrimoniales anteriores o posteriores a la
+                                suscripción de esta autorización, sea como
+                                deudor principal, codeudor o garante, sobre mi
+                                comportamiento crediticio, manejo de mi(s)
+                                cuenta(s), de ahorro, tarjetas de crédito, etc.,
+                                y en general al cumplimiento de mis obligaciones
+                                y demás activos, pasivos, datos que brindan las
+                                Instituciones del Sistema Financiero, segun
+                                corresponda.
+                              </p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p className="text-center italic mb-3 font-semibold">
+                        ¡¡ FELICITACIONES, HA REALIZADO UNA GRAN INVERSIÓN !!
+                      </p>
+                      <div
+                        className="border border-black mx-auto"
+                        style={{ width: "98%" }}
+                      >
+                        <p className="m-1 text-justify text-xs">
+                          <strong>NOTA:</strong>Con el valor que usted entrega a
+                          la firma de este instrumento, ha reservado su
+                          inmueble. En caso de que usted desista de la compra, perderá
+                          este primer abono, a menos que a la firma de este documento usted
+                          no conozca el bien, lo que podrá realizarlo en los próximos tres dias;
+                          nuestros asesores estaran gustosos de atenderle
+                        </p>
+                      </div>
+                      <p className="text-xs mt-2 mx-2"><strong>* SOLO EL CONVENIO DE RESERVA DEBIDAMENTE FIRMADO GARANTIZA LA ASIGNACIÓN DEL INMUEBLE A SU NOMBRE</strong></p>
                     </div>
                   </div>
                 </div>

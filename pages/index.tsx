@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 
+import Link from "next/link";
 import React from "react";
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
         <div className="px-12 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-20 mb-5">
           {/* Eden */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
-            <a href="/eden">
+            <Link href="/eden">
               <img
                 src="https://grupoancon.com/wp-content/uploads/2020/07/eden-4.jpg"
                 alt=""
@@ -35,7 +36,7 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
           {/* Mirador del lago */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
