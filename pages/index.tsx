@@ -40,7 +40,7 @@ const Home = () => {
           </div>
           {/* Mirador del lago */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
-            <a href="/mirador">
+            <Link href="/mirador">
               <img
                 src="https://grupoancon.com/wp-content/uploads/2021/07/mirador-Q1.jpg"
                 alt=""
@@ -63,11 +63,11 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
           {/* Manantial */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
-            <a href="/manantial">
+            <Link href="/manantial">
               <img
                 src="	https://grupoancon.com/wp-content/uploads/2020/07/manantial-4.jpg"
                 alt=""
@@ -88,11 +88,11 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
           {/* Jardin */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
-            <a href="/jardin">
+            <Link href="/jardin">
               <img
                 src="https://grupoancon.com/wp-content/uploads/2020/07/manantial-4.jpg"
                 alt=""
@@ -109,7 +109,7 @@ const Home = () => {
                   <p className="text-white text-sm text-justify">Lorem ipsum</p>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
         <br /><br /><br />

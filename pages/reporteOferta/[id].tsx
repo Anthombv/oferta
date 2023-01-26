@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import styles from "../../styles/ReporteOferta.module.css";
 import { useReactToPrint } from "react-to-print";
 import axios from "axios";
+import Router from "next/router";
 
 export const getServerSideProps = async (context) => {
   const { data: oneOfertED } = await axios.get(
@@ -45,6 +46,12 @@ const ReportOfertED = ({ oneOfertED }) => {
           </svg>
           <span>Imprimir Oferta</span>
         </button>
+        <button
+          onClick={() => Router.push({ pathname: "javascript:history.back()" })}
+          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 inline-flex items-center border border-blue-500 hover:border-transparent rounded mx-4"
+        >
+          Volver Atrás
+        </button>
       </div>
       <div className={styles.hoja}>
         {oneOfertED.data.map((item, index) => {
@@ -54,7 +61,9 @@ const ReportOfertED = ({ oneOfertED }) => {
                 <h1 className="text-center my-10 text-2xl font-bold">
                   OFERTA DE COMPRA
                 </h1>
-                <p className="mb-2 pr-52 text-right">Fecha:</p>
+                <p className="mb-2 pr-52 text-right">
+                  Fecha: {item.fechaCreacion}
+                </p>
               </div>
               <div className="border-2 border-black mx-8">
                 {/* Datos Inmueble */}
@@ -354,7 +363,7 @@ const ReportOfertED = ({ oneOfertED }) => {
                           <strong>
                             Asesor Final {"("}Cierre de Venta{")"}:{" "}
                           </strong>
-                          <span>{item.cli_asesor.toUpperCase}</span>
+                          <span>{item.cli_asesor.toUpperCase()}</span>
                         </div>
                         <div className="relative z-0 mb-4 w-full">
                           <strong>Telf. Celular: </strong>
@@ -383,36 +392,42 @@ const ReportOfertED = ({ oneOfertED }) => {
                       </div>
                     </div>
                     <div className="mb-4">
-                      <table
+                      <div
+                        className="border border-collapse border-black mx-auto"
                         style={{ width: "98%" }}
-                        className="relative mx-auto border border-black mb-3 mt-8"
                       >
-                        <tbody>
-                          <tr>
-                            <th style={{ width: "20%" }}>AUTORIZACION</th>
-                            <td>
-                              <p className="text-justify text-xs">
-                                Autorizo expresa e indefinidamente a
-                                Inmobiliaria y Construcciones INMOCONSTRUCCIONES
-                                Cia. Ltda. para que obtenga de cualquier fuente
-                                de información, incluida la Central de Riesgos y
-                                Buros de Información Crediticia autorizados para
-                                operar en el país, mis referencias personales
-                                y/o patrimoniales anteriores o posteriores a la
-                                suscripción de esta autorización, sea como
-                                deudor principal, codeudor o garante, sobre mi
-                                comportamiento crediticio, manejo de mi(s)
-                                cuenta(s), de ahorro, tarjetas de crédito, etc.,
-                                y en general al cumplimiento de mis obligaciones
-                                y demás activos, pasivos, datos que brindan las
-                                Instituciones del Sistema Financiero, segun
-                                corresponda.
-                              </p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <p className="text-center italic mb-3 font-semibold">
+                        <table
+                          style={{ width: "98%" }}
+                          className="relative mx-auto"
+                        >
+                          <tbody>
+                            <tr>
+                              <th style={{ width: "20%" }}>AUTORIZACION</th>
+                              <td>
+                                <p className="text-justify text-xs">
+                                  Autorizo expresa e indefinidamente a
+                                  Inmobiliaria y Construcciones
+                                  INMOCONSTRUCCIONES Cia. Ltda. para que obtenga
+                                  de cualquier fuente de información, incluida
+                                  la Central de Riesgos y Buros de Información
+                                  Crediticia autorizados para operar en el país,
+                                  mis referencias personales y/o patrimoniales
+                                  anteriores o posteriores a la suscripción de
+                                  esta autorización, sea como deudor principal,
+                                  codeudor o garante, sobre mi comportamiento
+                                  crediticio, manejo de mi(s) cuenta(s), de
+                                  ahorro, tarjetas de crédito, etc., y en
+                                  general al cumplimiento de mis obligaciones y
+                                  demás activos, pasivos, datos que brindan las
+                                  Instituciones del Sistema Financiero, segun
+                                  corresponda.
+                                </p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <p className="text-center italic mb-3 mt-3 font-semibold">
                         ¡¡ FELICITACIONES, HA REALIZADO UNA GRAN INVERSIÓN !!
                       </p>
                       <div
@@ -422,13 +437,33 @@ const ReportOfertED = ({ oneOfertED }) => {
                         <p className="m-1 text-justify text-xs">
                           <strong>NOTA:</strong>Con el valor que usted entrega a
                           la firma de este instrumento, ha reservado su
-                          inmueble. En caso de que usted desista de la compra, perderá
-                          este primer abono, a menos que a la firma de este documento usted
-                          no conozca el bien, lo que podrá realizarlo en los próximos tres dias;
-                          nuestros asesores estaran gustosos de atenderle
+                          inmueble. En caso de que usted desista de la compra,
+                          perderá este primer abono, a menos que a la firma de
+                          este documento usted no conozca el bien, lo que podrá
+                          realizarlo en los próximos tres dias; nuestros
+                          asesores estaran gustosos de atenderle
                         </p>
                       </div>
-                      <p className="text-xs mt-2 mx-2"><strong>* SOLO EL CONVENIO DE RESERVA DEBIDAMENTE FIRMADO GARANTIZA LA ASIGNACIÓN DEL INMUEBLE A SU NOMBRE</strong></p>
+                      <p className="text-xs mt-2 mx-2">
+                        <strong>
+                          * SOLO EL CONVENIO DE RESERVA DEBIDAMENTE FIRMADO
+                          GARANTIZA LA ASIGNACIÓN DEL INMUEBLE A SU NOMBRE
+                        </strong>
+                      </p>
+                    </div>
+                    <div className="mt-48 grid grid-cols-3 mx-4 text-center">
+                      <div className="relative z-0 mb-4 w-full">
+                        <hr className="w-52 h-1 mx-auto bg-black border rounded" />
+                        CLIENTE
+                      </div>
+                      <div className="relative z-0 mb-4 w-full">
+                        <hr className="w-52 h-1 mx-auto bg-black border rounded" />
+                        ASESOR INMOBILIARIO
+                      </div>
+                      <div className="relative z-0 mb-4 w-full">
+                        <hr className="w-52 h-1 mx-auto bg-black border rounded" />
+                        PROMOTOR
+                      </div>
                     </div>
                   </div>
                 </div>

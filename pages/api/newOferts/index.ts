@@ -85,6 +85,10 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_state,
     cli_observation,
     cli_ofrecimiento,
+    encuesta_pr1,
+    encuesta_pr2,
+    encuesta_pr3,
+    encuesta_pr4,
     mae_codinv,
   } = req.body;
 
@@ -139,6 +143,10 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_state,
     cli_observation,
     cli_ofrecimiento,
+    encuesta_pr1,
+    encuesta_pr2,
+    encuesta_pr3,
+    encuesta_pr4,
     mae_codinv,
   });
   return res.status(200).json({
@@ -192,6 +200,10 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_state,
     cli_observation,
     cli_ofrecimiento,
+    encuesta_pr1,
+    encuesta_pr2,
+    encuesta_pr3,
+    encuesta_pr4,
     mae_codinv,
   });
 };

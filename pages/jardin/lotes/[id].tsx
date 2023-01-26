@@ -1,7 +1,8 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import axios from "axios";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
@@ -39,6 +40,12 @@ const EJ = ({ oneLotEJ, loteID }) => {
                 <th scope="col" className="px-6 py-3">
                   Reporte
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Encuesta
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Informe
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +65,36 @@ const EJ = ({ oneLotEJ, loteID }) => {
                       >
                         Reporte
                       </Link>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() =>
+                          item.encuesta_pr1 === ""
+                            ? Router.push({
+                                pathname: `/encuesta/new/${item.id}`,
+                              })
+                            : toast.warning(
+                                "Ya creo la encuesta de esta Oferta"
+                              )
+                        }
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Crear Encuesta
+                      </button>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() =>
+                          item.encuesta_pr1 !== ""
+                            ? Router.push({
+                                pathname: `/reporteEncuesta/${item.id}`,
+                              })
+                            : toast.warning("No ha creado la Encuesta")
+                        }
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Informe Encuesta
+                      </button>
                     </td>
                   </tr>
                 );

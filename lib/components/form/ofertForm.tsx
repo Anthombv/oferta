@@ -20,44 +20,48 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     cli_ciudad: "",
     cli_sector: "",
     cli_direcc: "",
-    cli_telef: 0,
-    cli_cell: 0,
+    cli_telef: "",
+    cli_cell: "",
     cli_mail: "",
-    cli_ingresos: 0.0,
-    cli_gastos: 0.0,
-    cli_ahorroM: 0.0,
-    cli_ahorroA: 0.0,
+    cli_ingresos: "",
+    cli_gastos: "",
+    cli_ahorroM: "",
+    cli_ahorroA: "",
     cli_trabajo: "",
     cli_cargoT: "",
     cli_direccT: "",
-    cli_telefT: 0,
+    cli_telefT: "",
     cli_reFami1: "",
     cli_paren1: "",
-    cli_telParen1: 0,
-    cli_cellParen1: 0,
+    cli_telParen1: "",
+    cli_cellParen1: "",
     cli_reFami2: "",
     cli_paren2: "",
-    cli_telParen2: 0,
-    cli_cellParen2: 0,
+    cli_telParen2: "",
+    cli_cellParen2: "",
     cli_conyuName: "",
     cli_conyuID: "",
     cli_conyuTrab: "",
     cli_conyuDireccT: "",
-    cli_conyuCell: 0,
-    cli_conyuTelT: 0,
+    cli_conyuCell: "",
+    cli_conyuTelT: "",
     cli_refName1: "",
-    cli_refTel1: 0,
+    cli_refTel1: "",
     cli_refName2: "",
-    cli_refTel2: 0,
+    cli_refTel2: "",
     cli_refName3: "",
-    cli_refTel3: 0,
+    cli_refTel3: "",
     cli_asesor: "",
-    cli_asesorTelf: 0,
+    cli_asesorTelf: "",
     cli_tipoVenta: "",
     cli_contac: "",
     cli_state: Pendiente,
     cli_observation: "",
     cli_ofrecimiento: "",
+    encuesta_pr1: "",
+    encuesta_pr2: "",
+    encuesta_pr3: "",
+    encuesta_pr4: "",
     mae_codinv: "",
   });
   const handleChange = ({ target: { name, value } }) => {
@@ -77,12 +81,12 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     ofert.cli_state = Pendiente;
     ofert.cli_ofrecimiento = options.toString();
     const res = await axios.post("/api/newOferts", ofert);
-    router.push("/");
+    router.push("javascript:history.back()");
   };
 
   return (
     <>
-      <div className="">
+      <div>
         <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600 p-4">
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
@@ -940,12 +944,16 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   <optgroup label="REFERIDOS">
                     <option value="REFERIDO EXTERNO">REFERIDO EXTERNO</option>
                     <option value="REFERIDO CLIENTE">REFERIDO CLIENTE</option>
-                    <option value="REFERIDO FAMILIAR ASESOR">REFERIDO FAMILIAR ASESOR</option>
+                    <option value="REFERIDO FAMILIAR ASESOR">
+                      REFERIDO FAMILIAR ASESOR
+                    </option>
                   </optgroup>
                   <optgroup label="STAND">
                     <option value="STAND RECREO">STAND RECREO</option>
                     <option value="STAND CONDADO">STAND CONDADO</option>
-                    <option value="STAND QUICENTRO SUR">STAND QUICENTRO SUR</option>
+                    <option value="STAND QUICENTRO SUR">
+                      STAND QUICENTRO SUR
+                    </option>
                   </optgroup>
                   <optgroup label="FACEBOOK">
                     <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>

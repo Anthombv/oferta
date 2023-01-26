@@ -38,6 +38,14 @@
   background: linear-gradient(180deg, #752f2f, #201318);
 }
 
+.limiteOfert {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+  background: gray;
+}
+
 .background-animate {
   background-size: 400%;
   

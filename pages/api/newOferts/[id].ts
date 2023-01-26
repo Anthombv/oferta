@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { dataBase } from "../../../lib/config/db";
@@ -11,6 +11,8 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         return await getOfertEDOn(req, res);
+      case "PUT":
+        return await updateOfert(req, res);
       default:
         break;
     }
@@ -36,6 +38,21 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     }
   );
+};
+
+const updateOfert = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  const { encuesta_pr1, encuesta_pr2, encuesta_pr3, encuesta_pr4 } = req.body;
+  dataBase.query(
+    "UPDATE oferta SET encuesta_pr1 = ?, encuesta_pr2 = ?, encuesta_pr3 = ?, encuesta_pr4 = ? WHERE id = ?",
+    [encuesta_pr1, encuesta_pr2, encuesta_pr3, encuesta_pr4, id]
+  );
+  return res.status(200).json({
+    encuesta_pr1,
+    encuesta_pr2,
+    encuesta_pr3,
+    encuesta_pr4,
+  });
 };
 
 export const config = {
