@@ -6,7 +6,7 @@ import Router from "next/router";
 
 export const getServerSideProps = async (context) => {
   const { data: oneOfertED } = await axios.get(
-    "https://oferta.grupoancon.com/api/newOferts/" + context.query.id
+    "http://localhost:3000/api/newOferts/" + context.query.id
   );
   return {
     props: {

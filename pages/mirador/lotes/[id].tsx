@@ -7,7 +7,7 @@ import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotML } = await axios.get(
-    "https://oferta.grupoancon.com/api/mirador/" + context.query.id
+    "http://localhost:3000/api/mirador/" + context.query.id
   );
 
   return {

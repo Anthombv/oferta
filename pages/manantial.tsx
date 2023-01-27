@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "https://oferta.grupoancon.com/api/manantial"
+      "http://localhost:3000/api/manantial"
     );
     return {
       props: {
