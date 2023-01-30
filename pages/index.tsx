@@ -7,11 +7,11 @@ import React from "react";
 const Home = () => {
   return (
     <>
-      <div className="relative lg:h-screen xl:h-screen sm:h-full md:h-full sm:relative md:absolute lg:absolute h-full 2xl:h-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
-        <h2 className="text-center text-6xl font-bold leading-normal mt-0 text-white">
+      <div className="w-full mx-auto min-h-screen bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
+        <h2 className="text-center text-4xl font-bold leading-normal mt-0 text-white">
           Sistema de Oferta de Lotes
         </h2>
-        <p className="text-center text-lg mt-2 text-white mb-5">Seleccione un proyecto</p>
+        <p className="text-center text-lg mt-2 text-white pb-5">Seleccione un proyecto</p>
         <div className="px-12 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-20 mb-5">
           {/* Eden */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
@@ -19,7 +19,6 @@ const Home = () => {
               <img
                 src="https://grupoancon.com/wp-content/uploads/2020/07/eden-4.jpg"
                 alt=""
-                sizes="40"
                 className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
               />
               <div className="flex absolute justify-items-center justify-center text-center top-0 left-0 hover:bg-gradient-to-r from-red-500 to-orange-500 h-full hover:opacity-90">
@@ -94,7 +93,7 @@ const Home = () => {
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
             <Link href="/jardin">
               <img
-                src="https://grupoancon.com/wp-content/uploads/2020/07/manantial-4.jpg"
+                src="https://grupoancon.com/wp-content/uploads/2021/07/mirador-Q1.jpg"
                 alt=""
                 className="h-full w-full object-cover sm:h-full sm:w-full md:h-full md:w-full lg:h-full lg:w-full xl:h-full xl:w-full"
               />
@@ -112,7 +111,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <br /><br /><br />
+        <br /><br />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotED } = await axios.get(
-    "http://localhost:3000/api/eden/" + context.query.id
+    "https://oferta.grupoancon.com/api/eden/" + context.query.id
   );
 
   return {
@@ -49,7 +49,7 @@ const ED = ({ oneLotED, loteID }) => {
               {oneLotED.data.map((item, index) => {
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center"
                     key={index}
                   >
                     <td className="px-6 py-3">{item.cli_name}</td>
@@ -58,7 +58,7 @@ const ED = ({ oneLotED, loteID }) => {
                     <td className="px-6 py-3">
                       <Link
                         href={`/reporteOferta/${item.id}`}
-                        className="font-medium text-blue-600 dark:text-blue-500"
+                        className="text-blue-600 dark:text-blue-500"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ const ED = ({ oneLotED, loteID }) => {
                                 pathname: `/reporteEncuesta/${item.id}`,
                               })
                         }
-                        className="font-medium text-blue-600 dark:text-blue-500"
+                        className="text-blue-600 dark:text-blue-500"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

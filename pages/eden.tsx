@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/api/eden");
+    const response = await axios.get("https://oferta.grupoancon.com/api/eden");
     return {
       props: {
         lotesED: response.data ? response.data.data : [],
@@ -66,7 +66,7 @@ const OfertED = ({ lotesED }) => {
                   <td className="px-6 py-3">{ofertED.mae_codmar}</td>
                   <td className="px-6 py-3">
                     <Link
-                      className="font-medium text-blue-600 dark:text-blue-500"
+                      className="text-blue-600 dark:text-blue-500"
                       href={`/eden/lotes/${ofertED.mae_codinv}`}
                     >
                       <svg
@@ -88,7 +88,7 @@ const OfertED = ({ lotesED }) => {
                   <td className="px-6 py-3">
                     <Link
                       href={`/oferts/new/${ofertED.mae_codinv}`}
-                      className="font-medium text-blue-600 dark:text-blue-500"
+                      className="text-blue-600 dark:text-blue-500"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

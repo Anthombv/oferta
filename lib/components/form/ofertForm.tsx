@@ -6,6 +6,13 @@ import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
 
+let options = [
+  { label: "HUERTO", value: "HUERTO" },
+  { label: "TANQUE BIODIGESTOR", value: "TANQUE BIODIGESTOR" },
+  { label: "DESCUENTO", value: "DESCUENTO" },
+  { label: "TRABAJO EN LOTE", value: "TRABAJO EN LOTE" },
+];
+
 const OfertForm = ({ loteID }: { loteID: string }) => {
   const [ofert, setOfert] = useState<any>({
     cli_name: "",
@@ -64,25 +71,23 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     encuesta_pr4: "",
     mae_codinv: "",
   });
+  const [multiSelect, setMultiSelect] = useState<any>([]);
+
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });
   };
-
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     ofert.mae_codinv = loteID;
     ofert.fechaCreacion = FormatedDate();
     ofert.cli_state = Pendiente;
-    ofert.cli_ofrecimiento = options.toString();
+    ofert.cli_ofrecimiento = multiSelect.values;
     const res = await axios.post("/api/newOferts", ofert);
     router.push("javascript:history.back()");
   };
+
+  console.log(multiSelect.values);
 
   return (
     <>
@@ -95,16 +100,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
             </h2>
-            <Select
-              isMulti
-              name="cli_ofrecimiento"
-              id="cli_ofrecimiento"
-              options={options}
-              value={options}
-              onChange={(ofert) => setOfert(ofert)}
-              className="basic-multi-select"
-              classNamePrefix="select"
-            />
             <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
@@ -114,7 +109,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor="cli_name"
@@ -132,7 +127,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -150,7 +145,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -165,7 +160,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_sexo"
                   value={ofert.cli_sexo}
                   onChange={handleChange}
-                  required
+                  //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el sexo del cliente</option>
@@ -180,7 +175,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   id="cli_provin"
                   value={ofert.cli_provin}
                   onChange={handleChange}
-                  required
+                  //required
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                 />
@@ -200,7 +195,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -218,7 +213,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -236,7 +231,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -254,7 +249,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -272,7 +267,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -290,7 +285,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -308,7 +303,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -343,7 +338,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -361,7 +356,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -376,7 +371,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_tipoInmueble"
                   value={ofert.cli_tipoInmueble}
                   onChange={handleChange}
-                  required
+                  //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el Tipo de Inmueble</option>
@@ -393,7 +388,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_estadoCivil"
                   value={ofert.cli_estadoCivil}
                   onChange={handleChange}
-                  required
+                  //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione el Estado civil del Cliente</option>
@@ -404,6 +399,19 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   <option value="SEPARADO">SEPARADO</option>
                   <option value="VIUDO">VIUDO</option>
                 </select>
+              </div>
+              <div className="relative z-0 mb-2 w-full group">
+                <Select
+                  isMulti
+                  options={options}
+                  onChange={(item) => setMultiSelect(item)}
+                  isClearable={true}
+                  isSearchable={true}
+                  isDisabled={false}
+                  isLoading={false}
+                  isRtl={false}
+                  closeMenuOnSelect={false}
+                />
               </div>
             </div>
           </div>
@@ -421,7 +429,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -439,7 +447,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -457,7 +465,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -475,7 +483,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -500,7 +508,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -518,7 +526,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -536,7 +544,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -554,7 +562,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -877,7 +885,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -895,7 +903,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  required
+                  //required
                 />
                 <label
                   htmlFor=""
@@ -910,7 +918,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   name="cli_tipoVenta"
                   value={ofert.cli_tipoVenta}
                   onChange={handleChange}
-                  required
+                  //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Seleccione Tipo de Venta</option>
@@ -926,7 +934,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   id="cli_contac"
                   name="cli_contac"
                   value={ofert.cli_contac}
-                  required
+                  //required
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
