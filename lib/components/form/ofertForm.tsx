@@ -6,7 +6,70 @@ import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
 
-let options = [
+type Ofert = {
+  cli_name: string
+  cli_sexo: string
+  cli_tipoInmueble: string
+  cli_estadoCivil: string
+  cli_motivoCompra: string
+  cli_id: string
+  fechaCreacion: string
+  cli_fecNac: string
+  cli_provin: string
+  cli_ciudad: string
+  cli_sector: string
+  cli_direcc: string
+  cli_telef: string
+  cli_cell: string
+  cli_mail: string
+  cli_ingresos: string
+  cli_gastos: string
+  cli_ahorroM: string
+  cli_ahorroA: string
+  cli_trabajo: string
+  cli_cargoT: string
+  cli_direccT: string
+  cli_telefT: string
+  cli_reFami1: string
+  cli_paren1: string
+  cli_telParen1: string
+  cli_cellParen1: string
+  cli_reFami2: string
+  cli_paren2: string
+  cli_telParen2: string
+  cli_cellParen2: string
+  cli_conyuName: string
+  cli_conyuID: string
+  cli_conyuTrab: string
+  cli_conyuDireccT: string
+  cli_conyuCell: string
+  cli_conyuTelT: string
+  cli_refName1: string
+  cli_refTel1: string
+  cli_refName2: string
+  cli_refTel2: string
+  cli_refName3: string
+  cli_refTel3: string
+  cli_asesor: string
+  cli_asesorTelf: string
+  cli_tipoVenta: string
+  cli_contac: string
+  cli_state: string
+  cli_observation: string
+  cli_ofrecimiento: string
+  encuesta_pr1: string
+  encuesta_pr2: string
+  encuesta_pr3: string
+  encuesta_pr4: string
+  mae_codinv: string
+}
+
+type Option = {
+  label: string
+  value: string
+}
+
+let options: Array<Option> = [
   { label: "HUERTO", value: "HUERTO" },
   { label: "TANQUE BIODIGESTOR", value: "TANQUE BIODIGESTOR" },
   { label: "DESCUENTO", value: "DESCUENTO" },
@@ -14,7 +77,7 @@ let options = [
 ];
 
 const OfertForm = ({ loteID }: { loteID: string }) => {
-  const [ofert, setOfert] = useState<any>({
+  const [ofert, setOfert] = useState<Ofert>({
     cli_name: "",
     cli_sexo: "",
     cli_tipoInmueble: "",
@@ -69,25 +132,18 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
-    mae_codinv: "",
+    mae_codinv: loteID,
   });
-  const [multiSelect, setMultiSelect] = useState<any>([]);
 
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    ofert.mae_codinv = loteID;
-    ofert.fechaCreacion = FormatedDate();
-    ofert.cli_state = Pendiente;
-    ofert.cli_ofrecimiento = multiSelect.values;
     const res = await axios.post("/api/newOferts", ofert);
     router.push("javascript:history.back()");
   };
-
-  console.log(multiSelect.values);
 
   return (
     <>
@@ -404,7 +460,10 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 <Select
                   isMulti
                   options={options}
-                  onChange={(item) => setMultiSelect(item)}
+                  onChange={(items) => {
+                    const word = items.map((item) => item.value).join(',')
+                    setOfert((prev) => ({ ...prev, cli_ofrecimiento: word }))
+                  }}
                   isClearable={true}
                   isSearchable={true}
                   isDisabled={false}
