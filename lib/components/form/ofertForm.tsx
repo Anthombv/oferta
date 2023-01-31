@@ -1,78 +1,76 @@
 /* eslint-disable react/jsx-key */
 import axios from "axios";
-import router from "next/router";
 import { useState } from "react";
 import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
 
 type Ofert = {
-  cli_name: string
-  cli_sexo: string
-  cli_tipoInmueble: string
-  cli_estadoCivil: string
-  cli_motivoCompra: string
-  cli_id: string
-  fechaCreacion: string
-  cli_fecNac: string
-  cli_provin: string
-  cli_ciudad: string
-  cli_sector: string
-  cli_direcc: string
-  cli_telef: string
-  cli_cell: string
-  cli_mail: string
-  cli_ingresos: string
-  cli_gastos: string
-  cli_ahorroM: string
-  cli_ahorroA: string
-  cli_trabajo: string
-  cli_cargoT: string
-  cli_direccT: string
-  cli_telefT: string
-  cli_reFami1: string
-  cli_paren1: string
-  cli_telParen1: string
-  cli_cellParen1: string
-  cli_reFami2: string
-  cli_paren2: string
-  cli_telParen2: string
-  cli_cellParen2: string
-  cli_conyuName: string
-  cli_conyuID: string
-  cli_conyuTrab: string
-  cli_conyuDireccT: string
-  cli_conyuCell: string
-  cli_conyuTelT: string
-  cli_refName1: string
-  cli_refTel1: string
-  cli_refName2: string
-  cli_refTel2: string
-  cli_refName3: string
-  cli_refTel3: string
-  cli_asesor: string
-  cli_asesorTelf: string
-  cli_tipoVenta: string
-  cli_contac: string
-  cli_state: string
-  cli_observation: string
-  cli_ofrecimiento: string
-  encuesta_pr1: string
-  encuesta_pr2: string
-  encuesta_pr3: string
-  encuesta_pr4: string
-  mae_codinv: string
-}
+  cli_name: string;
+  cli_sexo: string;
+  cli_tipoInmueble: string;
+  cli_estadoCivil: string;
+  cli_motivoCompra: string;
+  cli_id: string;
+  fechaCreacion: string;
+  cli_fecNac: string;
+  cli_provin: string;
+  cli_ciudad: string;
+  cli_sector: string;
+  cli_direcc: string;
+  cli_telef: string;
+  cli_cell: string;
+  cli_mail: string;
+  cli_ingresos: string;
+  cli_gastos: string;
+  cli_ahorroM: string;
+  cli_ahorroA: string;
+  cli_trabajo: string;
+  cli_cargoT: string;
+  cli_direccT: string;
+  cli_telefT: string;
+  cli_reFami1: string;
+  cli_paren1: string;
+  cli_telParen1: string;
+  cli_cellParen1: string;
+  cli_reFami2: string;
+  cli_paren2: string;
+  cli_telParen2: string;
+  cli_cellParen2: string;
+  cli_conyuName: string;
+  cli_conyuID: string;
+  cli_conyuTrab: string;
+  cli_conyuDireccT: string;
+  cli_conyuCell: string;
+  cli_conyuTelT: string;
+  cli_refName1: string;
+  cli_refTel1: string;
+  cli_refName2: string;
+  cli_refTel2: string;
+  cli_refName3: string;
+  cli_refTel3: string;
+  cli_asesor: string;
+  cli_asesorTelf: string;
+  cli_tipoVenta: string;
+  cli_contac: string;
+  cli_state: string;
+  cli_observation: string;
+  cli_ofrecimiento: string;
+  encuesta_pr1: string;
+  encuesta_pr2: string;
+  encuesta_pr3: string;
+  encuesta_pr4: string;
+  mae_codinv: string;
+};
 
 type Option = {
-  label: string
-  value: string
-}
+  label: string;
+  value: string;
+};
 
 let options: Array<Option> = [
   { label: "HUERTO", value: "HUERTO" },
   { label: "TANQUE BIODIGESTOR", value: "TANQUE BIODIGESTOR" },
-  { label: "DESCUENTO", value: "DESCUENTO" },
   { label: "TRABAJO EN LOTE", value: "TRABAJO EN LOTE" },
 ];
 
@@ -142,17 +140,34 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const res = await axios.post("/api/newOferts", ofert);
-    router.push("javascript:history.back()");
   };
 
   return (
     <>
       <div>
-        <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-black md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600 p-4">
+        <h2 className="text-center text-3xl font-extrabold dark:text-black md:text-5xl lg:text-6xl text-transparent bg-clip-text text-red-800 p-4">
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
-          <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg">
+          {/* <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg">
+            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
+              DATOS INMUEBLE
+            </h2>
+            {lotes.map((oferta, index) => (
+              <div
+                key={index}
+                className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2"
+              >
+                <div className="relative z-0 mb-2 w-full group">
+                  <p>codigo {oferta.mae_prevt4}</p>
+                </div>
+                <div className="relative z-0 mb-2 w-full group"></div>
+                <div className="relative z-0 mb-2 w-full group"></div>
+                <div className="relative z-0 mb-2 w-full group"></div>
+              </div>
+            ))}
+          </div> */}
+          <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
             </h2>
@@ -179,6 +194,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   type="text"
                   name="cli_id"
                   id="cli_id"
+                  maxLength={13}
+                  size={13}
                   value={ofert.cli_id}
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -461,8 +478,21 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   isMulti
                   options={options}
                   onChange={(items) => {
-                    const word = items.map((item) => item.value).join(',')
-                    setOfert((prev) => ({ ...prev, cli_ofrecimiento: word }))
+                    const word = items.map((item) => item.value).join(",");
+                    setOfert((prev) => ({ ...prev, cli_ofrecimiento: word }));
+                  }}
+                  placeholder={"Seleccione los ofrecimientos"}
+                  styles={{
+                    placeholder: (base) => ({
+                      ...base,
+                      fontSize: "14px",
+                      fontWeight: 400,
+                      color: "black",
+                    }),
+                    option: (base1) => ({
+                      ...base1,
+                      fontSize: "14px",
+                    }),
                   }}
                   isClearable={true}
                   isSearchable={true}

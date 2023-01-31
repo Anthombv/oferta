@@ -84,7 +84,7 @@ const ReporteEncuesta = ({ oneOfertED }) => {
           onClick={() => Router.push({ pathname: "javascript:history.back()" })}
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 inline-flex items-center border border-blue-500 hover:border-transparent rounded mx-4 mt-4"
         >
-          Volver Atrás
+          Atrás
         </button>
       </div>
     </>

@@ -2,7 +2,6 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
-import { toast } from "react-toastify";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
@@ -29,6 +28,9 @@ const EJ = ({ oneLotEJ, loteID }) => {
             <thead className="text-xs text-white uppercase bg-black dark:bg-white dark:text-black">
               <tr>
                 <th scope="col" className="px-6 py-3">
+                  #
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Cliente
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -52,6 +54,7 @@ const EJ = ({ oneLotEJ, loteID }) => {
                     className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center"
                     key={index}
                   >
+                    <td className="px-6 py-3">{item.id}</td>
                     <td className="px-6 py-3">{item.cli_name}</td>
                     <td className="px-6 py-3">{item.fechaCreacion}</td>
                     <td className="px-6 py-3">{item.cli_state}</td>

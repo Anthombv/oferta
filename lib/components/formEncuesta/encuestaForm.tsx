@@ -88,11 +88,48 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
           FORMULARIO DE ENCUESTA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
+          <label>¿Por qué medio se enteró de nosotros?</label>
+          <select
+            name="encuesta_pr1"
+            id="encuesta_pr1"
+            value={ofert.encuesta_pr1}
+            onChange={handleChange}
+            //required
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-3"
+          >
+            <option>Seleccione como nos contacto</option>
+            <option value="TRUEQUE">TRUEQUE</option>
+            <option value="CLIENTE ANTIGUO">CLIENTE ANTIGUO</option>
+            <option value="OFICINA">OFICINA</option>
+            <option value="ROTULO">ROTULO</option>
+            <option value="FUNCIONARIO DE LA EMPRESA">
+              FUNCIONARIO DE LA EMPRESA
+            </option>
+            <option value="TIKTOK">TIKTOK</option>
+            <option value="CONTACTO PERSONAL">CONTACTO PERSONAL</option>
+            <option value="CANJE">CANJE</option>
+            <optgroup label="REFERIDOS">
+              <option value="REFERIDO EXTERNO">REFERIDO EXTERNO</option>
+              <option value="REFERIDO CLIENTE">REFERIDO CLIENTE</option>
+              <option value="REFERIDO FAMILIAR ASESOR">
+                REFERIDO FAMILIAR ASESOR
+              </option>
+            </optgroup>
+            <optgroup label="STAND">
+              <option value="STAND RECREO">STAND RECREO</option>
+              <option value="STAND CONDADO">STAND CONDADO</option>
+              <option value="STAND QUICENTRO SUR">STAND QUICENTRO SUR</option>
+            </optgroup>
+            <optgroup label="FACEBOOK">
+              <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>
+              <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
+            </optgroup>
+          </select>
           <label>
             Antes de tomar la desicion de compra usted nos visito en nuestra/o:
           </label>
           <select
-            name="encuesta_pr1"
+            name="encuesta_pr2"
             id="encuesta_pr1"
             value={ofert.encuesta_pr1}
             onChange={handleChange}
@@ -103,52 +140,8 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
             <option value="Pagina Web">Página Web</option>
             <option value="Facebook">Facebook</option>
             <option value="Instagram">Instagram</option>
+            <option value="TikTok">TikTok</option>
           </select>
-          <label>
-            Si nos visito en nuestra página web o en redes sociales, ¿Cuál fue
-            el motivo?
-          </label>
-          <select
-            name="encuesta_pr2"
-            id="encuesta_pr2"
-            value={ofert.encuesta_pr2}
-            onChange={handleChange}
-            //required
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-3"
-          >
-            <option>Seleccione en donde nos visito</option>
-            <option value="Tener más información de los proyectos">
-              Tener más información de los proyectos
-            </option>
-            <option value="Tener más información de la empresa">
-              Tener más información de la empresa
-            </option>
-            <option value="Tener mas seguridad de la empresa">
-              Tener mas seguridad de la empresa
-            </option>
-            <option value="Verificar algo en especial">
-              Verificar algo en especial
-            </option>
-            <option value="Otro">Otro</option>
-          </select>
-          <textarea
-            id="encuesta_pr3"
-            name="encuesta_pr3"
-            value={ofert.encuesta_pr3}
-            onChange={handleChange}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-3"
-            placeholder="Escriba aqui el motivo de verificar algo en especial u Otro..."
-            //required
-          ></textarea>
-          <label>¿Qué recomendación nos haría para implementarla</label>
-          <textarea
-            id="encuesta_pr4"
-            name="encuesta_pr4"
-            value={ofert.encuesta_pr4}
-            onChange={handleChange}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-3"
-            placeholder="Escriba aqui el motivo de verificar algo en especial u Otro..."
-          ></textarea>
           <label>Estado de la Oferta</label>
           <select
             name="cli_state"

@@ -50,7 +50,7 @@ const ReportOfertED = ({ oneOfertED }) => {
           onClick={() => Router.push({ pathname: "javascript:history.back()" })}
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 inline-flex items-center border border-blue-500 hover:border-transparent rounded mx-4"
         >
-          Volver Atrás
+          Atrás
         </button>
       </div>
       <div className={styles.hoja}>
@@ -59,10 +59,11 @@ const ReportOfertED = ({ oneOfertED }) => {
             <div className="font-sans text-sm" ref={componentRef} key={index}>
               <div className="header mx-10">
                 <h1 className="text-center my-10 text-2xl font-bold">
-                  OFERTA DE COMPRA
+                  OFERTA DE COMPRA {item.id}
                 </h1>
-                <p className="mb-2 pr-52 text-right">
-                  Fecha: {item.fechaCreacion}
+                <p className="mb-2 text-right">
+                  <strong>Fecha: </strong>
+                  {item.fechaCreacion}
                 </p>
               </div>
               <div className="border-2 border-black mx-8">
@@ -111,10 +112,20 @@ const ReportOfertED = ({ oneOfertED }) => {
                       </tr>
                     </tbody>
                   </table>
-                  <p className="m-2" style={{ width: "98%" }}>
-                    <strong>TIPO DE INMUEBLE: </strong>
-                    <span>{item.cli_tipoInmueble}</span>
-                  </p>
+                  <div className="grid grid-cols-2 mx-4">
+                    <div className="relative z-0 w-full">
+                      <p className="m-2" style={{ width: "98%" }}>
+                        <strong>TIPO DE INMUEBLE: </strong>
+                        <span>{item.cli_tipoInmueble}</span>
+                      </p>
+                    </div>
+                    <div className="relative z-0 w-full">
+                      <p className="m-2" style={{ width: "98%" }}>
+                        <strong>OFRECIMIENTO: </strong>
+                        <span>{item.cli_ofrecimiento}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <hr />
                 {/* Datos Personales */}
