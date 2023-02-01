@@ -84,7 +84,7 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
   return (
     <>
       <div>
-        <h2 className="text-center text-base font-bold text-gray-900 dark:text-black md:text-4xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600">
+        <h2 className="text-center text-base font-bold text-red-900 dark:text-black md:text-4xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600">
           FORMULARIO DE ENCUESTA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">

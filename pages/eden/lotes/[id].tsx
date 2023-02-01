@@ -6,7 +6,7 @@ import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotED } = await axios.get(
-    "https://oferta.grupoancon.com/api/eden/" + context.query.id
+    "http://localhost:3000/api/eden/" + context.query.id
   );
 
   return {

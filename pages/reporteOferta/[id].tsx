@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useRef } from "react";
 import styles from "../../styles/ReporteOferta.module.css";
 import { useReactToPrint } from "react-to-print";
@@ -6,7 +7,7 @@ import Router from "next/router";
 
 export const getServerSideProps = async (context) => {
   const { data: oneOfertED } = await axios.get(
-    "https://oferta.grupoancon.com/api/newOferts/" + context.query.id
+    "http://localhost:3000/api/newOferts/" + context.query.id
   );
   return {
     props: {
@@ -53,244 +54,264 @@ const ReportOfertED = ({ oneOfertED }) => {
           Atrás
         </button>
       </div>
-      <div className={styles.hoja}>
-        {oneOfertED.data.map((item, index) => {
-          return (
-            <div className="font-sans text-sm" ref={componentRef} key={index}>
-              <div className="header mx-10">
-                <h1 className="text-center my-10 text-2xl font-bold">
-                  OFERTA DE COMPRA {item.id}
-                </h1>
-                <p className="mb-2 text-right">
-                  <strong>Fecha: </strong>
-                  {item.fechaCreacion}
-                </p>
-              </div>
-              <div className="border-2 border-black mx-8">
-                {/* Datos Inmueble */}
-                <div className="mb-4">
-                  <h2
-                    className="text-center font-bold my-4 bg-blue-200 mx-auto"
-                    style={{ width: "98%" }}
-                  >
-                    DATOS INMUEBLE
-                  </h2>
-                  <table
-                    align="center"
-                    width="98%"
-                    className="border text-center mb-4"
-                  >
-                    <thead className="border border-black">
-                      <tr>
-                        <th className="border-r border-black">PROYECTO</th>
-                        <th className="border-r border-black">
-                          NUMERO INMUEBLE
-                        </th>
-                        <th className="border-r border-black">AREA M2</th>
-                        <th className="border-r border-black">
-                          VALOR INMUEBLE
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="border border-black">
-                      <tr>
-                        <td className="border-r border-black">
-                          {item.mae_desinv}
-                        </td>
-                        <td className="border-r border-black">
-                          {item.mae_codinv}
-                        </td>
-                        <td className="border-r border-black">
-                          {item.mae_prevt4} m2
-                        </td>
-                        <td className="border-r border-black">
-                          {item.mae_preact.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="grid grid-cols-2 mx-4">
-                    <div className="relative z-0 w-full">
-                      <p className="m-2" style={{ width: "98%" }}>
-                        <strong>TIPO DE INMUEBLE: </strong>
-                        <span>{item.cli_tipoInmueble}</span>
-                      </p>
-                    </div>
-                    <div className="relative z-0 w-full">
-                      <p className="m-2" style={{ width: "98%" }}>
-                        <strong>OFRECIMIENTO: </strong>
-                        <span>{item.cli_ofrecimiento}</span>
-                      </p>
-                    </div>
+      <div className="container mx-auto bg-white w-2/5 mt-5 mb-5">
+        <div className={styles.hoja}>
+          {oneOfertED.data.map((item, index) => {
+            return (
+              <div className="font-sans text-sm" ref={componentRef} key={index}>
+                <div style={{ height: "297mm" }}>
+                  <div className="mx-10">
+                    <h1 className="text-center pt-5 text-2xl font-bold">
+                      OFERTA DE COMPRA {item.id}
+                    </h1>
+                    <p className="mb-2 text-right">
+                      <strong>Fecha: </strong>
+                      {item.fechaCreacion}
+                    </p>
                   </div>
-                </div>
-                <hr />
-                {/* Datos Personales */}
-                <div className="mt-4 mb-4">
-                  <h2
-                    className="text-center font-bold my-2 bg-blue-200 mx-auto"
-                    style={{ width: "98%" }}
-                  >
-                    DATOS PERSONALES - CLIENTE
-                  </h2>
-                  <div className="grid grid-cols-3 mx-4">
-                    <div className="relative z-0 col-span-2 mb-4 w-full">
-                      <strong>Apellidos y Nombres: </strong>
-                      <span>{item.cli_name.toUpperCase()}</span>
+                  <div className="border-2 border-black mx-8">
+                    {/* Datos Inmueble */}
+                    <div className="mb-4">
+                      <h2
+                        className="text-center font-bold my-4 bg-blue-200 mx-auto"
+                        style={{ width: "98%" }}
+                      >
+                        DATOS INMUEBLE
+                      </h2>
+                      <table
+                        align="center"
+                        width="98%"
+                        className="border text-center mb-4"
+                      >
+                        <thead className="border border-black">
+                          <tr>
+                            <th className="border-r border-black">PROYECTO</th>
+                            <th className="border-r border-black">
+                              NUMERO INMUEBLE
+                            </th>
+                            <th className="border-r border-black">AREA M2</th>
+                            <th className="border-r border-black">
+                              VALOR INMUEBLE
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="border border-black">
+                          <tr>
+                            <td className="border-r border-black">
+                              {item.mae_desinv}
+                            </td>
+                            <td className="border-r border-black">
+                              {item.mae_codinv}
+                            </td>
+                            <td className="border-r border-black">
+                              {item.mae_prevt4} m2
+                            </td>
+                            <td className="border-r border-black">
+                              {item.mae_preact.toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div className="grid grid-cols-2 mx-4">
+                        <div className="relative z-0 w-full">
+                          <p className="m-2" style={{ width: "98%" }}>
+                            <strong>TIPO DE INMUEBLE: </strong>
+                            <span>{item.cli_tipoInmueble}</span>
+                          </p>
+                        </div>
+                        <div className="relative z-0 w-full">
+                          <p className="m-2" style={{ width: "98%" }}>
+                            <strong>OFRECIMIENTO: </strong>
+                            <span>{item.cli_ofrecimiento}</span>
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="relative z-0 mb-4 w-full text-center">
-                      <strong>Sexo: </strong>
-                      <span>{item.cli_sexo.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>C.I o Pasaporte: </strong>
-                      <span>{item.cli_id}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Fecha de Nacimiento: </strong>
-                      <span>{item.cli_fecNac.substr(0, 10)}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Estado civil: </strong>
-                      <span>{item.cli_estadoCivil.toUpperCase()}</span>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-3 mx-4">
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Provincia: </strong>
-                      <span>{item.cli_provin.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Ciudad: </strong>
-                      <span>{item.cli_ciudad.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Sector: </strong>
-                      <span>{item.cli_sector.toUpperCase()}</span>
-                    </div>
-                  </div>
-                  <div className="mx-4 mb-4">
-                    <strong>Dirección del Hogar: </strong>
-                    <span>{item.cli_direcc.toUpperCase()}</span>
-                  </div>
-                  <div className="grid grid-cols-2 mx-4">
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Teléfono Hogar: </strong>
-                      <span>{item.cli_telef}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Teléfono Celular: </strong>
-                      <span>{item.cli_cell}</span>
-                    </div>
-                  </div>
-                  <div className="mx-4 mb-4">
-                    <strong>Correo Electrónico: </strong>
-                    <span>{item.cli_mail}</span>
-                  </div>
-                  <div className="grid grid-cols-2 mx-4 text-center">
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Ingresos Mensuales: </strong>
-                      <span>{item.cli_ingresos}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full text-center">
-                      <strong>Gastos Mensuales: </strong>
-                      <span>{item.cli_gastos}</span>
-                    </div>
+                    <hr />
+                    {/* Datos Personales */}
+                    <div className="mt-4 mb-4">
+                      <h2
+                        className="text-center font-bold my-2 bg-blue-200 mx-auto"
+                        style={{ width: "98%" }}
+                      >
+                        DATOS PERSONALES - CLIENTE
+                      </h2>
+                      <div className="grid grid-cols-3 mx-4">
+                        <div className="relative z-0 col-span-2 mb-4 w-full">
+                          <strong>Apellidos y Nombres: </strong>
+                          <span>{item.cli_name.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full text-center">
+                          <strong>Sexo: </strong>
+                          <span>{item.cli_sexo.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>C.I o Pasaporte: </strong>
+                          <span>{item.cli_id}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Fecha de Nacimiento: </strong>
+                          <span>{item.cli_fecNac.substr(0, 10)}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Estado civil: </strong>
+                          <span>{item.cli_estadoCivil.toUpperCase()}</span>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 mx-4">
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Provincia: </strong>
+                          <span>{item.cli_provin.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Ciudad: </strong>
+                          <span>{item.cli_ciudad.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Sector: </strong>
+                          <span>{item.cli_sector.toUpperCase()}</span>
+                        </div>
+                      </div>
+                      <div className="mx-4 mb-4">
+                        <strong>Dirección del Hogar: </strong>
+                        <span>{item.cli_direcc.toUpperCase()}</span>
+                      </div>
+                      <div className="grid grid-cols-2 mx-4">
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Teléfono Hogar: </strong>
+                          <span>{item.cli_telef}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Teléfono Celular: </strong>
+                          <span>{item.cli_cell}</span>
+                        </div>
+                      </div>
+                      <div className="mx-4 mb-4">
+                        <strong>Correo Electrónico: </strong>
+                        <span>{item.cli_mail}</span>
+                      </div>
+                      <div className="grid grid-cols-2 mx-4 text-center">
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Ingresos Mensuales: </strong>
+                          <span>{item.cli_ingresos}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full text-center">
+                          <strong>Gastos Mensuales: </strong>
+                          <span>{item.cli_gastos}</span>
+                        </div>
 
-                    <div className="relative z-0 mb-2 w-full text-center">
-                      <strong>Capacidad de Ahorro Mensual: </strong>
-                      <span>{item.cli_ahorroM}</span>
+                        <div className="relative z-0 mb-2 w-full text-center">
+                          <strong>Capacidad de Ahorro Mensual: </strong>
+                          <span>{item.cli_ahorroM}</span>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full text-center">
+                          <strong>Ahorro Actual: </strong>
+                          <span>{item.cli_ahorroA}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="relative z-0 mb-2 w-full text-center">
-                      <strong>Ahorro Actual: </strong>
-                      <span>{item.cli_ahorroA}</span>
+                    <hr />
+                    {/* Datos Laborales */}
+                    <div className="mt-4 mb-4">
+                      <h2
+                        className="text-center font-bold my-2 bg-blue-200 mx-auto"
+                        style={{ width: "98%" }}
+                      >
+                        DATOS LABORALES - CLIENTE
+                      </h2>
+                      <div className="grid grid-cols-2 mx-4">
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Empresa donde Trabaja: </strong>
+                          <span>{item.cli_trabajo.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Cargo Trabajo: </strong>
+                          <span>{item.cli_cargoT.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full">
+                          <strong>Dirección Trabajo: </strong>
+                          <span>{item.cli_direccT.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full">
+                          <strong>Telf. Trabajo: </strong>
+                          <span>{item.cli_telefT}</span>
+                        </div>
+                      </div>
                     </div>
+                    <hr />
+                    {/* Referencias Familiares */}
+                    <div className="mt-4 mb-4">
+                      <h2
+                        className="text-center font-bold my-2 bg-blue-200 mx-auto"
+                        style={{ width: "98%" }}
+                      >
+                        REFERENCIAS FAMILIARES - CLIENTE
+                      </h2>
+                      <div className="grid grid-cols-2 mx-4">
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>1{")"} Referencia Familiar: </strong>
+                          <span>{item.cli_reFami1.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Parentezco: </strong>
+                          <span>{item.cli_paren1.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full text-center">
+                          <strong>Telf. Fijo: </strong>
+                          <span>{item.cli_telParen1}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full text-center">
+                          <strong>Telf. Celular: </strong>
+                          <span>{item.cli_cellParen1}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>2{")"} Referencia Familiar: </strong>
+                          <span>{item.cli_reFami2.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full">
+                          <strong>Parentezco: </strong>
+                          <span>{item.cli_paren2.toUpperCase()}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full text-center">
+                          <strong>Telf. Fijo: </strong>
+                          <span>{item.cli_telParen2}</span>
+                        </div>
+                        <div className="relative z-0 mb-4 w-full  text-center">
+                          <strong>Telf. Celular: </strong>
+                          <span>{item.cli_cellParen2}</span>
+                        </div>
+                      </div>
+                      <div className="mx-4">
+                        <strong>¿Qué le motivo la compra?: </strong>
+                        <span>{item.cli_motivoCompra.toUpperCase()}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <footer
+                      style={{
+                        position: "relative",
+                        bottom: "0",
+                        width: "100%",
+                        color: "white",
+                      }}
+                    >
+                      <img
+                        src="/footerPrestamos.png"
+                        alt=""
+                        style={{
+                          width: "100%",
+                        }}
+                      />
+                    </footer>
                   </div>
                 </div>
-                <hr />
-                {/* Datos Laborales */}
-                <div className="mt-4 mb-4">
-                  <h2
-                    className="text-center font-bold my-2 bg-blue-200 mx-auto"
-                    style={{ width: "98%" }}
-                  >
-                    DATOS LABORALES - CLIENTE
-                  </h2>
-                  <div className="grid grid-cols-2 mx-4">
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Empresa donde Trabaja: </strong>
-                      <span>{item.cli_trabajo.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Cargo Trabajo: </strong>
-                      <span>{item.cli_cargoT.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-2 w-full">
-                      <strong>Dirección Trabajo: </strong>
-                      <span>{item.cli_direccT.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-2 w-full">
-                      <strong>Telf. Trabajo: </strong>
-                      <span>{item.cli_telefT}</span>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                {/* Referencias Familiares */}
-                <div className="mt-4 mb-4">
-                  <h2
-                    className="text-center font-bold my-2 bg-blue-200 mx-auto"
-                    style={{ width: "98%" }}
-                  >
-                    REFERENCIAS FAMILIARES - CLIENTE
-                  </h2>
-                  <div className="grid grid-cols-2 mx-4">
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>1{")"} Referencia Familiar: </strong>
-                      <span>{item.cli_reFami1.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Parentezco: </strong>
-                      <span>{item.cli_paren1.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full text-center">
-                      <strong>Telf. Fijo: </strong>
-                      <span>{item.cli_telParen1}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full text-center">
-                      <strong>Telf. Celular: </strong>
-                      <span>{item.cli_cellParen1}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>2{")"} Referencia Familiar: </strong>
-                      <span>{item.cli_reFami2.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full">
-                      <strong>Parentezco: </strong>
-                      <span>{item.cli_paren2.toUpperCase()}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full text-center">
-                      <strong>Telf. Fijo: </strong>
-                      <span>{item.cli_telParen2}</span>
-                    </div>
-                    <div className="relative z-0 mb-4 w-full  text-center">
-                      <strong>Telf. Celular: </strong>
-                      <span>{item.cli_cellParen2}</span>
-                    </div>
-                  </div>
-                  <div className="mx-4">
-                    <strong>¿Qué le motivo la compra?: </strong>
-                    <span>{item.cli_motivoCompra.toUpperCase()}</span>
-                  </div>
-                </div>
-              </div>
-              {/* Hoja 2 conyuge */}
-              <div>
-                <div className="mt-32 mb-4 py-8">
-                  <div className="border-2 border-black mx-8 mt-4">
+                {/* Hoja 2 conyuge */}
+                <div style={{ paddingTop: "4mm", height: "297mm" }}>
+                  <div className="border-2 border-black mx-8">
                     <h2
                       className="text-center font-bold mt-4 mb-2 bg-blue-200 mx-auto"
                       style={{ width: "98%" }}
@@ -462,7 +483,7 @@ const ReportOfertED = ({ oneOfertED }) => {
                         </strong>
                       </p>
                     </div>
-                    <div className="mt-48 grid grid-cols-3 mx-4 text-center">
+                    <div className="mt-32 grid grid-cols-3 mx-4 text-center">
                       <div className="relative z-0 mb-4 w-full">
                         <hr className="w-52 h-1 mx-auto bg-black border rounded" />
                         CLIENTE
@@ -477,11 +498,21 @@ const ReportOfertED = ({ oneOfertED }) => {
                       </div>
                     </div>
                   </div>
+                  <footer
+                    style={{
+                      position: "absolute",
+                      bottom: "0",
+                      width: "100%",
+                      color: "white",
+                    }}
+                  >
+                    <img src="/footerPrestamos.png" alt="" />
+                  </footer>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );

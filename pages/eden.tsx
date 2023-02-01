@@ -3,11 +3,12 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("https://oferta.grupoancon.com/api/eden");
+    const response = await axios.get("http://localhost:3000/api/eden");
     return {
       props: {
         lotesED: response.data ? response.data.data : [],
@@ -68,7 +69,11 @@ const OfertED = ({ lotesED }) => {
                   <td className="px-6 py-3">
                     <button
                       className="text-blue-600 dark:text-blue-500"
-                      onClick={() => Router.push({ pathname: `/eden/lotes/${ofertED.mae_codinv}`})}
+                      onClick={() =>
+                        ofertED.mae_codinv !== ""
+                        ? Router.push({ pathname: `/eden/lotes/${ofertED.mae_codinv}`})
+                        : toast.warning("No existen ofertas de este lote")
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

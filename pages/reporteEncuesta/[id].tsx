@@ -4,7 +4,7 @@ import Router from "next/router";
 
 export const getServerSideProps = async (context) => {
   const { data: oneOfertED } = await axios.get(
-    "https://oferta.grupoancon.com/api/newOferts/" + context.query.id
+    "http://localhost:3000/api/newOferts/" + context.query.id
   );
   return {
     props: {
@@ -20,7 +20,10 @@ const ReporteEncuesta = ({ oneOfertED }) => {
       <div className="m-4">
         {oneOfertED.data.map((item, index) => {
           return (
-            <div className="w-1/2 border border-black bg-gray-50" key={index}>
+            <div
+              className="container mx-auto px-5 bg-white w-2/5 mt-5 mb-5 border rounded-lg"
+              key={index}
+            >
               <h2 className="text-center text-xl font-bold mt-2">
                 Informe de Encuesta
               </h2>
@@ -46,7 +49,7 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                 mejorar cada día, por favor su información que nos proporcione a
                 continuación será muy valiosa
               </p>
-              <div className="mb-40">
+              <div className="mb-10">
                 <ul className="space-y-4 list-decimal list-inside mx-10">
                   <li>
                     <strong>
@@ -77,15 +80,17 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                   </ol>
                 </ul>
               </div>
+              <button
+                onClick={() =>
+                  Router.push({ pathname: "javascript:history.back()" })
+                }
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 inline-flex items-center border border-blue-500 hover:border-transparent rounded mx-2 my-3"
+              >
+                Atrás
+              </button>
             </div>
           );
         })}
-        <button
-          onClick={() => Router.push({ pathname: "javascript:history.back()" })}
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 inline-flex items-center border border-blue-500 hover:border-transparent rounded mx-4 mt-4"
-        >
-          Atrás
-        </button>
       </div>
     </>
   );
