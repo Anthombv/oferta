@@ -141,7 +141,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await axios.post("/api/newOferts", ofert);
+    await axios.post("/api/newOferts", ofert);
   };
 
   return (
@@ -151,24 +151,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
-          {/* <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS INMUEBLE
-            </h2>
-            {lotes.map((oferta, index) => (
-              <div
-                key={index}
-                className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2"
-              >
-                <div className="relative z-0 mb-2 w-full group">
-                  <p>codigo {oferta.mae_prevt4}</p>
-                </div>
-                <div className="relative z-0 mb-2 w-full group"></div>
-                <div className="relative z-0 mb-2 w-full group"></div>
-                <div className="relative z-0 mb-2 w-full group"></div>
-              </div>
-            ))}
-          </div> */}
           <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
