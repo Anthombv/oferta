@@ -6,7 +6,7 @@ import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotEJ } = await axios.get(
-    "http://localhost:3000/api/jardin/" + context.query.id
+    "https://oferta.grupoancon.com/api/jardin/" + context.query.id
   );
   return {
     props: {
@@ -21,7 +21,7 @@ const EJ = ({ oneLotEJ, loteID }) => {
     <>
       <div className={styles.limiteOfert}>
         <h1 className="text-center text-black font-bold text-4xl my-5 mx-3">
-          OFERTAS DEL LOTEs {loteID}
+          OFERTAS DEL LOTE {loteID}
         </h1>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 mx-auto">
           <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">

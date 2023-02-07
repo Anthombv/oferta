@@ -8,7 +8,7 @@ import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/api/eden");
+    const response = await axios.get("https://oferta.grupoancon.com/api/eden");
     return {
       props: {
         lotesED: response.data ? response.data.data : [],
