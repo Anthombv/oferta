@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "../styles/Home.module.css";
 
+
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get("https://oferta.grupoancon.com/api/mirador");

@@ -18,6 +18,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ED = ({ oneLotED, loteID }) => {
+
   return (
     <>
       <div className={styles.limiteOfert}>

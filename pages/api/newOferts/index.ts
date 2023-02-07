@@ -90,6 +90,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_descuento,
+    cli_totalOferta,
     mae_codinv,
   } = req.body;
 
@@ -149,6 +150,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_descuento,
+    cli_totalOferta,
     mae_codinv,
   });
   return res.status(200).json({
@@ -207,6 +209,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_descuento,
+    cli_totalOferta,
     mae_codinv,
   });
 };

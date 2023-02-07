@@ -61,6 +61,8 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
+    cli_descuento: "",
+    cli_totalOferta: "",
     mae_codinv: "",
   });
   const handleChange = ({ target: { name, value } }) => {
@@ -68,7 +70,7 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put("/api/newOferts/" + ofertID, ofert);
+    await axios.put("/api/newOferts/" + ofertID, ofert);
     router.push("javascript:history.back()");
   };
 

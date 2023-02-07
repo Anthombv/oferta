@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
+import Router from "next/router";
 
 type Ofert = {
   cli_name: string;
@@ -61,6 +62,7 @@ type Ofert = {
   encuesta_pr3: string;
   encuesta_pr4: string;
   cli_descuento: string;
+  cli_totalOferta: string;
   mae_codinv: string;
 };
 
@@ -132,6 +134,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     encuesta_pr3: "",
     encuesta_pr4: "",
     cli_descuento: "",
+    cli_totalOferta: "",
     mae_codinv: loteID,
   });
 
@@ -142,6 +145,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     await axios.post("/api/newOferts", ofert);
+    Router.push({ pathname: "javascript:history.back()" })
   };
 
   return (
@@ -485,24 +489,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   isRtl={false}
                   closeMenuOnSelect={false}
                 />
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_descuento"
-                  id="cli_descuento"
-                  value={ofert.cli_descuento}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Descuento
-                </label>
               </div>
             </div>
           </div>
@@ -1059,6 +1045,24 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
                   </optgroup>
                 </select>
+              </div>
+              <div className="relative z-0 mb-2 w-full group">
+                <input
+                  type="number"
+                  name="cli_descuento"
+                  id="cli_descuento"
+                  value={ofert.cli_descuento}
+                  onChange={handleChange}
+                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  //required
+                />
+                <label
+                  htmlFor=""
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Descuento
+                </label>
               </div>
             </div>
             <div className="relative z-0 mb-2 w-full group text-center mt-4">
