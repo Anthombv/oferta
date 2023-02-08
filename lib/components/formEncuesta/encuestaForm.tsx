@@ -74,15 +74,6 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
     router.push("javascript:history.back()");
   };
 
-  useEffect(() => {
-    const getOfert = async () => {
-      const { data } = await axios.get("/api/newOferts/" + ofertID);
-      setOfert(data);
-    };
-    //@ts-ignore
-    //getOfert(ofertID)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       <div>

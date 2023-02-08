@@ -145,7 +145,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     await axios.post("/api/newOferts", ofert);
-    Router.push({ pathname: "javascript:history.back()" })
+    Router.push({ pathname: "javascript:history.back()" });
   };
 
   return (
@@ -164,7 +164,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 <input
                   type="text"
                   name="cli_name"
-                  value={ofert.cli_name ?? ""}
+                  id="cli_name"
+                  value={ofert.cli_name}
                   onChange={handleChange}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "

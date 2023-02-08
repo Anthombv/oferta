@@ -1,5 +1,3 @@
-import React from "react";
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { dataBase } from "../../../lib/config/db";
 
@@ -33,7 +31,7 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
     function (error, rows, fields) {
       return res.status(200).json({
         message: "Oferta con id " + id,
-        data: rows,
+        data: rows[0],
         success: true,
       });
     }
@@ -42,8 +40,7 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const updateOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  const { encuesta_pr1, encuesta_pr2, cli_state } =
-    req.body;
+  const { encuesta_pr1, encuesta_pr2, cli_state } = req.body;
   dataBase.query(
     "UPDATE oferta SET encuesta_pr1 = ?, encuesta_pr2 = ?, cli_state = ? WHERE id = ?",
     [encuesta_pr1, encuesta_pr2, cli_state, id]
