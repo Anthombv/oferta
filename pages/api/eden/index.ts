@@ -27,7 +27,7 @@ const getLotesED = async (req: NextApiRequest, res: NextApiResponse) => {
     function (err, rows, fields) {
       return res.status(200).json({
         message: "Lotes disponibles el EDEN",
-        data: rows[0],
+        data: rows,
         success: true,
       });
     }
