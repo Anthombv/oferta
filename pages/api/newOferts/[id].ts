@@ -31,7 +31,7 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
     function (error, rows, fields) {
       return res.status(200).json({
         message: "Oferta con id " + id,
-        data: rows[0],
+        data: rows,
         success: true,
       });
     }

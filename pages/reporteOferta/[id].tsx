@@ -67,7 +67,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
             Atrás
           </button>
         </div>
-        <div className="container mx-auto bg-white w-2/5 mt-3 mb-3">
+        <div className="container mx-auto block xl:mx-auto bg-white w-2/5 mt-3 mb-3">
           <div className={styles.hoja}>
             {(oneOfertED.data ?? []).map((item, index) => {
               ofert.cli_totalOferta = item.mae_preact - item.cli_descuento;

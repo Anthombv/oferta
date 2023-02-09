@@ -7,6 +7,8 @@ export default async function handler(
 ) {
   try {
     switch (req.method) {
+      case "GET":
+        return await getEditOfertEDOn(req, res);
       case "PUT":
         return await EditOfert(req, res);
       default:
@@ -20,6 +22,21 @@ export default async function handler(
     });
   }
 }
+
+const getEditOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  dataBase.query(
+    "SELECT * FROM oferta, invmae WHERE oferta.id = ? && invmae.mae_codinv = oferta.mae_codinv",
+    [id],
+    function (error, rows, fields) {
+      return res.status(200).json({
+        message: "Oferta con id " + id,
+        data: rows[0],
+        success: true,
+      });
+    }
+  );
+};
 
 const EditOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;

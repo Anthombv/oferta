@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 import styles from "../styles/Home.module.css";
 
-
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get("https://oferta.grupoancon.com/api/mirador");
@@ -26,28 +25,19 @@ const OfertML = ({ lotesML }) => {
   return (
     <>
       <div className={styles.limiterMirador}>
-        <h2 className="text-center text-5xl font-semibold leading-normal mb-5 text-black">
+        <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - MIRADOR DEL LAGO
         </h2>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white text-center uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>
-                <th scope="col" className="px-6 py-3">
-                  Lote
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Precio
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Area
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Lista
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Oferta
-                </th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Lote</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Precio</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Area</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Lista</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Oferta</th>
               </tr>
             </thead>
             <tbody>
@@ -57,15 +47,22 @@ const OfertML = ({ lotesML }) => {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={index}
                   >
-                    <td className="px-6 py-3">{ofertML.mae_codinv}</td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      {ofertML.mae_codinv}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       {ofertML.mae_preact.toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                       })}
                     </td>
-                    <td className="px-6 py-3">{ofertML.mae_prevt4} m2</td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertML.mae_prevt4} m2
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertML.mae_codmar}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         className="text-blue-600 dark:text-blue-500"
                         href={`/mirador/lotes/${ofertML.mae_codinv}`}
@@ -86,7 +83,7 @@ const OfertML = ({ lotesML }) => {
                         </svg>
                       </Link>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/oferts/new/${ofertML.mae_codinv}`}
                         className="text-blue-600 dark:text-blue-500"

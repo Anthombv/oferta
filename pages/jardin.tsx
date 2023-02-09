@@ -25,31 +25,19 @@ const OfertEJ = ({ lotesEJ }) => {
   return (
     <>
       <div className={styles.limiterJardin}>
-        <h2 className="text-center text-5xl leading-normal mb-5 font-semibold text-black">
+        <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL JARDIN
         </h2>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-1/2 mx-auto">
-          <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr className="text-center">
-                <th scope="col" className="px-6 py-3">
-                  Lote
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Precio
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Area
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Disponibilidad
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Lista
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Oferta
-                </th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Lote</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Precio</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Area</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Lista</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Oferta</th>
               </tr>
             </thead>
             <tbody>
@@ -59,16 +47,16 @@ const OfertEJ = ({ lotesEJ }) => {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={index}
                   >
-                    <td className="px-6 py-3">{ofertEJ.mae_codinv}</td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">{ofertEJ.mae_codinv}</td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       {ofertEJ.mae_preact.toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                       })}
                     </td>
-                    <td className="px-6 py-3">{ofertEJ.mae_prevt4} m2</td>
-                    <td className="px-6 py-3">{ofertEJ.mae_codmar}</td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEJ.mae_prevt4} m2</td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEJ.mae_codmar}</td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/jardin/lotes/${ofertEJ.mae_codinv}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -89,7 +77,7 @@ const OfertEJ = ({ lotesEJ }) => {
                         </svg>
                       </Link>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/oferts/new/${ofertEJ.mae_codinv}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

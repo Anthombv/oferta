@@ -128,7 +128,7 @@ const EditOfert = () => {
   const loadData = async () => {
     if (Router.asPath !== Router.route) {
       const ofertID = Router.query.id as string;
-      const response = await axios.get("/api/newOferts/" + ofertID);
+      const response = await axios.get("/api/newOferts/editOferts/" + ofertID);
       setInitialValues(response.data.data);
     } else {
       setTimeout(loadData, 1000);
@@ -183,6 +183,7 @@ const EditOfert = () => {
             value={formik.values.cli_name}
             onChange={formik.handleChange}
           />
+          <input type="text" name="" id="" />
         </form>
         <Button onClick={() => formik.handleSubmit()}>Actualizar</Button>
       </div>
