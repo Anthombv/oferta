@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 import axios from "axios";
+import Router from "next/router";
 import router from "next/router";
 import { useEffect, useState } from "react";
 import { Pendiente } from "../../utils/constans";
@@ -77,10 +78,10 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
   return (
     <>
       <div>
-        <h2 className="text-center text-base font-bold text-red-900 dark:text-black md:text-4xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600">
+        <h2 className="text-center text-xl pt-2 font-bold text-red-900 dark:text-black md:text-4xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-purple-600">
           FORMULARIO DE ENCUESTA
         </h2>
-        <form onSubmit={handleSubmit} className="m-2">
+        <form onSubmit={handleSubmit} className="m-2 text-lg">
           <label>¿Por qué medio se enteró de nosotros?</label>
           <select
             name="encuesta_pr1"
@@ -155,6 +156,12 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
             Crear Encuesta
           </button>
         </form>
+        <button
+          className="text-white m-2 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-4"
+          onClick={() => Router.push({ pathname: "javascript:history.back()" })}
+        >
+          Volver
+        </button>
       </div>
     </>
   );

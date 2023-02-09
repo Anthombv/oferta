@@ -4,6 +4,7 @@ import Link from "next/link";
 import Router from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
+import NavBar from "../lib/components/navBar";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
@@ -26,7 +27,14 @@ export const getServerSideProps = async () => {
 const OfertED = ({ lotesED }) => {
   return (
     <>
+      <title>Lotes | EL EDEN</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiterEden}>
+        <NavBar />
         <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL EDEN
         </h2>

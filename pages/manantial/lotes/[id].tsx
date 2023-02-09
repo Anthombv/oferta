@@ -3,6 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
+import NavBar from "../../../lib/components/navBar";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
@@ -20,35 +21,28 @@ export const getServerSideProps = async (context) => {
 const EM = ({ oneLotEM, loteID }) => {
   return (
     <>
+      <title>Ofertas | EL MANANTIAL</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiteOfert}>
-        <h1 className="text-center text-black font-bold text-4xl my-5 mx-3">
+        <NavBar />
+        <h1 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           OFERTAS DEL LOTE {loteID}
         </h1>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 mx-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-white uppercase bg-black dark:bg-white dark:text-black text-center">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  #
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Cliente
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Fecha
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Estado
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Editar
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Reporte
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Encuesta
-                </th>
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
+            <thead className="text-xs text-white text-center uppercase bg-black dark:bg-white dark:text-black">
+              <tr className="text-center">
+                <th className="xl:px-6 xl:py-3 px-3 py-1">#</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Cliente</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Fecha</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Estado</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Editar</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Reporte</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Encuesta</th>
               </tr>
             </thead>
             <tbody>
@@ -58,11 +52,17 @@ const EM = ({ oneLotEM, loteID }) => {
                     className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center"
                     key={index}
                   >
-                    <td className="px-6 py-3">{item.id}</td>
-                    <td className="px-6 py-3">{item.cli_name}</td>
-                    <td className="px-6 py-3">{item.fechaCreacion}</td>
-                    <td className="px-6 py-3">{item.cli_state}</td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">{item.id}</td>
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      {item.cli_name}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      {item.fechaCreacion}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      {item.cli_state}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
                       <Link
                         href={`/oferts/edit/${item.id}`}
                         className="text-blue-600 dark:text-blue-500"
@@ -85,7 +85,7 @@ const EM = ({ oneLotEM, loteID }) => {
                         </svg>
                       </Link>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
                       <Link
                         href={`/reporteOferta/${item.id}`}
                         className="text-blue-600 dark:text-blue-500"
@@ -108,7 +108,7 @@ const EM = ({ oneLotEM, loteID }) => {
                         </svg>
                       </Link>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
                       <button
                         onClick={() =>
                           item.encuesta_pr1 === ""

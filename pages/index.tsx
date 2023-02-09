@@ -7,11 +7,19 @@ import React from "react";
 const Home = () => {
   return (
     <>
+      <title>Inicio</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className="w-full mx-auto min-h-screen bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
         <h2 className="text-center text-4xl font-bold leading-normal mt-0 text-white">
           Sistema de Oferta de Lotes
         </h2>
-        <p className="text-center text-lg mt-2 text-white pb-5">Seleccione un proyecto</p>
+        <p className="text-center text-lg mt-2 text-white pb-5">
+          Seleccione un proyecto
+        </p>
         <div className="px-12 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-20 mb-5">
           {/* Eden */}
           <div className="h-full cursor-pointer rounded-xl overflow-hidden shadow-lg transform mb-3">
@@ -111,7 +119,8 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <br /><br />
+        <br />
+        <br />
       </div>
     </>
   );

@@ -2,11 +2,14 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import NavBar from "../lib/components/navBar";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("https://oferta.grupoancon.com/api/mirador");
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/mirador"
+    );
     return {
       props: {
         lotesML: response.data ? response.data.data : [],
@@ -24,7 +27,14 @@ export const getServerSideProps = async () => {
 const OfertML = ({ lotesML }) => {
   return (
     <>
+      <title>Lotes | MIRADOR DEL LAGO</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiterMirador}>
+        <NavBar />
         <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - MIRADOR DEL LAGO
         </h2>

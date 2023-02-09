@@ -17,18 +17,24 @@ export const getServerSideProps = async (context) => {
 const ReporteEncuesta = ({ oneOfertED }) => {
   return (
     <>
+      <title>Informe de Encuesta</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className="m-4">
         {oneOfertED.data.map((item, index) => {
           return (
             <div
-              className="container mx-auto px-5 bg-white w-2/5 mt-5 mb-5 border rounded-lg"
+              className="container mx-auto px-5 bg-white xl:w-3/5 w-11/12 mt-5 mb-5 border rounded-lg"
               key={index}
             >
               <h2 className="text-center text-xl font-bold mt-2">
                 Informe de Encuesta
               </h2>
-              <div className="mx-5">
-                <p className="mb-1">
+              <div className="xl:mx-5">
+                <p className="xl:mb-1">
                   <strong>Cliente:</strong> {item.cli_name}
                 </p>
                 <p className="mb-1">
@@ -38,19 +44,19 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                   <strong># de Lote:</strong> {item.mae_codinv}
                 </p>
               </div>
-              <h2 className="bg-orange-400 w-3/5 mx-auto text-center text-xl font-bold mt-2">
+              <h2 className="bg-orange-400 xl:w-3/5 w-12/12 mx-auto text-center xl:text-xl text-lg font-bold my-2">
                 ¡Felicitaciones por la Adquisición de su Terreno!
               </h2>
-              <h2 className="bg-orange-400 w-5/12 mx-auto text-center text-xl font-bold mt-1">
+              <h2 className="bg-orange-400 xl:w-3/5 w-12/12 mx-auto text-center xl:text-xl text-lg font-bold mt-1">
                 Aquí comienza a dar vida su Sueño...
               </h2>
-              <p className="my-3 mx-10 text-justify">
+              <p className="my-3 xl:mx-10 text-justify">
                 La comunicación para nosotros es lo más importante y queremos
                 mejorar cada día, por favor su información que nos proporcione a
                 continuación será muy valiosa
               </p>
               <div className="mb-10">
-                <ul className="space-y-4 list-decimal list-inside mx-10">
+                <ul className="space-y-4 list-decimal list-inside xl:mx-10">
                   <li>
                     <strong>
                       Antes de tomas la desición de compra usted nos visitó en

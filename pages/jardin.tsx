@@ -2,11 +2,14 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import NavBar from "../lib/components/navBar";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("https://oferta.grupoancon.com/api/jardin");
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/jardin"
+    );
     return {
       props: {
         lotesEJ: response.data ? response.data.data : [],
@@ -24,7 +27,14 @@ export const getServerSideProps = async () => {
 const OfertEJ = ({ lotesEJ }) => {
   return (
     <>
+      <title>Lotes | EL JARDIN</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiterJardin}>
+        <NavBar />
         <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL JARDIN
         </h2>
@@ -47,15 +57,21 @@ const OfertEJ = ({ lotesEJ }) => {
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={index}
                   >
-                    <td className="xl:px-6 xl:py-3 px-3 py-1">{ofertEJ.mae_codinv}</td>
+                    <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      {ofertEJ.mae_codinv}
+                    </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       {ofertEJ.mae_preact.toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                       })}
                     </td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEJ.mae_prevt4} m2</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEJ.mae_codmar}</td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertEJ.mae_prevt4} m2
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertEJ.mae_codmar}
+                    </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/jardin/lotes/${ofertEJ.mae_codinv}`}

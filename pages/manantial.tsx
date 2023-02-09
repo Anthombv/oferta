@@ -2,11 +2,14 @@
 import axios from "axios";
 import Link from "next/link";
 import React from "react";
+import NavBar from "../lib/components/navBar";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("https://oferta.grupoancon.com/api/manantial");
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/manantial"
+    );
     return {
       props: {
         lotesEM: response.data ? response.data.data : [],
@@ -24,7 +27,14 @@ export const getServerSideProps = async () => {
 const OfertEM = ({ lotesEM }) => {
   return (
     <>
+    <title>Lotes | EL MANANTIAL</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiterManantial}>
+        <NavBar />
         <h2 className="text-center xl:text-4xl md:text-4xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL MANANTIAL
         </h2>
@@ -32,24 +42,12 @@ const OfertEM = ({ lotesEM }) => {
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>
-                <th className="xl:px-6 xl:py-3 px-3 py-1">
-                  Lote
-                </th>
-                <th className="xl:px-6 xl:py-3 px-2 py-1">
-                  Precio
-                </th>
-                <th className="xl:px-6 xl:py-3 px-2 py-1">
-                  Area
-                </th>
-                <th className="xl:px-6 xl:py-3 px-2 py-1">
-                  Estado
-                </th>
-                <th className="xl:px-6 xl:py-3 px-2 py-1">
-                  Lista
-                </th>
-                <th className="xl:px-6 xl:py-3 px-2 py-1">
-                  Oferta
-                </th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Lote</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Precio</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Area</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Lista</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Oferta</th>
               </tr>
             </thead>
             <tbody>
@@ -58,15 +56,21 @@ const OfertEM = ({ lotesEM }) => {
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   key={index}
                 >
-                  <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEM.mae_codinv}</td>
+                  <td className="xl:px-6 xl:py-3 px-2 py-1">
+                    {ofertEM.mae_codinv}
+                  </td>
                   <td className="xl:px-6 xl:py-3 px-2 py-1">
                     {ofertEM.mae_preact.toLocaleString("en-US", {
                       style: "currency",
                       currency: "USD",
                     })}
                   </td>
-                  <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEM.mae_prevt4} m2</td>
-                  <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertEM.mae_codmar}</td>
+                  <td className="xl:px-6 xl:py-3 px-2 py-1">
+                    {ofertEM.mae_prevt4} m2
+                  </td>
+                  <td className="xl:px-6 xl:py-3 px-2 py-1">
+                    {ofertEM.mae_codmar}
+                  </td>
                   <td className="xl:px-6 xl:py-3 px-2 py-1">
                     <Link
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

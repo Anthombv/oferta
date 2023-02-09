@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
+import NavBar from "../../../lib/components/navBar";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
@@ -20,7 +21,14 @@ export const getServerSideProps = async (context) => {
 const ED = ({ oneLotED, loteID }) => {
   return (
     <>
+      <title>Ofertas | EL EDEN</title>
+      <link
+        rel="icon"
+        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
+        sizes="32x32"
+      />
       <div className={styles.limiteOfert}>
+        <NavBar />
         <h1 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           OFERTAS DEL LOTE {loteID}
         </h1>
@@ -45,9 +53,15 @@ const ED = ({ oneLotED, loteID }) => {
                     key={index}
                   >
                     <td className="xl:px-6 xl:py-3 px-3 py-1">{item.id}</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{item.cli_name}</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{item.fechaCreacion}</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{item.cli_state}</td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {item.cli_name}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {item.fechaCreacion}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {item.cli_state}
+                    </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/oferts/edit/${item.id}`}
