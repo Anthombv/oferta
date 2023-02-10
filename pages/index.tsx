@@ -3,8 +3,10 @@
 
 import Link from "next/link";
 import React from "react";
+import { useAuth } from "../lib/hooks/use_auth";
 
 const Home = () => {
+  const { auth } = useAuth();
   return (
     <>
       <title>Inicio</title>
