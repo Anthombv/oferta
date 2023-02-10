@@ -58,7 +58,7 @@ const Login = () => {
               }}
               href="https://grupoancon.com/"
             >
-              Solicitudes de Pago y Anticipos
+              Oferta de compra de Lotes
             </a>
           </h1>
           <Col
