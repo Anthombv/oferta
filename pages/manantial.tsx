@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import axios from "axios";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import NavBar from "../lib/components/navBar";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get(
-      "https://oferta.grupoancon.com/api/manantial"
-    );
+    const response = await axios.get("https://oferta.grupoancon.com/api/manantial");
     return {
       props: {
         lotesEM: response.data ? response.data.data : [],
@@ -27,7 +26,7 @@ export const getServerSideProps = async () => {
 const OfertEM = ({ lotesEM }) => {
   return (
     <>
-    <title>Lotes | EL MANANTIAL</title>
+      <title>Lotes | EL MANANTIAL</title>
       <link
         rel="icon"
         href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
@@ -39,6 +38,13 @@ const OfertEM = ({ lotesEM }) => {
           LOTES DISPONIBLES - EL MANANTIAL
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          <button
+            onClick={() => Router.push({ pathname: "/manantial/history" })}
+            type="button"
+            className=" mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+          >
+            Historial Lotes Vendidos
+          </button>
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>

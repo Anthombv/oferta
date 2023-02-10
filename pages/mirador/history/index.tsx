@@ -4,23 +4,23 @@ import Navbar from "../../../lib/components/navBar";
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "https://oferta.grupoancon.com/api/histories/eden"
+      "https://oferta.grupoancon.com/api/histories/mirador"
     );
     return {
       props: {
-        lotesED: response.data ? response.data.data : [],
+        lotesML: response.data ? response.data.data : [],
       },
     };
   } catch (e) {
     return {
       props: {
-        lotesED: [],
+        lotesML: [],
       },
     };
   }
 };
 
-const LotesVendidosED = ({ lotesED }) => {
+const LotesVendidosED = ({ lotesML }) => {
   return (
     <>
       <title>Lotes Vendidos | EL EDEN</title>
@@ -45,18 +45,24 @@ const LotesVendidosED = ({ lotesED }) => {
               </tr>
             </thead>
             <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              {lotesED.map((ofertED, index) => {
+              {lotesML.map((ofertML, index) => {
                 return (
                   <tr className="text-center" key={index}>
                     <td className="xl:px-6 xl:py-3 px-3 py-1">
-                      {ofertED.cli_name}
+                      {ofertML.cli_name}
                     </td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertED.mae_codinv}</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertED.cli_totalOferta.toLocaleString("en-US", {
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertML.mae_codinv}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertML.cli_totalOferta.toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
-                      })}</td>
-                    <td className="xl:px-6 xl:py-3 px-2 py-1">{ofertED.cli_state}</td>
+                      })}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {ofertML.cli_state}
+                    </td>
                   </tr>
                 );
               })}

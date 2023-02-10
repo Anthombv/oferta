@@ -38,7 +38,14 @@ const OfertED = ({ lotesED }) => {
         <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
           LOTES DISPONIBLES - EL EDEN
         </h2>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+        <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          <button
+          onClick={() => Router.push({pathname: "/eden/history"})}
+            type="button"
+            className=" mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+          >
+            Historial Lotes Vendidos
+          </button>
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
               <tr className="text-center">
