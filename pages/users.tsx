@@ -19,6 +19,8 @@ const UsersPanel = () => {
     const response = await HttpClient(
       "/api/user",
       "GET",
+      auth.userName,
+      auth.role
     );
     if (response.success) {
       const users: Array<any> = response.data;
@@ -60,11 +62,15 @@ const UsersPanel = () => {
               ? await HttpClient(
                   "/api/user",
                   "POST",
+                  auth.userName,
+                  auth.role,
                   newUser
                 )
               : await HttpClient(
                   "/api/user",
                   "PUT",
+                  auth.userName,
+                  auth.role,
                   newUser
                 );
           if (response.success) {

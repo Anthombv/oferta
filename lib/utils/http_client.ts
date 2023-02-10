@@ -2,13 +2,15 @@ import { ResponseData } from "../types";
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
-const HttpClient = async (path: string, method: Method, body?: any): Promise<ResponseData> => {
+const HttpClient = async (path: string, method: Method, userName: string, role: number, body?: any): Promise<ResponseData> => {
   try {
     const request: Response = await fetch(path, {
       method,
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "userName": userName,
+        "role": role.toString(),
       },
     });
     const response: ResponseData = await request.json();

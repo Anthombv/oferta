@@ -19,13 +19,15 @@ const Login = () => {
 
   // envia los datos del formulario
   const onSubmit = async (formData: LoginData) => {
-    const response = await HttpClient("/api/login", "POST", formData);
+    
+    const response = await HttpClient("/api/login", 'POST', '', -1, formData);
     if (response.success) {
       const data = response.data;
       login(data);
     } else {
       toast.warning(response.message);
     }
+
   };
 
   // maneja los datos y comportamiento del formulario
@@ -40,34 +42,30 @@ const Login = () => {
 
   return (
     <>
-      <Container style={{ padding: "50px 0" }}>
-        <Row className="justify-content-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            style={{ width: "120px", height: "120px" }}
-            src="/logo.jpeg"
-            alt=""
-          />
+    <Container style={{ padding: "50px 0" }}>
+      <Row className="justify-content-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
 
-          <h1 className="shadow-sm text-center" style={{ padding: "40px 0" }}>
-            <a
-              style={{
-                fontSize: "40px",
-                textDecoration: "none",
-                color: "red",
-              }}
-              href="https://grupoancon.com/"
-            >
-              Oferta de compra de Lotes
-            </a>
-          </h1>
-          <Col
-            lg={6}
-            md={6}
-            sm={12}
-            className="mt-5"
-            style={{ padding: "0 40px" }}
+        <h1 className="shadow-sm text-center" style={{ padding: "40px 0" }}>
+          <a
+            style={{
+              fontSize: "40px",
+              textDecoration: "none",
+              color: "red",
+            }}
+            href="https://grupoancon.com/"
           >
+            Oferta de compra de pagos
+          </a>
+        </h1>
+        <Col
+          lg={6}
+          md={6}
+          sm={12}
+          className="mt-5"
+          style={{ padding: "0 40px" }}
+        >
+          
             <Form
               className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
               onSubmit={formik.handleSubmit}
@@ -96,16 +94,17 @@ const Login = () => {
                 />
               </Form.Group>
 
-              <Button type="submit" className="border rounded hover:bg-red-400">
+              <Button
+                type="submit"
+                className="border rounded hover:bg-red-400"
+              >
                 Iniciar sesion
               </Button>
             </Form>
-          </Col>
-        </Row>
-      </Container>
-      <h6 className="mt-5 text-center text-secondary">
-        Copyright © 2022 - Grupo ANCON
-      </h6>
+        </Col>
+      </Row>
+    </Container>
+    <h6 className="mt-5 text-center text-secondary">Copyright © 2022    -    Grupo ANCON</h6>
     </>
   );
 };
