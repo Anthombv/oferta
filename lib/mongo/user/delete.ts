@@ -18,7 +18,7 @@ export default async function handler(
     action: "Elimino un Usuario: "+resp.name,
   });
   await auditory.save();
-
+  //@ts-ignore
   if (resp.deletedCount === 1)
     return res.status(200).json({
       message: "Eliminado!",
