@@ -4,11 +4,13 @@ import Router from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
+import { useAuth } from "../../../lib/hooks/use_auth";
+import { CheckPermissions } from "../../../lib/utils/check_permissions";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotEM } = await axios.get(
-    "https://oferta.grupoancon.com/api/manantial/" + context.query.id
+    "http://localhost:3000/api/manantial/" + context.query.id
   );
   return {
     props: {
@@ -19,6 +21,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const EM = ({ oneLotEM, loteID }) => {
+  const { auth } = useAuth();
   return (
     <>
       <title>Ofertas | EL MANANTIAL</title>
@@ -110,6 +113,7 @@ const EM = ({ oneLotEM, loteID }) => {
                     </td>
                     <td className="xl:px-6 xl:py-3 px-3 py-1">
                       <button
+                        disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
                           item.encuesta_pr1 === ""
                             ? Router.push({

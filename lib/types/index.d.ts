@@ -1,6 +1,5 @@
 import { FormikProps, FormikErrors, FormikTouched } from "formik";
 
-//tipos de datos para la app
 export type AuthContextProps = {
   auth: User | null;
   login: (userData: User) => void;
@@ -20,13 +19,32 @@ export type LoginData = {
 
 export type UserRole = 0 | 1 | 2 | 3;
 
-
 export type User = {
   id?: string;
   userName: string;
   password?: string;
+  name: string;
   email: string;
+  department: string;
+  identificationCard: string;
+  dateBirth: string;
+  age: number;
+  dateAdmission: string;
+  position: string;
+  bussines: string;
   role: UserRole;
+  cellphone: string;
+  yearsWorked: string;
+  holidays: string;
+  discount: string;
+  count: string;
+};
+
+export type Auditory = {
+  id?: string;
+  date: string;
+  user: string;
+  action: string;
 };
 
 export interface ModalProps<T> {

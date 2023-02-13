@@ -4,7 +4,7 @@ import Navbar from "../../../lib/components/navBar";
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "https://oferta.grupoancon.com/api/histories/mirador"
+      "http://localhost:3000/api/histories/mirador"
     );
     return {
       props: {

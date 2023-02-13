@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../types";
-import { UserModel } from "../schemas";
+import FormatedDate from "../../utils/date";
+import { AuditoryModel, UserModel } from "../schemas";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +12,13 @@ export default async function handler(
   const resp = await UserModel.findByIdAndRemove(id);
   //{ acknowledged: true, deletedCount: 1 }
 
-  //@ts-ignore
+  const auditory = new AuditoryModel({
+    date: FormatedDate(),
+    user: userName,
+    action: "Elimino un Usuario: "+resp.name,
+  });
+  await auditory.save();
+
   if (resp.deletedCount === 1)
     return res.status(200).json({
       message: "Eliminado!",

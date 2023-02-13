@@ -6,7 +6,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //@ts-ignore
+  // fetch the posts
+  // @ts-ignore
   const solicitudes = await UserModel.find({}, { password: 0 })
 
   return res.status(200).json({

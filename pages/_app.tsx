@@ -1,20 +1,25 @@
-import { useNoScroll } from "../lib/hooks/use_no_scroll";
-import { ToastContainer } from "../lib/components/toastify";
+import "devextreme/dist/css/dx.light.css";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/globals.css";
 import { useLocalStorage } from "../lib/hooks/use_local_storage";
 import { useEffect, useMemo, useState } from "react";
 import { AuthContextProps, User } from "../lib/types";
-import AuthContext from "../lib/context/auth_context";
 import SessionLayout from "../lib/layouts/session_layout";
+import { ToastContainer } from "../lib/components/toastify";
+import { useNoScroll } from "../lib/hooks/use_no_scroll";
+import "../styles/globals.css";
+import AuthContext from "../lib/context/auth_context";
 
-export default function MyApp({ Component, pageProps }) {
+
+// configuracion general de la app
+export default function App({ Component, pageProps }) {
   // hook para obtener los datos de usuario en el local storage
   const { storedValue, setValue, removeValue } = useLocalStorage("userData");
   // estado del usuario en la app
   const [auth, setAuth] = useState(null);
+
   useNoScroll().set();
 
+  // revisa y configura si hay un usuario guardado
   useEffect(() => {
     (() => {
       storedValue &&
@@ -43,10 +48,13 @@ export default function MyApp({ Component, pageProps }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [auth]
   );
+
   return (
     <AuthContext.Provider value={authData}>
+      {/* muestra alertas */}
       <ToastContainer />
       <SessionLayout>
+        {/* ruta actual renderizada */}
         <Component {...pageProps} />
       </SessionLayout>
     </AuthContext.Provider>

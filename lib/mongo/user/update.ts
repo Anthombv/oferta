@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../types";
+import FormatedDate from "../../utils/date";
+import { AuditoryModel, UserModel } from "../schemas";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const user = req.body as User;
-  //@ts-ignore
+  const userName = req.headers.username as string;
+  // @ts-ignore
   const resp = await UserModel.findOneAndUpdate(
     {
       _id: user.id,
@@ -15,11 +18,28 @@ export default async function handler(
       ? user
       : {
           userName: user.userName,
+          department: user.department,
           email: user.email,
           role: user.role,
+          name: user.name,
+          identificationCard: user.identificationCard,
+          dateBirth: user.dateBirth,
+          age: user.age,
+          dateAdmission: user.dateAdmission,
+          position: user.position,
+          cellphone: user.cellphone,
+          bussines: user.bussines,
+          discount: user.discount,
+          count: user.count,
         }
   );
 
+  const auditory = new AuditoryModel({
+    date: FormatedDate(),
+    user: userName,
+    action: "Actualizo un Usuario:",
+  });
+  await auditory.save();
 
   if (resp === null)
     return res.status(500).json({

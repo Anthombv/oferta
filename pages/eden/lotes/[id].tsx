@@ -2,12 +2,15 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
+import { useAuth } from "../../../lib/hooks/use_auth";
+import { CheckPermissions } from "../../../lib/utils/check_permissions";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotED } = await axios.get(
-    "https://oferta.grupoancon.com/api/eden/" + context.query.id
+    "http://localhost:3000/api/eden/" + context.query.id
   );
 
   return {
@@ -19,6 +22,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ED = ({ oneLotED, loteID }) => {
+  const { auth } = useAuth()
   return (
     <>
       <title>Ofertas | EL EDEN</title>
@@ -108,8 +112,9 @@ const ED = ({ oneLotED, loteID }) => {
                         </svg>
                       </Link>
                     </td>
-                    <td className="px-6 py-3 text-center">
+                      <td className="px-6 py-3 text-center">
                       <button
+                        disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
                           item.encuesta_pr1 === ""
                             ? Router.push({

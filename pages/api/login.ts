@@ -14,7 +14,8 @@ export default async function handler(
     await dbConnect();
 
     if (req.method === 'POST') {
-      //@ts-ignore
+      // fetch the posts
+      // @ts-ignore
       const user = await UserModel.findOne({ userName, password }, { password: 0 });
 
       if (user !== null) {

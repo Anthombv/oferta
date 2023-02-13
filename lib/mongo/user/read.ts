@@ -8,7 +8,8 @@ export default async function handler(
 ) {
   const id = req.query.id as string;
 
-  //@ts-ignore
+  // fetch the posts
+  // @ts-ignore
   const solicitude = await UserModel.findById(id, { password: 0 })
 
   return res.status(200).json({

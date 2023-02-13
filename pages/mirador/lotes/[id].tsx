@@ -4,11 +4,13 @@ import Router from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
+import { useAuth } from "../../../lib/hooks/use_auth";
+import { CheckPermissions } from "../../../lib/utils/check_permissions";
 import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotML } = await axios.get(
-    "https://oferta.grupoancon.com/api/mirador/" + context.query.id
+    "http://localhost:3000/api/mirador/" + context.query.id
   );
 
   return {
@@ -20,6 +22,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ML = ({ oneLotML, loteID }) => {
+  const { auth } = useAuth();
   return (
     <>
       <title>Ofertas | MIRADOR DEL LAGO</title>
@@ -111,6 +114,7 @@ const ML = ({ oneLotML, loteID }) => {
                     </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <button
+                        disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
                           item.encuesta_pr1 === ""
                             ? Router.push({
