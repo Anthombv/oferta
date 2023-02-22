@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
@@ -137,6 +137,20 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     cli_totalOferta: "",
     mae_codinv: loteID,
   });
+
+  const loadData = async () => {
+    if (Router.asPath !== Router.route) {
+      const ofertID = Router.query.id as string;
+      const response = await axios.get("/api/lotes/" + ofertID);
+      console.log(response.data.data)
+    } else {
+      setTimeout(loadData, 1000);
+    }
+  };
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });

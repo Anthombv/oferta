@@ -2,7 +2,6 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
-import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
 import { useAuth } from "../../../lib/hooks/use_auth";
 import { CheckPermissions } from "../../../lib/utils/check_permissions";

@@ -40,15 +40,14 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const updateOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  const { encuesta_pr1, encuesta_pr2, cli_state } = req.body;
+  const { encuesta_pr1, encuesta_pr2 } = req.body;
   dataBase.query(
-    "UPDATE oferta SET encuesta_pr1 = ?, encuesta_pr2 = ?, cli_state = ? WHERE id = ?",
-    [encuesta_pr1, encuesta_pr2, cli_state, id]
+    "UPDATE oferta SET encuesta_pr1 = ?, encuesta_pr2 = ?, WHERE id = ?",
+    [encuesta_pr1, encuesta_pr2, id]
   );
   return res.status(200).json({
     encuesta_pr1,
     encuesta_pr2,
-    cli_state,
   });
 };
 
