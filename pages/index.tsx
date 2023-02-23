@@ -4,11 +4,8 @@
 import Link from "next/link";
 import React from "react";
 import Navbar from "../lib/components/navBar";
-import { useAuth } from "../lib/hooks/use_auth";
-import { CheckPermissions } from "../lib/utils/check_permissions";
 
 const Home = () => {
-  const { auth } = useAuth();
   return (
     <>
       <title>Inicio</title>
@@ -22,7 +19,6 @@ const Home = () => {
         <h2 className="text-center text-4xl font-bold leading-normal mt-0 text-white">
           Sistema de Oferta de Lotes
         </h2>
-        <p>{`${auth?.name}`}</p>
         <p className="text-center text-lg mt-2 text-white pb-5">
           Seleccione un proyecto
         </p>
