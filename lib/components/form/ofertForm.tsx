@@ -61,8 +61,8 @@ type Ofert = {
   encuesta_pr2: string;
   encuesta_pr3: string;
   encuesta_pr4: string;
-  cli_descuento: string;
-  cli_totalOferta: string;
+  cli_descuento: number;
+  cli_totalOferta: number;
   mae_codinv: string;
 };
 
@@ -133,16 +133,18 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
-    cli_descuento: "",
-    cli_totalOferta: "",
+    cli_descuento: 0,
+    cli_totalOferta: 0,
     mae_codinv: loteID,
   });
+
+  const [lote, setLote] = useState([]);
 
   const loadData = async () => {
     if (Router.asPath !== Router.route) {
       const ofertID = Router.query.id as string;
       const response = await axios.get("/api/lotes/" + ofertID);
-      console.log(response.data.data)
+      setLote(response.data.data ?? []);
     } else {
       setTimeout(loadData, 1000);
     }
@@ -165,15 +167,100 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   return (
     <>
       <div>
-        <h2 className="text-center text-3xl font-extrabold dark:text-black md:text-5xl lg:text-6xl text-transparent bg-clip-text text-red-800 p-4">
+        <h2 className="text-center text-lg font-extrabold dark:text-black sm:text-xl md:text-3xl lg:text-4xl  text-transparent bg-clip-text text-red-800 p-4">
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
+          {lote.map((item) => {
+            let result: number = item.mae_preact;
+            result = result - ofert.cli_descuento;
+            ofert.cli_totalOferta = result;
+            return (
+              <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
+                <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
+                  DATOS DEL INMUEBLE
+                </h2>
+                <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                  <div className="relative z-0 mb-2 w-full group">
+                    <input
+                      type="text"
+                      value={item.mae_codinv}
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      disabled
+                      //required
+                    />
+                    <label
+                      htmlFor="cli_totalOferta"
+                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Codigo
+                    </label>
+                  </div>
+                  <div className="relative z-0 mb-2 w-full group">
+                    <input
+                      type="text"
+                      value={item.mae_prevt4 + " m2"}
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      disabled
+                      //required
+                    />
+                    <label
+                      htmlFor="cli_totalOferta"
+                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Area
+                    </label>
+                  </div>
+                  <div className="relative z-0 mb-2 w-full group">
+                    <input
+                      type="text"
+                      name="cli_totalOferta"
+                      id="cli_totalOferta"
+                      value={ofert.cli_totalOferta.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                      onChange={handleChange}
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      //required
+                    />
+                    <label
+                      htmlFor="cli_totalOferta"
+                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Precio Lote
+                    </label>
+                  </div>
+                  <div className="relative z-0 mb-2 w-full group">
+                    <input
+                      type="text"
+                      name="cli_descuento"
+                      id="cli_descuento"
+                      value={ofert.cli_descuento ?? 0}
+                      onChange={handleChange}
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      //required
+                    />
+                    <label
+                      htmlFor="cli_descuento"
+                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      Descuento
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
           <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
             </h2>
-            <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+            <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -511,7 +598,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS LABORALES - CLIENTE
             </h2>
-            <div className="grid grip-cols sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 xl:gap-2">
+            <div className="grid grip-cols sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -590,7 +677,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               REFERENCIAS FAMILIARES - CLIENTE
             </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 mb-2">
+            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 mb-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -749,7 +836,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CÓNYUGE
             </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -858,7 +945,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS REFERIDOS
             </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -967,7 +1054,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS ASESOR INMOBILIARIO
             </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
               <div className="relative z-0 mb-2 w-full group">
                 <input
                   type="text"
@@ -1060,24 +1147,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
                   </optgroup>
                 </select>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_descuento"
-                  id="cli_descuento"
-                  value={ofert.cli_descuento}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Descuento
-                </label>
               </div>
             </div>
             <div className="relative z-0 mb-2 w-full group text-center mt-4">

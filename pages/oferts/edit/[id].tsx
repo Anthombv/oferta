@@ -64,8 +64,8 @@ type Ofert = {
   encuesta_pr2: string;
   encuesta_pr3: string;
   encuesta_pr4: string;
-  cli_descuento: string;
-  cli_totalOferta: string;
+  cli_descuento: number;
+  cli_totalOferta: number;
 };
 
 const EditOfert = () => {
@@ -126,8 +126,8 @@ const EditOfert = () => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
-    cli_descuento: "",
-    cli_totalOferta: "",
+    cli_descuento: 0,
+    cli_totalOferta: 0,
   });
   const loadData = async () => {
     if (Router.asPath !== Router.route) {

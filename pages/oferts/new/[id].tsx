@@ -10,6 +10,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const NewOfert = ({ loteID }) => {
+
   return (
     <>
       <title>Crear Oferta</title>

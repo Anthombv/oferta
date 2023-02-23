@@ -3,12 +3,17 @@ import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
+import { useAuth } from "../lib/hooks/use_auth";
+import { CheckPermissions } from "../lib/utils/check_permissions";
 import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
-    const response = await axios.get("https://oferta.grupoancon.com/api/mirador");
+    const response = await axios.get(
+      "https://oferta.grupoancon.com/api/mirador"
+    );
     return {
       props: {
         lotesML: response.data ? response.data.data : [],
@@ -24,6 +29,7 @@ export const getServerSideProps = async () => {
 };
 
 const OfertML = ({ lotesML }) => {
+  const { auth } = useAuth();
   return (
     <>
       <title>Lotes | MIRADOR DEL LAGO</title>
@@ -39,7 +45,11 @@ const OfertML = ({ lotesML }) => {
         </h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <button
-            onClick={() => Router.push({ pathname: "/mirador/history" })}
+            onClick={() =>
+              CheckPermissions(auth, [0, 2])
+                ? Router.push({ pathname: "/mirador/history" })
+                : toast.warning("No tiene permiso para ver el historial")
+            }
             type="button"
             className=" mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
           >
