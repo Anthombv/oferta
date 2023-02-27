@@ -124,8 +124,8 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
           </label>
           <select
             name="encuesta_pr2"
-            id="encuesta_pr1"
-            value={ofert.encuesta_pr1}
+            id="encuesta_pr2"
+            value={ofert.encuesta_pr2}
             onChange={handleChange}
             //required
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-3"
