@@ -59,8 +59,7 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                 <ul className="space-y-4 list-decimal list-inside xl:mx-10">
                   <li>
                     <strong>
-                      Antes de tomas la desición de compra usted nos visitó en
-                      nuestra/o:
+                    ¿Por qué medio se enteró de nosotros?
                     </strong>
                   </li>
                   <ol className="pl-5 mt-2 space-y-1 list-disc list-inside">
@@ -68,21 +67,11 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                   </ol>
                   <li>
                     <strong>
-                      Si nos visito en nuestra pagina web o en redes sociales,
-                      ¿Cuál fue el motivo?
+                    Antes de tomar la desicion de compra usted nos visito en nuestra/o:
                     </strong>
                   </li>
                   <ol className="pl-5 mt-2 space-y-1 list-disc list-inside">
-                    <li>{item.encuesta_pr2}</li>
-                    <p>{item.encuesta_pr3}</p>
-                  </ol>
-                  <li>
-                    <strong>
-                      ¿Qué recomendación nos haria para implementarla
-                    </strong>
-                  </li>
-                  <ol className="pl-5 mt-2 space-y-1 list-disc list-inside">
-                    <li>{item.encuesta_pr4}</li>
+                    <li>{item.encuesta_pr2.toUpperCase()}</li>
                   </ol>
                 </ul>
               </div>
