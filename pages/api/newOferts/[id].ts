@@ -9,8 +9,6 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         return await getOfertEDOn(req, res);
-      case "PUT":
-        return await updateOfert(req, res);
       default:
         break;
     }
@@ -36,19 +34,6 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     }
   );
-};
-
-const updateOfert = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-  const { encuesta_pr1, encuesta_pr2 } = req.body;
-  dataBase.query(
-    "UPDATE oferta SET encuesta_pr1 = ?, encuesta_pr2 = ?, WHERE id = ?",
-    [encuesta_pr1, encuesta_pr2, id]
-  );
-  return res.status(200).json({
-    encuesta_pr1,
-    encuesta_pr2,
-  });
 };
 
 export const config = {

@@ -22,7 +22,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ED = ({ oneLotED, loteID }) => {
-  const { auth } = useAuth()
+  const { auth } = useAuth();
   return (
     <>
       <title>Ofertas | EL EDEN</title>
@@ -68,12 +68,15 @@ const ED = ({ oneLotED, loteID }) => {
                     </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <button
-                        onClick={()  => 
+                        onClick={() =>
                           CheckPermissions(auth, [0, 2])
-                          ? Router.push({pathname: `/oferts/edit/ ${item.id}`})
-                          : toast.warning("No tienes permiso para editar la Oferta")
+                            ? Router.push({
+                                pathname: `/oferts/edit/ ${item.id}`,
+                              })
+                            : toast.warning(
+                                "No tienes permiso para editar la Oferta"
+                              )
                         }
-                          
                         className="text-blue-600 dark:text-blue-500"
                       >
                         <svg
@@ -117,17 +120,13 @@ const ED = ({ oneLotED, loteID }) => {
                         </svg>
                       </Link>
                     </td>
-                      <td className="px-6 py-3 text-center">
+                    <td className="px-6 py-3 text-center">
                       <button
                         disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
-                          item.encuesta_pr1 === ""
-                            ? Router.push({
-                                pathname: `/encuesta/new/${item.id}`,
-                              })
-                            : Router.push({
-                                pathname: `/reporteEncuesta/${item.id}`,
-                              })
+                          Router.push({
+                            pathname: `/reporteEncuesta/${item.id}`,
+                          })
                         }
                         className="text-blue-600 dark:text-blue-500"
                       >

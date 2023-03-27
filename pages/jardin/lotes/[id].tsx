@@ -123,13 +123,9 @@ const EJ = ({ oneLotEJ, loteID }) => {
                       <button
                         disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
-                          item.encuesta_pr1 === ""
-                            ? Router.push({
-                                pathname: `/encuesta/new/${item.id}`,
-                              })
-                            : Router.push({
-                                pathname: `/reporteEncuesta/${item.id}`,
-                              })
+                          Router.push({
+                            pathname: `/reporteEncuesta/${item.id}`,
+                          })
                         }
                         className="text-blue-600 dark:text-blue-500"
                       >
