@@ -139,6 +139,19 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   });
 
   const [lote, setLote] = useState([]);
+  const [porcentaje, setPorcentaje] = useState("");
+  const [mostrarFormularioInmueble, setMostrarFormularioInmueble] =
+    useState(false);
+  const [mostrarFormularioPersonales, setMostrarFormularioPersonales] =
+    useState(false);
+
+  const mostrarFormularioHandlerInmueble = () => {
+    setMostrarFormularioInmueble(!mostrarFormularioInmueble);
+  };
+
+  const mostrarFormularioHandlerPersonales = () => {
+    setMostrarFormularioPersonales(!mostrarFormularioPersonales);
+  };
 
   const loadData = async () => {
     if (Router.asPath !== Router.route) {
@@ -171,91 +184,163 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
-          {lote.map((item) => {
-            let result: number = item.mae_preact;
-            result = result - ofert.cli_descuento;
-            ofert.cli_totalOferta = result;
-            return (
-              <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
-                <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-                  DATOS DEL INMUEBLE
-                </h2>
-                <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-                  <div className="relative z-0 mb-2 w-full group">
-                    <input
-                      type="text"
-                      value={item.mae_codinv}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      disabled
-                      //required
-                    />
-                    <label
-                      htmlFor="cli_totalOferta"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Codigo
-                    </label>
-                  </div>
-                  <div className="relative z-0 mb-2 w-full group">
-                    <input
-                      type="text"
-                      value={item.mae_prevt4 + " m2"}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      disabled
-                      //required
-                    />
-                    <label
-                      htmlFor="cli_totalOferta"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Area
-                    </label>
-                  </div>
-                  <div className="relative z-0 mb-2 w-full group">
-                    <input
-                      type="text"
-                      name="cli_totalOferta"
-                      id="cli_totalOferta"
-                      value={ofert.cli_totalOferta.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                      onChange={handleChange}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      //required
-                    />
-                    <label
-                      htmlFor="cli_totalOferta"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Precio Lote
-                    </label>
-                  </div>
-                  <div className="relative z-0 mb-2 w-full group">
-                    <input
-                      type="text"
-                      name="cli_descuento"
-                      id="cli_descuento"
-                      value={ofert.cli_descuento ?? 0}
-                      onChange={handleChange}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      //required
-                    />
-                    <label
-                      htmlFor="cli_descuento"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Descuento
-                    </label>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
+            <div className="text-center text-2xl font-normal leading-normal mt-4 mb-4">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandlerInmueble}
+              >
+                {mostrarFormularioInmueble
+                  ? "DATOS DEL INMUEBLE"
+                  : "DATOS DEL INMUEBLE"}
+              </button>
+            </div>
+            {lote.map((item) => {
+              const descuentosPorcentaje = {
+                "1%": 0.01,
+                "2%": 0.02,
+                "3%": 0.03,
+                "4%": 0.04,
+                "5%": 0.05,
+                "6%": 0.06,
+                "7%": 0.07,
+                "8%": 0.08,
+                "9%": 0.09,
+                "10%": 0.1,
+              };
+              if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
+                ofert.cli_descuento =
+                  item.mae_preact * descuentosPorcentaje[porcentaje];
+              }
+              ofert.cli_totalOferta = item.mae_preact - ofert.cli_descuento;
+              return (
+                <>
+                  {mostrarFormularioInmueble && (
+                    <>
+                      <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                        <div className="relative z-0 mb-2 w-full group">
+                          <input
+                            type="text"
+                            value={item.mae_codinv}
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            disabled
+                            //required
+                          />
+                          <label
+                            htmlFor="cli_totalOferta"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >
+                            Codigo
+                          </label>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full group">
+                          <input
+                            type="text"
+                            value={item.mae_prevt4 + " m2"}
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            disabled
+                            //required
+                          />
+                          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Area
+                          </label>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full group">
+                          <input
+                            type="text"
+                            name="cli_totalOferta"
+                            id="cli_totalOferta"
+                            value={item.mae_preact.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                            onChange={handleChange}
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            //required
+                          />
+                          <label
+                            htmlFor="cli_totalOferta"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >
+                            Precio Lote
+                          </label>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full group">
+                          <select
+                            id="porcentaje"
+                            name="porcentaje"
+                            value={porcentaje}
+                            onChange={(e) => setPorcentaje(e.target.value)}
+                            //required
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          >
+                            <option>Seleccione porcentaje de descuento</option>
+                            <option value="1%">1%</option>
+                            <option value="2%">2%</option>
+                            <option value="3%">3%</option>
+                            <option value="4%">4%</option>
+                            <option value="5%">5%</option>
+                            <option value="6%">6%</option>
+                            <option value="7%">7%</option>
+                            <option value="8%">8%</option>
+                            <option value="9%">9%</option>
+                            <option value="10%">10%</option>
+                          </select>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full group">
+                          <input
+                            type="text"
+                            name="ofert.cli_descuento"
+                            id="ofert.cli_descuento"
+                            value={ofert.cli_descuento.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            //required
+                          />
+                          <label
+                            htmlFor="cli_descuento"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >
+                            Descuento
+                          </label>
+                        </div>
+                        <div className="relative z-0 mb-2 w-full group">
+                          <input
+                            type="text"
+                            name="cli_totalOferta"
+                            id="cli_totalOferta"
+                            value={ofert.cli_totalOferta.toLocaleString(
+                              "en-US",
+                              {
+                                style: "currency",
+                                currency: "USD",
+                              }
+                            )}
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            //required
+                          />
+                          <label
+                            htmlFor="cli_descuento"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >
+                            Total Lote
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </>
+              );
+            })}
+          </div>
           <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
             <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
               DATOS PERSONALES - CLIENTE
@@ -1162,6 +1247,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 onChange={handleChange}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
                 placeholder="Escriba aqui las observaciones presentadas durante la compra..."
+                required
               ></textarea>
             </div>
           </div>
