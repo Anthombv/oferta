@@ -5,6 +5,7 @@ import { Pendiente } from "../../utils/constans";
 import FormatedDate from "../../utils/date";
 import Select from "react-select";
 import Router from "next/router";
+import { Transition } from "@headlessui/react";
 
 type Ofert = {
   cli_name: string;
@@ -77,6 +78,30 @@ let options: Array<Option> = [
   { label: "TRABAJO EN LOTE", value: "TRABAJO EN LOTE" },
 ];
 
+type OptionEncuesta = {
+  label: string;
+  value: string;
+};
+
+let optionsEncuesta: Array<OptionEncuesta> = [
+  { label: "TRUEQUE", value: "TRUEQUE" },
+  { label: "CLIENTE ANTIGUO", value: "CLIENTE ANTIGUO" },
+  { label: "OFICINA", value: "OFICINA" },
+  { label: "ROTULO", value: "ROTULO" },
+  { label: "FUNCIONARIO DE LA EMPRESA", value: "FUNCIONARIO DE LA EMPRESA" },
+  { label: "TIKTOK", value: "TIKTOK" },
+  { label: "CONTACTO PERSONAL", value: "CONTACTO PERSONAL" },
+  { label: "CANJE", value: "CANJE" },
+  { label: "REFERIDO EXTERNO", value: "REFERIDO EXTERNO" },
+  { label: "REFERIDO CLIENTE", value: "REFERIDO CLIENTE" },
+  { label: "REFERIDO FAMILIAR ASESOR", value: "REFERIDO FAMILIAR ASESOR" },
+  { label: "STAND RECREO", value: "STAND RECREO" },
+  { label: "STAND CONDADO", value: "STAND CONDADO" },
+  { label: "STAND QUICENTRO SUR", value: "STAND QUICENTRO SUR" },
+  { label: "FACEBOOK PERSONAL", value: "FACEBOOK PERSONAL" },
+  { label: "FACEBOOK EMPRESA", value: "FACEBOOK EMPRESA" },
+];
+
 const OfertForm = ({ loteID }: { loteID: string }) => {
   const [ofert, setOfert] = useState<Ofert>({
     cli_name: "",
@@ -144,13 +169,41 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     useState(false);
   const [mostrarFormularioPersonales, setMostrarFormularioPersonales] =
     useState(false);
+  const [mostrarFormularioLaborales, setMostrarFormularioLaborales] =
+    useState(false);
+  const [mostrarFormularioReferenciasF, setMostrarFormularioReferenciasF] =
+    useState(false);
+  const [mostrarFormularioConyuge, setMostrarFormularioConyuge] =
+    useState(false);
+  const [mostrarFormularioReferidos, setMostrarFormularioReferidos] =
+    useState(false);
+  const [mostrarFormularioAsesor, setMostrarFormularioAsesor] = useState(false);
+  const [mostrarFormularioEncuesta, setMostrarFormularioEncuesta] =
+    useState(false);
 
   const mostrarFormularioHandlerInmueble = () => {
     setMostrarFormularioInmueble(!mostrarFormularioInmueble);
   };
-
   const mostrarFormularioHandlerPersonales = () => {
     setMostrarFormularioPersonales(!mostrarFormularioPersonales);
+  };
+  const mostrarFormularioHandlerLaborales = () => {
+    setMostrarFormularioLaborales(!mostrarFormularioLaborales);
+  };
+  const mostrarFormularioHandlerReferenciasF = () => {
+    setMostrarFormularioReferenciasF(!mostrarFormularioReferenciasF);
+  };
+  const mostrarFormularioHandleroConyuge = () => {
+    setMostrarFormularioConyuge(!mostrarFormularioConyuge);
+  };
+  const mostrarFormularioHandleroReferidos = () => {
+    setMostrarFormularioReferidos(!mostrarFormularioReferidos);
+  };
+  const mostrarFormularioHandleroAsesor = () => {
+    setMostrarFormularioAsesor(!mostrarFormularioAsesor);
+  };
+  const mostrarFormularioHandlerEncuesta = () => {
+    setMostrarFormularioEncuesta(!mostrarFormularioEncuesta);
   };
 
   const loadData = async () => {
@@ -180,1090 +233,1290 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   return (
     <>
       <div>
-        <h2 className="text-center text-lg font-extrabold dark:text-black sm:text-xl md:text-3xl lg:text-4xl  text-transparent bg-clip-text text-red-800 p-4">
+        <h2 className="text-center text-lg font-extrabold dark:text-black sm:text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text text-red-800 p-4">
           FORMULARIO DE OFERTA DE COMPRA
         </h2>
         <form onSubmit={handleSubmit} className="m-2">
-          <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
-            <div className="text-center text-2xl font-normal leading-normal mt-4 mb-4">
+          <div className="bg-green-50 border border-green-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
               <button
                 type="button"
                 className="px-4 py-2 text-red-800 transition"
-                onClick={mostrarFormularioHandlerInmueble}
+                onClick={mostrarFormularioHandlerEncuesta}
               >
-                {mostrarFormularioInmueble
-                  ? "DATOS DEL INMUEBLE"
-                  : "DATOS DEL INMUEBLE"}
+                {mostrarFormularioEncuesta
+                  ? "DATOS DE LA ENCUESTA"
+                  : "DATOS DE LA ENCUESTA"}
               </button>
             </div>
-            {lote.map((item) => {
-              const descuentosPorcentaje = {
-                "1%": 0.01,
-                "2%": 0.02,
-                "3%": 0.03,
-                "4%": 0.04,
-                "5%": 0.05,
-                "6%": 0.06,
-                "7%": 0.07,
-                "8%": 0.08,
-                "9%": 0.09,
-                "10%": 0.1,
-              };
-              if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
-                ofert.cli_descuento =
-                  item.mae_preact * descuentosPorcentaje[porcentaje];
-              }
-              ofert.cli_totalOferta = item.mae_preact - ofert.cli_descuento;
-              return (
-                <>
-                  {mostrarFormularioInmueble && (
-                    <>
-                      <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-                        <div className="relative z-0 mb-2 w-full group">
-                          <input
-                            type="text"
-                            value={item.mae_codinv}
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            disabled
-                            //required
-                          />
-                          <label
-                            htmlFor="cli_totalOferta"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          >
-                            Codigo
-                          </label>
-                        </div>
-                        <div className="relative z-0 mb-2 w-full group">
-                          <input
-                            type="text"
-                            value={item.mae_prevt4 + " m2"}
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            disabled
-                            //required
-                          />
-                          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Area
-                          </label>
-                        </div>
-                        <div className="relative z-0 mb-2 w-full group">
-                          <input
-                            type="text"
-                            name="cli_totalOferta"
-                            id="cli_totalOferta"
-                            value={item.mae_preact.toLocaleString("en-US", {
-                              style: "currency",
-                              currency: "USD",
-                            })}
-                            onChange={handleChange}
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            //required
-                          />
-                          <label
-                            htmlFor="cli_totalOferta"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          >
-                            Precio Lote
-                          </label>
-                        </div>
-                        <div className="relative z-0 mb-2 w-full group">
-                          <select
-                            id="porcentaje"
-                            name="porcentaje"
-                            value={porcentaje}
-                            onChange={(e) => setPorcentaje(e.target.value)}
-                            //required
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          >
-                            <option>Seleccione porcentaje de descuento</option>
-                            <option value="1%">1%</option>
-                            <option value="2%">2%</option>
-                            <option value="3%">3%</option>
-                            <option value="4%">4%</option>
-                            <option value="5%">5%</option>
-                            <option value="6%">6%</option>
-                            <option value="7%">7%</option>
-                            <option value="8%">8%</option>
-                            <option value="9%">9%</option>
-                            <option value="10%">10%</option>
-                          </select>
-                        </div>
-                        <div className="relative z-0 mb-2 w-full group">
-                          <input
-                            type="text"
-                            name="ofert.cli_descuento"
-                            id="ofert.cli_descuento"
-                            value={ofert.cli_descuento.toLocaleString("en-US", {
-                              style: "currency",
-                              currency: "USD",
-                            })}
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            //required
-                          />
-                          <label
-                            htmlFor="cli_descuento"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          >
-                            Descuento
-                          </label>
-                        </div>
-                        <div className="relative z-0 mb-2 w-full group">
-                          <input
-                            type="text"
-                            name="cli_totalOferta"
-                            id="cli_totalOferta"
-                            value={ofert.cli_totalOferta.toLocaleString(
-                              "en-US",
-                              {
-                                style: "currency",
-                                currency: "USD",
-                              }
-                            )}
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            //required
-                          />
-                          <label
-                            htmlFor="cli_descuento"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          >
-                            Total Lote
-                          </label>
-                        </div>
+            <Transition
+              show={mostrarFormularioEncuesta}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm:grid-cols md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <Select
+                    isMulti
+                    options={optionsEncuesta}
+                    onChange={(items) => {
+                      const word = items.map((item) => item.value).join(", ");
+                      setOfert((prev) => ({
+                        ...prev,
+                        encuesta_pr1: word,
+                      }));
+                    }}
+                    placeholder={"¿Por qué medio se enteró de nosotros?"}
+                    styles={{
+                      placeholder: (base) => ({
+                        ...base,
+                        fontWeight: 400,
+                        color: "black",
+                        fontSize: "14px",
+                      }),
+                      option: (base1) => ({
+                        ...base1,
+                        fontSize: "14px",
+                      }),
+                    }}
+                    isClearable={true}
+                    isSearchable={true}
+                    isDisabled={false}
+                    isLoading={false}
+                    isRtl={false}
+                    closeMenuOnSelect={false}
+                  />
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    name="encuesta_pr2"
+                    id="encuesta_pr2"
+                    value={ofert.encuesta_pr2}
+                    onChange={handleChange}
+                    style={{ fontSize: "14px" }}
+                    className="bg-white border border-gray-300 text-gray-900 text-sm h-9 rounded focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>
+                      Antes de tomar la desicion de compra usted nos visito en
+                      nuestra/o:
+                    </option>
+                    <option value="Pagina Web">Página Web</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="TikTok">TikTok</option>
+                  </select>
+                </div>
+              </div>
+            </Transition>
+          </div>
+          {lote.map((item) => {
+            const descuentosPorcentaje = {
+              "1%": 0.01,
+              "2%": 0.02,
+              "3%": 0.03,
+              "4%": 0.04,
+              "5%": 0.05,
+              "6%": 0.06,
+              "7%": 0.07,
+              "8%": 0.08,
+              "9%": 0.09,
+              "10%": 0.1,
+            };
+            if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
+              ofert.cli_descuento =
+                item.mae_preact * descuentosPorcentaje[porcentaje];
+            }
+            ofert.cli_totalOferta = item.mae_preact - ofert.cli_descuento;
+            return (
+              <div className="bg-green-50 border border-green-100 px-5 rounded-lg mt-4">
+                <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
+                  <button
+                    type="button"
+                    className="px-4 py-2 text-red-800 transition"
+                    onClick={mostrarFormularioHandlerInmueble}
+                  >
+                    {mostrarFormularioInmueble
+                      ? "DATOS DEL INMUEBLE"
+                      : "DATOS DEL INMUEBLE"}
+                  </button>
+                </div>
+                <div>
+                  <Transition
+                    show={mostrarFormularioInmueble}
+                    enter="transition-all duration-500"
+                    enterFrom="opacity-0 translate-y-full"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition-all duration-500"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 -translate-y-6"
+                  >
+                    <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                      <div className="relative z-0 mb-2 w-full group">
+                        <input
+                          type="text"
+                          value={item.mae_codinv}
+                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          disabled
+                          //required
+                        />
+                        <label
+                          htmlFor="cli_totalOferta"
+                          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Codigo
+                        </label>
                       </div>
-                    </>
-                  )}
-                </>
-              );
-            })}
-          </div>
-          <div className="bg-green-50 border border-green-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS PERSONALES - CLIENTE
-            </h2>
-            <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_name"
-                  id="cli_name"
-                  value={ofert.cli_name}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor="cli_name"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Apellidos y Nombres
-                </label>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <input
+                          type="text"
+                          value={item.mae_prevt4 + " m2"}
+                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          disabled
+                          //required
+                        />
+                        <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Area
+                        </label>
+                      </div>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <input
+                          type="text"
+                          name="cli_totalOferta"
+                          id="cli_totalOferta"
+                          value={item.mae_preact.toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                          onChange={handleChange}
+                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          //required
+                        />
+                        <label
+                          htmlFor="cli_totalOferta"
+                          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Precio Lote
+                        </label>
+                      </div>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <select
+                          id="porcentaje"
+                          name="porcentaje"
+                          value={porcentaje}
+                          onChange={(e) => setPorcentaje(e.target.value)}
+                          //required
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option>Seleccione porcentaje de descuento</option>
+                          <option value="1%">1%</option>
+                          <option value="2%">2%</option>
+                          <option value="3%">3%</option>
+                          <option value="4%">4%</option>
+                          <option value="5%">5%</option>
+                          <option value="6%">6%</option>
+                          <option value="7%">7%</option>
+                          <option value="8%">8%</option>
+                          <option value="9%">9%</option>
+                          <option value="10%">10%</option>
+                        </select>
+                      </div>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <input
+                          type="text"
+                          name="ofert.cli_descuento"
+                          id="ofert.cli_descuento"
+                          value={ofert.cli_descuento.toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          //required
+                        />
+                        <label
+                          htmlFor="cli_descuento"
+                          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Descuento
+                        </label>
+                      </div>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <input
+                          type="text"
+                          name="cli_totalOferta"
+                          id="cli_totalOferta"
+                          value={ofert.cli_totalOferta.toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          //required
+                        />
+                        <label
+                          htmlFor="cli_descuento"
+                          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Total Lote
+                        </label>
+                      </div>
+                    </div>
+                  </Transition>
+                </div>
               </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_id"
-                  id="cli_id"
-                  maxLength={13}
-                  size={13}
-                  value={ofert.cli_id}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  C.I o Pasaporte
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="date"
-                  name="cli_fecNac"
-                  id="cli_fecNac"
-                  value={ofert.cli_fecNac}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Fecha de Nacimiento
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <select
-                  id="cli_sexo"
-                  name="cli_sexo"
-                  value={ofert.cli_sexo}
-                  onChange={handleChange}
-                  //required
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Seleccione el sexo del cliente</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Femenino">Femenino</option>
-                </select>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_provin"
-                  id="cli_provin"
-                  value={ofert.cli_provin}
-                  onChange={handleChange}
-                  //required
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Provincia o Pais
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_ciudad"
-                  id="cli_ciudad"
-                  value={ofert.cli_ciudad}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Ciudad
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_sector"
-                  id="cli_sector"
-                  value={ofert.cli_sector}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Sector
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_direcc"
-                  id="cli_direcc"
-                  value={ofert.cli_direcc}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Dirección del Hogar
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_telef"
-                  id="cli_telef"
-                  value={ofert.cli_telef}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Teléfono Hogar
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_cell"
-                  id="cli_cell"
-                  value={ofert.cli_cell}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Celular
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="email"
-                  name="cli_mail"
-                  id="cli_mail"
-                  value={ofert.cli_mail}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Correo Electronico
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_ingresos"
-                  id="cli_ingresos"
-                  value={ofert.cli_ingresos}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Ingresos mensuales
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_gastos"
-                  id="cli_gastos"
-                  value={ofert.cli_gastos}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Gastos Mensuales
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_ahorroM"
-                  id="cli_ahorroM"
-                  value={ofert.cli_ahorroM}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Capacidad de ahorro mensual
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_ahorroA"
-                  id="cli_ahorroA"
-                  value={ofert.cli_ahorroA}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Ahorro actual
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <select
-                  id="cli_tipoInmueble"
-                  name="cli_tipoInmueble"
-                  value={ofert.cli_tipoInmueble}
-                  onChange={handleChange}
-                  //required
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Seleccione el Tipo de Inmueble</option>
-                  <option value="LOCAL">LOCAL</option>
-                  <option value="CASA">CASA</option>
-                  <option value="DEPARTAMENTO">DEPARTAMENTO</option>
-                  <option value="SUITE">SUITE</option>
-                  <option value="TERRENO">TERRENO</option>
-                </select>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <select
-                  id="cli_estadoCivil"
-                  name="cli_estadoCivil"
-                  value={ofert.cli_estadoCivil}
-                  onChange={handleChange}
-                  //required
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Seleccione el Estado civil del Cliente</option>
-                  <option value="SOLTERO">SOLTERO</option>
-                  <option value="DIVORCIADO">DIVORCIADO</option>
-                  <option value="CASADO">CASADO</option>
-                  <option value="U.LIBRE">U.LIBRE</option>
-                  <option value="SEPARADO">SEPARADO</option>
-                  <option value="VIUDO">VIUDO</option>
-                </select>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <Select
-                  isMulti
-                  options={options}
-                  onChange={(items) => {
-                    const word = items.map((item) => item.value).join(",");
-                    setOfert((prev) => ({ ...prev, cli_ofrecimiento: word }));
-                  }}
-                  placeholder={"Seleccione los ofrecimientos"}
-                  styles={{
-                    placeholder: (base) => ({
-                      ...base,
-                      fontSize: "14px",
-                      fontWeight: 400,
-                      color: "black",
-                    }),
-                    option: (base1) => ({
-                      ...base1,
-                      fontSize: "14px",
-                    }),
-                  }}
-                  isClearable={true}
-                  isSearchable={true}
-                  isDisabled={false}
-                  isLoading={false}
-                  isRtl={false}
-                  closeMenuOnSelect={false}
-                />
-              </div>
+            );
+          })}
+          <div className="bg-green-50 border border-green-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl  font-normal leading-normal mt-4 mb-4 text-red-800">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandlerPersonales}
+              >
+                {mostrarFormularioPersonales
+                  ? "DATOS PERSONALES - CLIENTE"
+                  : "DATOS PERSONALES - CLIENTE"}
+              </button>
             </div>
+            <Transition
+              show={mostrarFormularioPersonales}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 slide-down">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_name"
+                    id="cli_name"
+                    value={ofert.cli_name}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor="cli_name"
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Apellidos y Nombres
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_id"
+                    id="cli_id"
+                    maxLength={13}
+                    size={13}
+                    value={ofert.cli_id}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    C.I o Pasaporte
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="date"
+                    name="cli_fecNac"
+                    id="cli_fecNac"
+                    value={ofert.cli_fecNac}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Fecha de Nacimiento
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    id="cli_sexo"
+                    name="cli_sexo"
+                    value={ofert.cli_sexo}
+                    onChange={handleChange}
+                    //required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>Seleccione el sexo del cliente</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_provin"
+                    id="cli_provin"
+                    value={ofert.cli_provin}
+                    onChange={handleChange}
+                    //required
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Provincia o Pais
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_ciudad"
+                    id="cli_ciudad"
+                    value={ofert.cli_ciudad}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Ciudad
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_sector"
+                    id="cli_sector"
+                    value={ofert.cli_sector}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Sector
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_direcc"
+                    id="cli_direcc"
+                    value={ofert.cli_direcc}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Dirección del Hogar
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_telef"
+                    id="cli_telef"
+                    value={ofert.cli_telef}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Teléfono Hogar
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_cell"
+                    id="cli_cell"
+                    value={ofert.cli_cell}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Celular
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="email"
+                    name="cli_mail"
+                    id="cli_mail"
+                    value={ofert.cli_mail}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Correo Electronico
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_ingresos"
+                    id="cli_ingresos"
+                    value={ofert.cli_ingresos}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Ingresos mensuales
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_gastos"
+                    id="cli_gastos"
+                    value={ofert.cli_gastos}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Gastos Mensuales
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_ahorroM"
+                    id="cli_ahorroM"
+                    value={ofert.cli_ahorroM}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Capacidad de ahorro mensual
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_ahorroA"
+                    id="cli_ahorroA"
+                    value={ofert.cli_ahorroA}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Ahorro actual
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    id="cli_tipoInmueble"
+                    name="cli_tipoInmueble"
+                    value={ofert.cli_tipoInmueble}
+                    onChange={handleChange}
+                    //required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>Seleccione el Tipo de Inmueble</option>
+                    <option value="LOCAL">LOCAL</option>
+                    <option value="CASA">CASA</option>
+                    <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                    <option value="SUITE">SUITE</option>
+                    <option value="TERRENO">TERRENO</option>
+                  </select>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    id="cli_estadoCivil"
+                    name="cli_estadoCivil"
+                    value={ofert.cli_estadoCivil}
+                    onChange={handleChange}
+                    //required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>Seleccione el Estado civil del Cliente</option>
+                    <option value="SOLTERO">SOLTERO</option>
+                    <option value="DIVORCIADO">DIVORCIADO</option>
+                    <option value="CASADO">CASADO</option>
+                    <option value="U.LIBRE">U.LIBRE</option>
+                    <option value="SEPARADO">SEPARADO</option>
+                    <option value="VIUDO">VIUDO</option>
+                  </select>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <Select
+                    isMulti
+                    options={options}
+                    onChange={(items) => {
+                      const word = items.map((item) => item.value).join(",");
+                      setOfert((prev) => ({
+                        ...prev,
+                        cli_ofrecimiento: word,
+                      }));
+                    }}
+                    placeholder={"Seleccione los ofrecimientos"}
+                    styles={{
+                      placeholder: (base) => ({
+                        ...base,
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        color: "black",
+                      }),
+                      option: (base1) => ({
+                        ...base1,
+                        fontSize: "14px",
+                      }),
+                    }}
+                    isClearable={true}
+                    isSearchable={true}
+                    isDisabled={false}
+                    isLoading={false}
+                    isRtl={false}
+                    closeMenuOnSelect={false}
+                  />
+                </div>
+              </div>
+            </Transition>
           </div>
-          <div className="bg-teal-50 border border-teal-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS LABORALES - CLIENTE
-            </h2>
-            <div className="grid grip-cols sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 xl:gap-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_trabajo"
-                  id="cli_trabajo"
-                  value={ofert.cli_trabajo}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Empresa donde trabaja
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_cargoT"
-                  id="cli_cargoT"
-                  value={ofert.cli_cargoT}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Cargo que ocupa
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_direccT"
-                  id="cli_direccT"
-                  value={ofert.cli_direccT}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Direción Trabajo
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_telefT"
-                  id="cli_telefT"
-                  value={ofert.cli_telefT}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Trabajo
-                </label>
-              </div>
+          <div className="bg-teal-50 border border-teal-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl  font-normal leading-normal mt-4 mb-4 text-red-800">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandlerLaborales}
+              >
+                {mostrarFormularioLaborales
+                  ? "DATOS LABORALES - CLIENTE"
+                  : "DATOS LABORALES - CLIENTE"}
+              </button>
             </div>
+            <Transition
+              show={mostrarFormularioLaborales}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grip-cols sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 xl:gap-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_trabajo"
+                    id="cli_trabajo"
+                    value={ofert.cli_trabajo}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Empresa donde trabaja
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_cargoT"
+                    id="cli_cargoT"
+                    value={ofert.cli_cargoT}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Cargo que ocupa
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_direccT"
+                    id="cli_direccT"
+                    value={ofert.cli_direccT}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Direción Trabajo
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_telefT"
+                    id="cli_telefT"
+                    value={ofert.cli_telefT}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Trabajo
+                  </label>
+                </div>
+              </div>
+            </Transition>
           </div>
-          <div className="bg-cyan-50 border border-cyan-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              REFERENCIAS FAMILIARES - CLIENTE
-            </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 mb-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_reFami1"
-                  id="cli_reFami1"
-                  value={ofert.cli_reFami1}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  1{")"} Referencia familiar
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_paren1"
-                  id="cli_paren1"
-                  value={ofert.cli_paren1}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Parentezco
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_telParen1"
-                  id="cli_telParen1"
-                  value={ofert.cli_telParen1}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Fijo
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_cellParen1"
-                  id="cli_cellParen1"
-                  value={ofert.cli_cellParen1}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Celular
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_reFami2"
-                  id="cli_reFami2"
-                  value={ofert.cli_reFami2}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  2{")"} Referencia familiar
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_paren2"
-                  id="cli_paren2"
-                  value={ofert.cli_paren2}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Parentezco
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_telParen2"
-                  id="cli_telParen2"
-                  value={ofert.cli_telParen2}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Fijo
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_cellParen2"
-                  id="cli_cellParen2"
-                  value={ofert.cli_cellParen2}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Celular
-                </label>
-              </div>
+          <div className="bg-cyan-50 border border-cyan-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl  font-normal leading-normal mt-4 mb-4 text-red-800">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandlerReferenciasF}
+              >
+                {mostrarFormularioReferenciasF
+                  ? "REFERENCIAS FAMILIARES - CLIENTE"
+                  : "REFERENCIAS FAMILIARES - CLIENTE"}
+              </button>
             </div>
-            <div className="relative z-0 mb-2 w-full group text-center mt-4">
-              <label className="text-sm text-gray-500 text-center">
-                Motivo de la compra
-              </label>
-              <textarea
-                value={ofert.cli_motivoCompra}
-                name="cli_motivoCompra"
-                onChange={handleChange}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
-                placeholder="Escriba aqui el motivo de la compra..."
-              ></textarea>
-            </div>
+            <Transition
+              show={mostrarFormularioReferenciasF}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2 mb-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_reFami1"
+                    id="cli_reFami1"
+                    value={ofert.cli_reFami1}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    1{")"} Referencia familiar
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_paren1"
+                    id="cli_paren1"
+                    value={ofert.cli_paren1}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Parentezco
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_telParen1"
+                    id="cli_telParen1"
+                    value={ofert.cli_telParen1}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Fijo
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_cellParen1"
+                    id="cli_cellParen1"
+                    value={ofert.cli_cellParen1}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Celular
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_reFami2"
+                    id="cli_reFami2"
+                    value={ofert.cli_reFami2}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    2{")"} Referencia familiar
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_paren2"
+                    id="cli_paren2"
+                    value={ofert.cli_paren2}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Parentezco
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_telParen2"
+                    id="cli_telParen2"
+                    value={ofert.cli_telParen2}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Fijo
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_cellParen2"
+                    id="cli_cellParen2"
+                    value={ofert.cli_cellParen2}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Celular
+                  </label>
+                </div>
+              </div>
+              <div className="relative z-0 mb-2 w-full group text-center mt-4">
+                <label className="text-sm text-gray-500 text-center">
+                  Motivo de la compra
+                </label>
+                <textarea
+                  value={ofert.cli_motivoCompra}
+                  name="cli_motivoCompra"
+                  onChange={handleChange}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
+                  placeholder="Escriba aqui el motivo de la compra..."
+                ></textarea>
+              </div>
+            </Transition>
           </div>
-          <div className="bg-blue-50 border border-blue-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS PERSONALES - CÓNYUGE
-            </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_conyuName"
-                  id="cli_conyuName"
-                  value={ofert.cli_conyuName}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Apellidos y Nombres
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_conyuID"
-                  id="cli_conyuID"
-                  maxLength={13}
-                  size={13}
-                  value={ofert.cli_conyuID}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  C.I o Pasaporte
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_conyuCell"
-                  id="cli_conyuCell"
-                  value={ofert.cli_conyuCell}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Celular
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_conyuTrab"
-                  id="cli_conyuTrab"
-                  value={ofert.cli_conyuTrab}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Empresa donde trabaja
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_conyuDireccT"
-                  id="cli_conyuDireccT"
-                  value={ofert.cli_conyuDireccT}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Dirección Trabajo Cónyuge
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_conyuTelT"
-                  id="cli_conyuTelT"
-                  value={ofert.cli_conyuTelT}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Telf. Trabajo Cónyuge
-                </label>
-              </div>
+          <div className="bg-blue-50 border border-blue-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandleroConyuge}
+              >
+                {mostrarFormularioConyuge
+                  ? "DATOS PERSONALES - CÓNYUGE"
+                  : "DATOS PERSONALES - CÓNYUGE"}
+              </button>
             </div>
+            <Transition
+              show={mostrarFormularioConyuge}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_conyuName"
+                    id="cli_conyuName"
+                    value={ofert.cli_conyuName}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Apellidos y Nombres
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_conyuID"
+                    id="cli_conyuID"
+                    maxLength={13}
+                    size={13}
+                    value={ofert.cli_conyuID}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    C.I o Pasaporte
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_conyuCell"
+                    id="cli_conyuCell"
+                    value={ofert.cli_conyuCell}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Celular
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_conyuTrab"
+                    id="cli_conyuTrab"
+                    value={ofert.cli_conyuTrab}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Empresa donde trabaja
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_conyuDireccT"
+                    id="cli_conyuDireccT"
+                    value={ofert.cli_conyuDireccT}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Dirección Trabajo Cónyuge
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_conyuTelT"
+                    id="cli_conyuTelT"
+                    value={ofert.cli_conyuTelT}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Telf. Trabajo Cónyuge
+                  </label>
+                </div>
+              </div>
+            </Transition>
           </div>
-          <div className="bg-violet-50 border border-violet-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS REFERIDOS
-            </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_refName1"
-                  id="cli_refName1"
-                  value={ofert.cli_refName1}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  1{")"} Apellidos y Nombres
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_refTel1"
-                  id="cli_refTel1"
-                  value={ofert.cli_refTel1}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Teléfono
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_refName2"
-                  id="cli_refName2"
-                  value={ofert.cli_refName2}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  2{")"} Apellidos y Nombres
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_refTel2"
-                  id="cli_refTel2"
-                  value={ofert.cli_refTel2}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Teléfono
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_refName3"
-                  id="cli_refName3"
-                  value={ofert.cli_refName3}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  3{")"} Apellidos y Nombres
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_refTel3"
-                  id="cli_refTel3"
-                  value={ofert.cli_refTel3}
-                  onChange={handleChange}
-                  className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Teléfono
-                </label>
-              </div>
+          <div className="bg-violet-50 border border-violet-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandleroReferidos}
+              >
+                {mostrarFormularioReferidos
+                  ? "DATOS REFERIDOS"
+                  : "DATOS REFERIDOS"}
+              </button>
             </div>
+            <Transition
+              show={mostrarFormularioReferidos}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_refName1"
+                    id="cli_refName1"
+                    value={ofert.cli_refName1}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    1{")"} Apellidos y Nombres
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_refTel1"
+                    id="cli_refTel1"
+                    value={ofert.cli_refTel1}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Teléfono
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_refName2"
+                    id="cli_refName2"
+                    value={ofert.cli_refName2}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    2{")"} Apellidos y Nombres
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_refTel2"
+                    id="cli_refTel2"
+                    value={ofert.cli_refTel2}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Teléfono
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_refName3"
+                    id="cli_refName3"
+                    value={ofert.cli_refName3}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    3{")"} Apellidos y Nombres
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_refTel3"
+                    id="cli_refTel3"
+                    value={ofert.cli_refTel3}
+                    onChange={handleChange}
+                    className="noscroll block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Teléfono
+                  </label>
+                </div>
+              </div>
+            </Transition>
           </div>
-          <div className="bg-pink-50 border border-pink-100 pb-5 px-5 rounded-lg mt-4">
-            <h2 className="text-center text-2xl  font-normal leading-normal mt-4 mb-4 text-red-800">
-              DATOS ASESOR INMOBILIARIO
-            </h2>
-            <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="text"
-                  name="cli_asesor"
-                  id="cli_asesor"
-                  value={ofert.cli_asesor}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Apellidos y Nombres del asesor
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <input
-                  type="number"
-                  name="cli_asesorTelf"
-                  id="cli_asesorTelf"
-                  value={ofert.cli_asesorTelf}
-                  onChange={handleChange}
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  //required
-                />
-                <label
-                  htmlFor=""
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Teléfono
-                </label>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <select
-                  id="cli_tipoVenta"
-                  name="cli_tipoVenta"
-                  value={ofert.cli_tipoVenta}
-                  onChange={handleChange}
-                  //required
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Seleccione Tipo de Venta</option>
-                  <option value="CONTADO">CONTADO</option>
-                  <option value="CREDITO DIRECTO">CREDITO DIRECTO</option>
-                  <option value="BIES">BIES</option>
-                  <option value="MIXTO">MIXTO</option>
-                  <option value="TRUEQUE">TRUEQUE</option>
-                </select>
-              </div>
-              <div className="relative z-0 mb-2 w-full group">
-                <select
-                  id="cli_contac"
-                  name="cli_contac"
-                  value={ofert.cli_contac}
-                  //required
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option>Seleccione como nos contacto</option>
-                  <option value="TRUEQUE">TRUEQUE</option>
-                  <option value="CLIENTE ANTIGUO">CLIENTE ANTIGUO</option>
-                  <option value="OFICINA">OFICINA</option>
-                  <option value="ROTULO">ROTULO</option>
-                  <option value="FUNCIONARIO DE LA EMPRESA">
-                    FUNCIONARIO DE LA EMPRESA
-                  </option>
-                  <option value="TIKTOK">TIKTOK</option>
-                  <option value="CONTACTO PERSONAL">CONTACTO PERSONAL</option>
-                  <option value="CANJE">CANJE</option>
-                  <optgroup label="REFERIDOS">
-                    <option value="REFERIDO EXTERNO">REFERIDO EXTERNO</option>
-                    <option value="REFERIDO CLIENTE">REFERIDO CLIENTE</option>
-                    <option value="REFERIDO FAMILIAR ASESOR">
-                      REFERIDO FAMILIAR ASESOR
+          <div className="bg-pink-50 border border-pink-100 px-5 rounded-lg mt-4">
+            <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
+              <button
+                type="button"
+                className="px-4 py-2 text-red-800 transition"
+                onClick={mostrarFormularioHandleroAsesor}
+              >
+                {mostrarFormularioAsesor
+                  ? "DATOS ASESOR INMOBILIARIO"
+                  : "DATOS ASESOR INMOBILIARIO"}
+              </button>
+            </div>
+            <Transition
+              show={mostrarFormularioAsesor}
+              enter="transition-all duration-500"
+              enterFrom="opacity-0 translate-y-full"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition-all duration-500"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 -translate-y-6"
+            >
+              <div className="grid grid-cols sm-grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_asesor"
+                    id="cli_asesor"
+                    value={ofert.cli_asesor}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Apellidos y Nombres del asesor
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="number"
+                    name="cli_asesorTelf"
+                    id="cli_asesorTelf"
+                    value={ofert.cli_asesorTelf}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                    //required
+                  />
+                  <label
+                    htmlFor=""
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Teléfono
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    id="cli_tipoVenta"
+                    name="cli_tipoVenta"
+                    value={ofert.cli_tipoVenta}
+                    onChange={handleChange}
+                    //required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>Seleccione Tipo de Venta</option>
+                    <option value="CONTADO">CONTADO</option>
+                    <option value="CREDITO DIRECTO">CREDITO DIRECTO</option>
+                    <option value="BIES">BIES</option>
+                    <option value="MIXTO">MIXTO</option>
+                    <option value="TRUEQUE">TRUEQUE</option>
+                  </select>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <select
+                    id="cli_contac"
+                    name="cli_contac"
+                    value={ofert.cli_contac}
+                    //required
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option>Seleccione como nos contacto</option>
+                    <option value="TRUEQUE">TRUEQUE</option>
+                    <option value="CLIENTE ANTIGUO">CLIENTE ANTIGUO</option>
+                    <option value="OFICINA">OFICINA</option>
+                    <option value="ROTULO">ROTULO</option>
+                    <option value="FUNCIONARIO DE LA EMPRESA">
+                      FUNCIONARIO DE LA EMPRESA
                     </option>
-                  </optgroup>
-                  <optgroup label="STAND">
-                    <option value="STAND RECREO">STAND RECREO</option>
-                    <option value="STAND CONDADO">STAND CONDADO</option>
-                    <option value="STAND QUICENTRO SUR">
-                      STAND QUICENTRO SUR
-                    </option>
-                  </optgroup>
-                  <optgroup label="FACEBOOK">
-                    <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>
-                    <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
-                  </optgroup>
-                </select>
+                    <option value="TIKTOK">TIKTOK</option>
+                    <option value="CONTACTO PERSONAL">CONTACTO PERSONAL</option>
+                    <option value="CANJE">CANJE</option>
+                    <optgroup label="REFERIDOS">
+                      <option value="REFERIDO EXTERNO">REFERIDO EXTERNO</option>
+                      <option value="REFERIDO CLIENTE">REFERIDO CLIENTE</option>
+                      <option value="REFERIDO FAMILIAR ASESOR">
+                        REFERIDO FAMILIAR ASESOR
+                      </option>
+                    </optgroup>
+                    <optgroup label="STAND">
+                      <option value="STAND RECREO">STAND RECREO</option>
+                      <option value="STAND CONDADO">STAND CONDADO</option>
+                      <option value="STAND QUICENTRO SUR">
+                        STAND QUICENTRO SUR
+                      </option>
+                    </optgroup>
+                    <optgroup label="FACEBOOK">
+                      <option value="FACEBOOK PERSONAL">
+                        FACEBOOK PERSONAL
+                      </option>
+                      <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
+              <div className="relative z-0 mb-2 w-full group text-center mt-4">
+                <label className="text-sm text-gray-500 text-center">
+                  Observaciones
+                </label>
+                <textarea
+                  id="cli_observation"
+                  value={ofert.cli_observation}
+                  name="cli_observation"
+                  onChange={handleChange}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
+                  placeholder="Escriba aqui las observaciones presentadas durante la compra..."
+                  required
+                ></textarea>
+              </div>
+            </Transition>
+          </div>
+          <div className="grid xl:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 w-full xl:w-1/3">
+            <div className="w-full group">
+              <button
+                type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-3"
+              >
+                Crear Oferta
+              </button>
             </div>
-            <div className="relative z-0 mb-2 w-full group text-center mt-4">
-              <label className="text-sm text-gray-500 text-center">
-                Observaciones
-              </label>
-              <textarea
-                id="cli_observation"
-                value={ofert.cli_observation}
-                name="cli_observation"
-                onChange={handleChange}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-4"
-                placeholder="Escriba aqui las observaciones presentadas durante la compra..."
-                required
-              ></textarea>
+            <div className="w-full group">
+              <button
+                className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mt-3"
+                onClick={() =>
+                  Router.push({ pathname: "javascript:history.back()" })
+                }
+              >
+                Volver
+              </button>
             </div>
           </div>
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5"
-          >
-            Crear Oferta
-          </button>
         </form>
-        <button
-          className="text-white m-2 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-4"
-          onClick={() => Router.push({ pathname: "javascript:history.back()" })}
-        >
-          Volver
-        </button>
       </div>
     </>
   );

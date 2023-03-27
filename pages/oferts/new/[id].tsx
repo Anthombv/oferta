@@ -1,5 +1,6 @@
 import React from "react";
 import OfertForm from "../../../lib/components/form/ofertForm";
+import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   return {
@@ -10,7 +11,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const NewOfert = ({ loteID }) => {
-
   return (
     <>
       <title>Crear Oferta</title>
@@ -20,10 +20,9 @@ const NewOfert = ({ loteID }) => {
         sizes="32x32"
       />
       <div
-        className="flex h-full w-full bg-no-repeat bg-cover"
-        style={{ backgroundImage: "url(/bgform.jpg)" }}
+        className={styles.limiterOferts}
       >
-        <div className="container mx-auto px-5 bg-white w-4/5 mt-5 mb-5 border rounded-lg">
+        <div className="mx-auto px-5 bg-white w-4/5 mt-5 mb-5 border rounded-lg">
           <OfertForm loteID={loteID} />
           <br />
         </div>

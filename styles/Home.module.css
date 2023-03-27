@@ -6,6 +6,15 @@
   position: absolute;
 }
 
+.limiterOferts {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-image: url("/bgform.jpg");
+  background-size: cover;
+  position: absolute;
+}
+
 .limiterMirador {
   width: 100%;
   margin: 0 auto;
