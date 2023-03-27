@@ -180,6 +180,10 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const [mostrarFormularioAsesor, setMostrarFormularioAsesor] = useState(false);
   const [mostrarFormularioEncuesta, setMostrarFormularioEncuesta] =
     useState(false);
+  const [selectedValuesEncuesta, setSelectedValuesEncuesta] = useState([]);
+  const [selectedValuesOfercimiento, setSelectedValuesOfrecimiento] = useState(
+    []
+  );
 
   const mostrarFormularioHandlerInmueble = () => {
     setMostrarFormularioInmueble(!mostrarFormularioInmueble);
@@ -264,12 +268,17 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     isMulti
                     options={optionsEncuesta}
                     onChange={(items) => {
-                      const word = items.map((item) => item.value).join(", ");
+                      const word = items.map((item) => item.value);
+                      setSelectedValuesEncuesta(word);
                       setOfert((prev) => ({
                         ...prev,
-                        encuesta_pr1: word,
+                        encuesta_pr1: word.join(", "),
                       }));
                     }}
+                    value={selectedValuesEncuesta.map((value) => ({
+                      label: value,
+                      value: value,
+                    }))}
                     placeholder={"¿Por qué medio se enteró de nosotros?"}
                     styles={{
                       placeholder: (base) => ({
@@ -802,12 +811,17 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     isMulti
                     options={options}
                     onChange={(items) => {
-                      const word = items.map((item) => item.value).join(",");
+                      const word = items.map((item) => item.value);
+                      setSelectedValuesOfrecimiento(word);
                       setOfert((prev) => ({
                         ...prev,
-                        cli_ofrecimiento: word,
+                        cli_ofrecimiento: word.join(", "),
                       }));
                     }}
+                    value={selectedValuesOfercimiento.map((value) => ({
+                      label: value,
+                      value: value,
+                    }))}
                     placeholder={"Seleccione los ofrecimientos"}
                     styles={{
                       placeholder: (base) => ({
