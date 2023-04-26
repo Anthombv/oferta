@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <title>Inicio</title>
-      <link rel="icon" href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg" sizes="32x32"/>
+      <link rel="icon" href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg" sizes="32x32" type="image/svg+xml"/>
       <div className="w-full mx-auto min-h-screen bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">
         <Navbar />
         <h2 className="text-center text-4xl font-bold leading-normal mt-0 text-white">
