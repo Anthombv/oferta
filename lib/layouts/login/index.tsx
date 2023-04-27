@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import { useState } from "react";
 import { useFormik } from "formik";
 import { useAuth } from "../../hooks/use_auth";
