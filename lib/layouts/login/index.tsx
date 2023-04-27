@@ -60,7 +60,7 @@ const Login = () => {
                 </h1>
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="space-y-4 md:space-y-6"
+                  className="form space-y-4 md:space-y-6"
                 >
                   <div>
                     <label
