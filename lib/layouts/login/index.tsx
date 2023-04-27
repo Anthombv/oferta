@@ -7,7 +7,7 @@ import { LoginData } from "../../types";
 import HttpClient from "../../utils/http_client";
 import { toast } from "react-toastify";
 import LoadingContainer from "../../components/loading_container";
-import "./styles/Home.module.css";
+import "/styles/Home.module.css";
 
 // login de la app
 const Login = () => {
