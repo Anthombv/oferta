@@ -31,11 +31,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
   return (
     <>
       <title>Reporte de Oferta</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-      />
+      
       <div className="text-center mt-3">
         <button
           onClick={handlePrint}

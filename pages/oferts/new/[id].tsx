@@ -14,11 +14,7 @@ const NewOfert = ({ loteID }) => {
   return (
     <>
       <title>Crear Oferta</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-      />
+      
       <div
         className={styles.limiterOferts}
       >

@@ -33,11 +33,7 @@ const OfertEM = ({ lotesEM }) => {
   return (
     <>
       <title>Lotes | EL MANANTIAL</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-      />
+      
       <div className={styles.limiterManantial}>
         <NavBar />
         <h2 className="text-center xl:text-4xl md:text-4xl text-2xl leading-normal font-semibold text-black my-4">

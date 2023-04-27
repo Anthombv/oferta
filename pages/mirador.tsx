@@ -33,11 +33,7 @@ const OfertML = ({ lotesML }) => {
   return (
     <>
       <title>Lotes | MIRADOR DEL LAGO</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-      />
+      
       <div className={styles.limiterMirador}>
         <NavBar />
         <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">

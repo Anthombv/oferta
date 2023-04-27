@@ -177,11 +177,7 @@ const EditOfert = () => {
   return (
     <>
       <title>Editar Oferta</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-      />
+      
       <div className="w-full mx-auto min-h-screen">
         <div className="mx-auto w-4/5 border-black border bg-gray-200 mt-4">
           <div>
