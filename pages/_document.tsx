@@ -34,11 +34,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
-          <link
-            rel="icon"
-            href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-            sizes="32x32"
-          />
+          <link rel="icon" href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg" sizes="32x32"/>
+          <script src="https://kit.fontawesome.com/505ebfbf03.js" crossOrigin="anonymous"></script>
         </Head>
         <body>
           <Main />

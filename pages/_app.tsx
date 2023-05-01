@@ -1,3 +1,4 @@
+import "../styles/Login.css"
 import "devextreme/dist/css/dx.light.css";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocalStorage } from "../lib/hooks/use_local_storage";

@@ -1,0 +1,120 @@
+.banner {
+    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+    height: 100%;
+    position: absolute;
+    width: 40%;
+    top: 0;
+}
+.move-side {
+    position: absolute;
+    right: 0;
+    width: 60%;
+}
+.logo-title {
+    margin: 0 auto;
+    width: 440px;
+    height: -webkit-fill-available;
+    vertical-align: middle;
+}
+.logo-login {
+    display: block;
+    width: 180px;
+    position: relative;
+    margin-right: 0.8em;
+}
+.text-login {
+    display: block;
+    color: #fff;
+    font-family: poppins;
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 42px;
+}
+.text-login strong {
+    font-weight: 900;
+    color: #a2ffd3;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 44px;
+}
+.copyright {
+    font-family: poppins;
+    font-size: 9px;
+    font-weight: 300;
+    background: #1e2b35;
+    padding: 5px 30px;
+    position: absolute;
+    display: block;
+    bottom: 20px;
+    border-radius: 0 10px 10px 0;
+    animation-duration: 1s;
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+        transform: translate(-500px, 0px);
+    }
+  
+    to {
+        transform: translate(0px, 0px);
+    }
+  }
+.copyright span {
+    color: #c5c5c5;
+}
+.copyright span a {
+    color: #c5c5c5;
+    text-transform: none;
+}
+.copyright span a:hover {
+    color: #fff;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* BOX LOGIN */
+.login-box {
+    font-family: poppins;
+    background-color: #f3f3f3;
+    color: #1e2b35;
+}
+.login-box .box h1 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 28px;
+}
+.form-login .boton-enviar {
+    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+}
+.form-login .boton-enviar:hover {
+    transition: ease-in;
+    background:#FF7E34;
+}
+.icon-login {
+    width: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* FOOTER */
+
+.footer {
+    position: absolute;
+    font-family: poppins;
+    font-weight: 300;
+    z-index: 9;
+    font-size: 12px;
+    bottom: 0;
+    margin: 0 20px 20px 0;
+    right: 0;
+}
+.footer .linkcompany img {
+    width: 50px;
+    display: inline-block;
+}
+.linkcompany p a img {
+    margin-left: 6px;
+}
+.linkcompany p a img:hover {
+    transform: scale(1.05, 1.05);
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
