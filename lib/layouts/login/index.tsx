@@ -69,7 +69,7 @@ function Login() {
                   </div>
                   <div>
                     <label htmlFor="password" className="block mb-2 text-sm font-medium dark:text-white">
-                      Password
+                      Contraseña
                     </label>
                     <input type="password" name="password"
                       className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -88,7 +88,7 @@ function Login() {
         </section>
         <div className="footer">
           <div className="linkcompany">
-            <p>Una Aplicación de: <a href="https://grupoancon.com/" target="_blank"><img src="http://grupoancon.com/wp-content/uploads/2020/07/logo-empresa-slide-1-min.png" alt="logo" /></a></p>
+            <p>Una Aplicación de: <a href="https://grupoancon.com/" target="_blank" rel="noreferrer"><img src="http://grupoancon.com/wp-content/uploads/2020/07/logo-empresa-slide-1-min.png" alt="logo" /></a></p>
           </div>
         </div>
         <div className="banner">
@@ -97,7 +97,7 @@ function Login() {
               <h2 className="text-login">Sistema de Gestión de <strong>Ofertas</strong></h2>
             </div>
             <div className="copyright">
-              <span>© 2023 <a href="https://grupoancon.com/" target="_blank"><strong>Grupo ANCON Inmobiliario</strong></a>. Todos los derechos reservados. Diseñador por <a href="https://dex-studio.com/" target="_blank"><strong>DEX STUDIOS</strong></a></span>
+              <span>© 2023 <a href="https://grupoancon.com/" target="_blank" rel="noreferrer"><strong>Grupo ANCON Inmobiliario</strong></a>. Todos los derechos reservados. Diseñador por <a href="https://dex-studio.com/" target="_blank" rel="noreferrer"><strong>DEX STUDIOS</strong></a></span>
             </div>
         </div>
       </LoadingContainer>
