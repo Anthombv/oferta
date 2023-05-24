@@ -9,12 +9,13 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   return (
     <>
-      <nav className="w-full bg-gray-800 shadow">
-        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+      <nav className="menu w-full bg-gray-800">
+        <div className="justify-between px-4 mx-auto lg:max-w-9xl md:items-center md:flex md:px-8">
           <div>
-            <div className="flex items-center justify-between py-3 md:block">
-              <p className="text-white">
-                ANCON grupo inmobiliario | {`${auth?.name}`}
+            <div className="flex items-center justify-between py-3">
+            <img className="logo" src="http://grupoancon.com/wp-content/uploads/2020/07/logo-empresa-slide-1-min.png" alt="logo" />
+              <p className="user-title text-white">
+              Bienvenido, {`${auth?.name}`}
               </p>
               <div className="md:hidden">
                 <button
@@ -55,30 +56,28 @@ const Navbar = () => {
             </div>
           </div>
           <div>
-            <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+            <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
                 navbar ? "block" : "hidden"
-              }`}
-            >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="hover:underline text-white">
+              }`}>
+              <ul className="options items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <li className="text-white">
                   <Link href="/">INICIO</Link>
                 </li>
-                <li className="hover:underline text-white">
-                  <Link href="/eden">EDEN</Link>
+                <li className="text-white">
+                  <Link href="/jardin">EL JARDÍN</Link>
                 </li>
-                <li className="hover:underline text-white">
-                  <Link href="/mirador">MIRADOR</Link>
+                <li className="text-white">
+                  <Link href="/eden">EL EDÉN</Link>
                 </li>
-                <li className="hover:underline text-white">
-                  <Link href="/manantial">MANANTIAL</Link>
+                <li className="text-white">
+                  <Link href="/mirador">EL MIRADOR</Link>
                 </li>
-                <li className="hover:underline text-white">
-                  <Link href="/jardin">JARDIN</Link>
+                <li className="text-white">
+                  <Link href="/manantial">EL MANANTIAL</Link>
                 </li>
                 <li>
                   <button
-                    className="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                    className="close-session inline-block px-6 py-2.5 font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
                     onClick={logout}
                   >
                     Cerrar Sesión

@@ -4,6 +4,7 @@
     position: absolute;
     width: 40%;
     top: 0;
+    box-shadow: 0px 4px 18px #ff3333;
 }
 .move-side {
     position: absolute;
@@ -84,10 +85,12 @@
 }
 .form-login .boton-enviar {
     background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+    box-shadow: 2px 1px 6px #ff3333;
 }
 .form-login .boton-enviar:hover {
     transition: ease-in;
     background:#FF7E34;
+    box-shadow: 0px 0px 2px #ff3333;
 }
 .icon-login {
     width: 50px;
@@ -117,4 +120,153 @@
 .linkcompany p a img:hover {
     transform: scale(1.05, 1.05);
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* NAVBAR */
+.menu {
+    font-family: poppins;
+    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+    box-shadow: 2px 1px 6px #ff3333;
+}
+.menu .justify-between {
+    height: 48px;
+}
+.menu .flex {
+    width: 350px;
+}
+.menu img.logo {
+    width: 70px;
+    position: absolute;
+    top: 10px;
+    filter: drop-shadow(1px 2px 5px #E64918);
+}
+.menu .user-title {
+    margin-left: 25%;
+    font-size: 12px;
+    font-weight: 500;
+}
+.options li a {
+    font-size: 14px;
+    font-style: normal;
+    padding: 3px 15px;
+    background-color: #ff872c;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: initial;
+    box-shadow: 0px 2px 6px rgba(209, 27, 27, 0.3);
+}
+.options li a:hover {
+    box-shadow: none;
+    background-color: #ff6933;
+}
+.options .close-session {
+    background-color: #1e2b35;
+    padding: 8px 15px;
+    border-radius: 10px;
+    color: #c8c8c8;
+}
+.options .close-session:hover {
+    color: #ffffff;
+}
+
+/* MAIN SIDE */
+
+
+
+.main-side {
+    color: #1e2b35;
+    font-family: 'poppins';
+}
+.main-side .title-main {
+    margin-top: 5%;
+    font-weight: 300;
+}
+.main-side .subtitle-main {
+    margin-bottom: 20px;
+}
+.option-box .box {
+    font-family: 'poppins';
+    height: 300px;
+    background-color: #f3f3f3;
+    color: #1e2b35;
+}
+.option-box .box:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 3px 12px 2px rgb(230 73 24 / 60%);
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+.box .gradient-box img {
+    margin-top: -30px;
+    filter: drop-shadow(1px 2px 4px #1e2b35);
+}
+
+.box .label {
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 0 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    border-radius: 5px;
+    text-shadow: 0px 1px 2px rgb(0 0 0 / 51%);
+}
+.box .label.new {
+    background-color: #25c466;
+}
+.box .label.last {
+    background-color: #ff3b3b;
+}
+.box .label.exclu {
+    background: linear-gradient(300deg, rgba(250,238,162,1) 0%, rgba(200,156,52,1) 100%);
+}
+.box .image-project {
+    height: 120px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: -2;
+}
+.box .image-project.jardin {
+    border-bottom: solid 8px #21d2bc;
+    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-jardin-1-min.jpg) center center/cover no-repeat;
+}
+.box .image-project.eden {
+    border-bottom: solid 8px #c6ffab;
+    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-eden-1-min.jpg) center center/cover no-repeat;
+}
+.box .image-project.mirador {
+    border-bottom: solid 8px #02488d;
+    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-mirador-1-min.jpg) center center/cover no-repeat;
+}
+.box .image-project.manantial {
+    border-bottom: solid 8px #59cd7b;
+    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-manantial-1-min.jpg) center center/cover no-repeat;
+}
+.box .info {
+    padding: 10px 20px 0;
+}
+.box .boton {
+    position: absolute;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #fff;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+}
+.box .boton:hover {
+    background: #ff6933;
 }
