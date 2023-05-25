@@ -1,10 +1,4 @@
-.limiterEden {
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #cdf0cf 50%, #195222 50%);
-  position: absolute;
-}
+
 
 .limiterOferts {
   width: 100%;
@@ -14,31 +8,6 @@
   background-size: cover;
   position: absolute;
 }
-
-.limiterMirador {
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: linear-gradient(215deg, #87a3f1 50%, #335192 50%);
-  position: absolute;
-}
-
-.limiterManantial {
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: linear-gradient(10deg, #c9f3d2 50%, #315c3c 30%);
-  position: absolute;
-}
-
-.limiterJardin {
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: linear-gradient(80deg, #d3666f 50%, #edeeb0 50%);
-  position: absolute;
-}
-
 .limite {
   width: 100%;
   margin: 0 auto;
@@ -71,4 +40,26 @@
   50% {
     background-position: 100% 50%;
   }
+}
+
+/* GENERAL STYLES */
+.limiterProjects {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+}
+
+.limiterProjects.Mirador {
+  background: linear-gradient(215deg, #87a3f1 50%, #335192 50%);
+}
+.limiterProjects.Eden {
+  background: linear-gradient(135deg, #cdf0cf 50%, #195222 50%);
+}
+
+.limiterProjects.Manantial {
+  background: linear-gradient(10deg, #c9f3d2 50%, #329a4c 30%);
+}
+.limiterProjects.Jardin {
+  background: linear-gradient(10deg, #f3e0c9 50%, #5c3131 30%);
 }

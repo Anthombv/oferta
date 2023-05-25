@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
 import { useAuth } from "../lib/hooks/use_auth";
 import { CheckPermissions } from "../lib/utils/check_permissions";
-import styles from "../styles/Home.module.css";
 
 export const getServerSideProps = async () => {
   try {
@@ -34,12 +33,14 @@ const OfertEJ = ({ lotesEJ }) => {
     <>
       <title>Lotes | EL JARDIN</title>
       
-      <div className={styles.limiterJardin}>
+      <div className="limiterProjects Jardin Back">
         <NavBar />
-        <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
-          LOTES DISPONIBLES - EL JARDIN
+        <h2 className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal my-4">
+          Lotes Disponibles - <strong>EL JARDÍN</strong>
+          <img className="mx-auto w-12" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"/>
         </h2>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+        <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
+        <div className="history-button relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <button
             onClick={() =>
               CheckPermissions(auth, [0, 2])
@@ -47,7 +48,7 @@ const OfertEJ = ({ lotesEJ }) => {
                 : toast.warning("No tienes permiso para ver el Historial")
             }
             type="button"
-            className=" mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+            className="boton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
           >
             Historial Lotes Vendidos
           </button>
@@ -66,7 +67,7 @@ const OfertEJ = ({ lotesEJ }) => {
               {lotesEJ.map((ofertEJ, index) => {
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
+                    className="fill-jardin bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"
                     key={index}
                   >
                     <td className="xl:px-6 xl:py-3 px-3 py-1">
@@ -87,7 +88,7 @@ const OfertEJ = ({ lotesEJ }) => {
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/jardin/lotes/${ofertEJ.mae_codinv}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="hover-icons font-medium text-teal-500 dark:text-teal-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +109,7 @@ const OfertEJ = ({ lotesEJ }) => {
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/oferts/new/${ofertEJ.mae_codinv}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="hover-icons font-medium text-teal-500 dark:text-teal-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

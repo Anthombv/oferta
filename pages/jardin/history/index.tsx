@@ -34,10 +34,12 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
           sizes="32x32"
         />
         <Navbar />
-        <div className="w-full min-h-screen m-auto absolute">
-          <p className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
-            Lotes Vendidos EL JARDIN
+        <div className="historial Jardin w-full min-h-screen m-auto absolute Back">
+          <p className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
+          Lotes <strong>Vendidos</strong>
+          <img className="mx-auto w-12" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"/>
           </p>
+          <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
           <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
             <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
               <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
@@ -73,7 +75,7 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                       <td className="xl:px-6 xl:py-3 px-2 py-1">
                         <Link
                           href={`/oferts/edit/${ofertEJ.id}`}
-                          className="text-blue-600 dark:text-blue-500"
+                          className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +98,7 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                       <td className="xl:px-6 xl:py-3 px-3 py-1">
                         <Link
                           href={`/reporteOferta/${ofertEJ.id}`}
-                          className="text-blue-600 dark:text-blue-500"
+                          className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +125,7 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                               pathname: `/reporteEncuesta/${ofertEJ.id}`,
                             })
                           }
-                          className="text-blue-600 dark:text-blue-500"
+                          className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

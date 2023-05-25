@@ -26,14 +26,16 @@ const EJ = ({ oneLotEJ, loteID }) => {
     <>
       <title>Ofertas | EL JARDIN</title>
       
-      <div className={styles.limiteOfert}>
+      <div className="limiteOfert Jardin Back">
         <NavBar />
-        <h1 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
-          OFERTAS DEL LOTE {loteID}
+        <h1 className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
+          Ofertas Lote: <strong>{loteID}</strong>
+          <img className="mx-auto w-12" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"/>
         </h1>
+        <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
-            <thead className="text-xs text-white text-center uppercase bg-black dark:bg-white dark:text-black">
+            <thead className="text-xs text-white text-center uppercase bg-gray-700 dark:bg-gray-700 dark:text-black">
               <tr className="text-center">
                 <th className="xl:px-6 xl:py-3 px-3 py-1">#</th>
                 <th className="xl:px-6 xl:py-3 px-2 py-1">Cliente</th>
@@ -72,7 +74,7 @@ const EJ = ({ oneLotEJ, loteID }) => {
                                 "No tienes permiso para editar la Oferta"
                               )
                         }
-                        className="text-blue-600 dark:text-blue-500"
+                        className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +97,7 @@ const EJ = ({ oneLotEJ, loteID }) => {
                     <td className="xl:px-6 xl:py-3 px-3 py-1">
                       <Link
                         href={`/reporteOferta/${item.id}`}
-                        className="text-blue-600 dark:text-blue-500"
+                        className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +125,7 @@ const EJ = ({ oneLotEJ, loteID }) => {
                             pathname: `/reporteEncuesta/${item.id}`,
                           })
                         }
-                        className="text-blue-600 dark:text-blue-500"
+                        className="text-teal-500 dark:text-teal-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

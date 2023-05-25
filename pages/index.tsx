@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <title>Inicio</title>
       <link rel="icon" href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg" sizes="32x32" type="image/svg+xml"/>
-      <div className="main-side w-full mx-auto min-h-screen">
+      <div className="main-side w-full mx-auto min-h-fit">
         <Navbar />
         <h2 className="title-main text-center text-4xl leading-normal">
         ¿En donde quieres la oferta?

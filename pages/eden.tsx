@@ -32,12 +32,14 @@ const OfertED = ({ lotesED }) => {
     <>
       <title>Lotes | EL EDEN</title>
       
-      <div className={styles.limiterEden}>
+      <div className="limiterProjects Eden Back">
         <NavBar />
-        <h2 className="text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold text-black my-4">
-          LOTES DISPONIBLES - EL EDEN
+        <h2 className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal my-4">
+          Lotes Disponibles - <strong>EL EDÉN</strong>
+          <img className="mx-auto w-14" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-eden-project-1-min.png"/>
         </h2>
-        <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+        <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
+        <div className="history-button relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <button
             onClick={() =>
               CheckPermissions(auth, [0, 2])
@@ -45,7 +47,7 @@ const OfertED = ({ lotesED }) => {
                 : toast.warning("No tiene permiso para ver el historial")
             }
             type="button"
-            className=" mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+            className="boton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
           >
             Historial Lotes Vendidos
           </button>
@@ -63,7 +65,7 @@ const OfertED = ({ lotesED }) => {
             <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               {lotesED.map((ofertED, index) => {
                 return (
-                  <tr className="text-center" key={index}>
+                  <tr className="fill-eden text-center" key={index}>
                     <td className="xl:px-6 xl:py-3 px-3 py-1">
                       {ofertED.mae_codinv}
                     </td>
@@ -81,7 +83,7 @@ const OfertED = ({ lotesED }) => {
                     </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <button
-                        className="text-blue-600 dark:text-blue-500"
+                        className="hover-icons text-lime-500 dark:text-lime-600 hover:text-orange-600"
                         onClick={() =>
                           ofertED.mae_codinv !== ""
                             ? Router.push({
@@ -109,7 +111,7 @@ const OfertED = ({ lotesED }) => {
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       <Link
                         href={`/oferts/new/${ofertED.mae_codinv}`}
-                        className="text-blue-600 dark:text-blue-500"
+                        className="hover-icons text-lime-500 dark:text-lime-600 hover:text-orange-600"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

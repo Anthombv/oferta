@@ -18,12 +18,7 @@ const LoadingContainer = (props: Props): JSX.Element => {
 
   return loading ? (
     <GifContainer miniVersion={miniVersion}>
-      <Image
-        src="/loading.gif"
-        alt="loading-gif"
-        width="580"
-        height="435"
-      />
+      <Image src="/loader-colors.gif" alt="loading-gif" width="580" height="435"/>
     </GifContainer>
   ) : (
     <>{children}</>
