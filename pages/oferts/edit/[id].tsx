@@ -178,20 +178,22 @@ const EditOfert = () => {
     <>
       <title>Editar Oferta</title>
       
-      <div className="w-full mx-auto min-h-screen">
-        <div className="mx-auto w-4/5 border-black border bg-gray-200 mt-4">
+      <div className="tabla-oferta limiterOferts w-full mx-auto min-h-screen py-8">
+        <div className="oferta mx-auto w-4/5 rounded-2xl mt-2 px-8 py-2">
           <div>
-            <h1 className="my-4 text-center text-lg xl:text-2xl md:text-xl sm:text-xl lg:text-xl font-bold">
-              Revisar/Editar Datos de la Oferta
+          <img className="icon-login" src="http://grupoancon.com/wp-content/uploads/2023/05/icon-app-oferta-1.svg" alt="logo" />
+            <h1 className="title p-4 text-center text-lg xl:text-2xl md:text-xl sm:text-xl lg:text-xl font-bold">
+              <strong>Edición:</strong> Datos de la Oferta
             </h1>
+            <label className="block text-center mb-6 text-sm font-medium dark:text-white">Seleccione los campos que desee modificar:</label>
           </div>
           <form className="mx-2">
-            <h2 className="text-center text-lg font-bold mb-4">
-              Datos Personales
+            <h2 className="text-left text-lg font-bold mb-4">
+              Datos Personales:
             </h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Nombre
                 </label>
                 <input
@@ -204,7 +206,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Cedula o RUC
                 </label>
                 <input
@@ -217,7 +219,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Estado Civil
                 </label>
                 <select
@@ -228,7 +230,7 @@ const EditOfert = () => {
                   //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option>Seleccione el Estado civil del Cliente</option>
+                  <option>Estado civil</option>
                   <option value="SOLTERO">SOLTERO</option>
                   <option value="DIVORCIADO">DIVORCIADO</option>
                   <option value="CASADO">CASADO</option>
@@ -238,7 +240,7 @@ const EditOfert = () => {
                 </select>
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Sexo
                 </label>
                 <select
@@ -248,13 +250,13 @@ const EditOfert = () => {
                   onChange={formik.handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option>Seleccione el sexo del cliente</option>
+                  <option>Sexo</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
                 </select>
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Fecha de Nacimiento
                 </label>
                 <input
@@ -267,7 +269,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Telefono
                 </label>
                 <input
@@ -280,7 +282,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Celular
                 </label>
                 <input
@@ -293,7 +295,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   E-mail
                 </label>
                 <input
@@ -306,7 +308,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Nombre del Trabajo
                 </label>
                 <input
@@ -319,7 +321,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Cargo
                 </label>
                 <input
@@ -332,7 +334,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Dirección Trabajo
                 </label>
                 <input
@@ -345,7 +347,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Telefono Trabajo
                 </label>
                 <input
@@ -358,12 +360,12 @@ const EditOfert = () => {
                 />
               </div>
             </div>
-            <h2 className="text-center text-lg font-bold my-4">
-              Datos Conyugé
+            <h2 className="text-left text-lg font-bold my-4">
+              Datos Conyugé:
             </h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Nombre Conyugé
                 </label>
                 <input
@@ -376,7 +378,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Cedula o RUC Conyugé
                 </label>
                 <input
@@ -389,7 +391,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Telefono Conyugé
                 </label>
                 <input
@@ -402,7 +404,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Trabajo Conyugé
                 </label>
                 <input
@@ -415,7 +417,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Dirección Trabajo Conyugé
                 </label>
                 <input
@@ -428,7 +430,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Telefono Trabajo Conyugé
                 </label>
                 <input
@@ -441,10 +443,10 @@ const EditOfert = () => {
                 />
               </div>
             </div>
-            <h2 className="text-center text-lg font-bold my-4">Datos Lote</h2>
+            <h2 className="text-left text-lg font-bold my-4">Datos Lote:</h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Codigo
                 </label>
                 <input
@@ -455,7 +457,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Area
                 </label>
                 <input
@@ -466,7 +468,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Precio Lote
                 </label>
                 <input
@@ -479,7 +481,7 @@ const EditOfert = () => {
                 />
               </div>
               <div className="flex flex-wrap">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Descuento
                 </label>
                 <input
@@ -492,7 +494,7 @@ const EditOfert = () => {
                 />
               </div>
             </div>
-            <h2 className="text-center text-lg font-bold my-4">
+            <h2 className="text-center text-lg font-bold my-4 pt-6">
               Estado de la Oferta
             </h2>
             <div className="mx-auto w-2/5">
@@ -504,30 +506,32 @@ const EditOfert = () => {
                 //required
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option>Seleccione el sexo del cliente</option>
+                <option>Seleccione una opción:</option>
                 <option value="Pendiente">Pendiente</option>
                 <option value="Vendido">Vendido</option>
                 <option value="Anulado">Anulado</option>
               </select>
             </div>
           </form>
-          <div>
+          <div className="grid xl:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 w-full xl:w-auto py-10">
+          <div className="text-center">
             <button
-              className="mx-5 text-white my-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              onClick={() => formik.handleSubmit()}
-            >
-              Actualizar
-            </button>
-          </div>
-          <div>
-            <button
-              className="mx-5 text-white mb-4 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+              className="mx-5 text-white my-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               onClick={() =>
                 Router.push({ pathname: "javascript:history.back()" })
               }
             >
               Volver
             </button>
+          </div>
+          <div className="form-login text-center">
+            <button
+              className="boton-actualizar mx-5 text-white px-16 my-6 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onClick={() => formik.handleSubmit()}
+            >
+              Actualizar
+            </button>
+          </div>
           </div>
         </div>
       </div>
