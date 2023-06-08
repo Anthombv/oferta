@@ -279,15 +279,6 @@
     background: #1e2b35;
     color: #fff;
   }
-
-.limiterOferts {
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    background-image: url("/bgform.jpg");
-    background-size: cover;
-    position: absolute;
-  }
   .limite {
     width: 100%;
     margin: 0 auto;
@@ -474,3 +465,41 @@
   .Mirador .title-projects {
     border-right: solid 30px #02488d;
   }
+
+ /* NUEVA OFERTA */
+  .limiterOferts {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+    background-size: cover;
+    position: absolute;
+}
+.tabla-oferta {
+  font-family: poppins;
+}
+.tabla-oferta .icon-login{
+  padding-top: 70px;
+  padding-bottom: 10px;
+}
+.tabla-oferta .title {
+  text-align: center;
+  font-weight: 300;
+  font-size: 28px;
+  color: #1e2b35;
+}
+.oferta {
+  background: #fff;
+  box-shadow: 0px 4px 18px #ff3333;
+}
+.color-blu {
+  color: #1e2b35;
+  font-family: poppins;
+  font-weight: 300;
+}
+.opciones .relative div div {
+  border-radius: .5rem;
+}
+.label-size {
+  font-size: 13px;
+}
