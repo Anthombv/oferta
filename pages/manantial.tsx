@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
 import { useAuth } from "../lib/hooks/use_auth";
 import { CheckPermissions } from "../lib/utils/check_permissions";
+import router from "next/router";
 
 export const getServerSideProps = async () => {
   const apiUrl = process.env.API_URL_MANANTIAL;
@@ -31,6 +32,11 @@ export const getServerSideProps = async () => {
 
 const OfertEM = ({ lotesEM }) => {
   const { auth } = useAuth();
+
+  const handleGoBack = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    router.back();
+  };
   return (
     <>
       <title>Lotes | EL MANANTIAL</title>
@@ -46,7 +52,8 @@ const OfertEM = ({ lotesEM }) => {
         </h2>
         <a
           className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-          href="javascript:history.back()"
+          href="#"
+          onClick={handleGoBack}  
         >
           Volver Atrás
         </a>

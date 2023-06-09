@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import axios from "axios";
 import Link from "next/link";
@@ -7,13 +9,13 @@ import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
 import { useAuth } from "../lib/hooks/use_auth";
 import { CheckPermissions } from "../lib/utils/check_permissions";
-import styles from "../styles/Home.module.css";
+import router from "next/router";
 
 export const getServerSideProps = async () => {
+  const apiUrl = process.env.API_URL_MIRADOR;
+
   try {
-    const response = await axios.get(
-      "https://oferta.grupoancon.com/api/mirador"
-    );
+    const response = await axios.get(apiUrl);
     return {
       props: {
         lotesML: response.data ? response.data.data : [],
@@ -30,17 +32,31 @@ export const getServerSideProps = async () => {
 
 const OfertML = ({ lotesML }) => {
   const { auth } = useAuth();
+
+  const handleGoBack = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    router.back();
+  };
   return (
     <>
       <title>Lotes | EL MIRADOR DEL LAGO</title>
-      
+
       <div className="limiterProjects Mirador Back">
         <NavBar />
         <h2 className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal my-4">
           Lotes Disponibles - <strong>EL MIRADOR DEL LAGO</strong>
-          <img className="mx-auto w-16" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-mirador-1.1-min.png"/>
+          <img
+            className="mx-auto w-16"
+            src="http://grupoancon.com/wp-content/uploads/2020/07/icon-mirador-1.1-min.png"
+          />
         </h2>
-        <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
+        <a
+          className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+          href="#"
+          onClick={handleGoBack}
+        >
+          Volver Atrás
+        </a>
         <div className="history-button relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <button
             onClick={() =>

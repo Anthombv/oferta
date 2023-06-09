@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { useFormik } from "formik";
 import router from "next/router";
@@ -64,6 +65,7 @@ type Ofert = {
   encuesta_pr2: string;
   encuesta_pr3: string;
   encuesta_pr4: string;
+  cli_valorOferta: number;
   cli_descuento: number;
   cli_totalOferta: number;
 };
@@ -126,6 +128,7 @@ const EditOfert = () => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
+    cli_valorOferta: 0,
     cli_descuento: 0,
     cli_totalOferta: 0,
   });
@@ -174,24 +177,52 @@ const EditOfert = () => {
     onSubmit,
   });
 
+  useEffect(() => {
+    formik.values.cli_totalOferta =
+      formik.values.cli_valorOferta - formik.values.cli_descuento;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    formik.values.cli_totalOferta,
+    formik.values.cli_valorOferta,
+    formik.values.cli_descuento,
+  ]);
+
   return (
     <>
       <title>Editar Oferta</title>
-      
+
       <div className="tabla-oferta limiterOferts w-full mx-auto min-h-screen py-8">
         <div className="oferta mx-auto w-4/5 rounded-2xl mt-2 px-8 py-2">
           <div>
-          <img className="icon-login" src="http://grupoancon.com/wp-content/uploads/2023/05/icon-app-oferta-1.svg" alt="logo" />
+            <img
+              className="icon-login"
+              src="http://grupoancon.com/wp-content/uploads/2023/05/icon-app-oferta-1.svg"
+              alt="logo"
+            />
             <h1 className="title p-4 text-center text-lg xl:text-2xl md:text-xl sm:text-xl lg:text-xl font-bold">
               <strong>Edición:</strong> Datos de la Oferta
             </h1>
-            <label className="block text-center mb-6 text-sm font-medium dark:text-white">Seleccione los campos que desee modificar:</label>
+            <label className="block text-center mb-6 text-sm font-medium dark:text-white">
+              Seleccione los campos que desee modificar:
+            </label>
           </div>
           <form className="mx-2">
             <h2 className="text-left text-lg font-normal mb-4 items-center inline-flex bg-green-200 rounded-lg py-1 px-6">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 mr-1">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg> Datos Personales:
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 mr-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              Datos Personales:
             </h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <div className="flex flex-wrap">
@@ -363,9 +394,20 @@ const EditOfert = () => {
               </div>
             </div>
             <h2 className="text-left text-lg font-normal mb-4 mt-8 items-center inline-flex bg-orange-100 rounded-lg py-1 px-6">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 mr-1">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 mr-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+                />
+              </svg>
               Datos Conyugé:
             </h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -449,11 +491,22 @@ const EditOfert = () => {
               </div>
             </div>
             <h2 className="text-left text-lg font-normal mb-4 mt-8 items-center inline-flex bg-red-100 rounded-lg py-1 px-6">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 mr-1">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 mr-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                />
+              </svg>
               Datos del Lote:
-              </h2>
+            </h2>
             <div className="grid xl:grid-cols-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <div className="flex flex-wrap">
                 <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
@@ -484,9 +537,9 @@ const EditOfert = () => {
                 <input
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="text"
-                  name="cli_totalOferta"
-                  id="cli_totalOferta"
-                  value={formik.values.cli_totalOferta}
+                  name="cli_valorOferta"
+                  id="cli_valorOferta"
+                  value={formik.values.cli_valorOferta}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -500,6 +553,19 @@ const EditOfert = () => {
                   name="cli_descuento"
                   id="cli_descuento"
                   value={formik.values.cli_descuento}
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div className="flex flex-wrap">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
+                  Precio final
+                </label>
+                <input
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  name="cli_totalOferta"
+                  id="cli_totalOferta"
+                  value={formik.values.cli_totalOferta}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -524,24 +590,24 @@ const EditOfert = () => {
             </div>
           </form>
           <div className="grid xl:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 w-full xl:w-auto py-10">
-          <div className="text-center">
-            <button
-              className="mx-5 text-white my-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              onClick={() =>
-                Router.push({ pathname: "javascript:history.back()" })
-              }
-            >
-              Volver
-            </button>
-          </div>
-          <div className="form-login text-center">
-            <button
-              className="boton-actualizar mx-5 text-white px-16 my-6 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              onClick={() => formik.handleSubmit()}
-            >
-              Actualizar
-            </button>
-          </div>
+            <div className="text-center">
+              <button
+                className="mx-5 text-white my-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                onClick={() =>
+                  Router.push({ pathname: "javascript:history.back()" })
+                }
+              >
+                Volver
+              </button>
+            </div>
+            <div className="form-login text-center">
+              <button
+                className="boton-actualizar mx-5 text-white my-6 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-14 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                onClick={() => formik.handleSubmit()}
+              >
+                Actualizar
+              </button>
+            </div>
           </div>
         </div>
       </div>

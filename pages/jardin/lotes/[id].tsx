@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
@@ -6,7 +8,6 @@ import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
 import { useAuth } from "../../../lib/hooks/use_auth";
 import { CheckPermissions } from "../../../lib/utils/check_permissions";
-import styles from "../../../styles/Home.module.css";
 
 export const getServerSideProps = async (context) => {
   const { data: oneLotEJ } = await axios.get(

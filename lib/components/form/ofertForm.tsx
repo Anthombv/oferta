@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -62,6 +63,7 @@ type Ofert = {
   encuesta_pr2: string;
   encuesta_pr3: string;
   encuesta_pr4: string;
+  cli_valorOferta: number;
   cli_descuento: number;
   cli_totalOferta: number;
   mae_codinv: string;
@@ -159,6 +161,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     encuesta_pr2: "",
     encuesta_pr3: "",
     encuesta_pr4: "",
+    cli_valorOferta: 0,
     cli_descuento: 0,
     cli_totalOferta: 0,
     mae_codinv: loteID,
@@ -238,11 +241,17 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   return (
     <>
       <div className="tabla-oferta">
-        <img className="icon-login" src="http://grupoancon.com/wp-content/uploads/2023/05/icon-app-oferta-1.svg" alt="logo" />
+        <img
+          className="icon-login"
+          src="http://grupoancon.com/wp-content/uploads/2023/05/icon-app-oferta-1.svg"
+          alt="logo"
+        />
         <h2 className="title text-center text-lg font-extrabold dark:text-black sm:text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text p-4">
           Formulario de oferta de compra
         </h2>
-        <label className="block text-center mb-6 text-sm font-medium dark:text-white">Despliegue las pestañas para ingresar sus datos:</label>
+        <label className="block text-center mb-6 text-sm font-medium dark:text-white">
+          Despliegue las pestañas para ingresar sus datos:
+        </label>
         <form onSubmit={handleSubmit} className="m-2">
           <div className="bg-gray-50 hover:bg-green-50 px-5 rounded-lg py-1 mt-4">
             <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
@@ -283,7 +292,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                       value: value,
                     }))}
                     placeholder={"¿Por qué medio se enteró de nosotros?"}
-                    styles={{ 
+                    styles={{
                       placeholder: (base) => ({
                         ...base,
                         fontWeight: 400,
@@ -326,6 +335,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             </Transition>
           </div>
           {lote.map((item) => {
+            ofert.cli_valorOferta = item.mae_preact;
             const descuentosPorcentaje = {
               "1%": 0.01,
               "2%": 0.02,
@@ -340,9 +350,9 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             };
             if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
               ofert.cli_descuento =
-                item.mae_preact * descuentosPorcentaje[porcentaje];
+                ofert.cli_valorOferta * descuentosPorcentaje[porcentaje];
             }
-            ofert.cli_totalOferta = item.mae_preact - ofert.cli_descuento;
+            ofert.cli_totalOferta = ofert.cli_valorOferta - ofert.cli_descuento;
             return (
               <div className="bg-gray-50 hover:bg-green-50 px-5 rounded-lg py-1 mt-4">
                 <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
@@ -399,9 +409,9 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                       <div className="relative z-0 mb-2 w-full group">
                         <input
                           type="text"
-                          name="cli_totalOferta"
-                          id="cli_totalOferta"
-                          value={item.mae_preact.toLocaleString("en-US", {
+                          name="cli_valorOferta"
+                          id="cli_valorOferta"
+                          value={ofert.cli_valorOferta.toLocaleString("en-US", {
                             style: "currency",
                             currency: "USD",
                           })}
@@ -987,7 +997,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    <strong>1</strong>{")"} Ref. familiar
+                    <strong>1</strong>
+                    {")"} Ref. familiar
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
@@ -1058,7 +1069,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    <strong>2</strong>{")"} Ref. familiar
+                    <strong>2</strong>
+                    {")"} Ref. familiar
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
@@ -1292,7 +1304,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    <strong>1</strong>{")"} Apellidos y Nombres
+                    <strong>1</strong>
+                    {")"} Apellidos y Nombres
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
@@ -1326,7 +1339,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    <strong>2</strong>{")"} Apellidos y Nombres
+                    <strong>2</strong>
+                    {")"} Apellidos y Nombres
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
@@ -1360,7 +1374,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    <strong>3</strong>{")"} Apellidos y Nombres
+                    <strong>3</strong>
+                    {")"} Apellidos y Nombres
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
@@ -1495,7 +1510,9 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                       </option>
                     </optgroup>
                     <optgroup label="FACEBOOK">
-                      <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>
+                      <option value="FACEBOOK PERSONAL">
+                        FACEBOOK PERSONAL
+                      </option>
                       <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
                     </optgroup>
                   </select>

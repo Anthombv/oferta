@@ -1,39 +1,59 @@
-import axios from "axios";
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Router from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import NavBar from "../../../lib/components/navBar";
 import { useAuth } from "../../../lib/hooks/use_auth";
 import { CheckPermissions } from "../../../lib/utils/check_permissions";
-import styles from "../../../styles/Home.module.css";
+import HttpClient from "../../../lib/utils/http_client";
 
-export const getServerSideProps = async (context) => {
-  const { data: oneLotED } = await axios.get(
-    "https://oferta.grupoancon.com/api/eden/" + context.query.id
-  );
-
-  return {
-    props: {
-      oneLotED,
-      loteID: context.query.id,
-    },
-  };
-};
-
-const ED = ({ oneLotED, loteID }) => {
+const ED = () => {
   const { auth } = useAuth();
+  const [oneLotED, setOneLotED] = useState(null);
+
+  const loadData = async () => {
+    if (Router.asPath !== Router.route) {
+      const loteID = Router.query.id as string;
+      const response = await HttpClient(
+        "/api/eden/" + loteID,
+        "GET",
+        auth.userName,
+        auth.role
+      );
+      setOneLotED(response.data);
+    } else {
+      setTimeout(loadData, 1000);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const loteID = Router.query.id as string;
+
   return (
     <>
       <title>Ofertas | EL EDEN</title>
-      
+
       <div className="limiteOfert Eden Back">
         <NavBar />
         <h1 className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
-        Ofertas Lote: <strong>{loteID}</strong>
-        <img className="mx-auto w-14" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-eden-project-1-min.png"/>
+          Ofertas Lote: <strong> {loteID} </strong>
+          <img
+            className="mx-auto w-14"
+            src="http://grupoancon.com/wp-content/uploads/2020/07/icon-eden-project-1-min.png"
+          />
         </h1>
-        <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
+        <a
+          className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+          href="javascript:history.back()"
+        >
+          Volver Atrás
+        </a>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white text-center uppercase bg-gray-700 dark:bg-gray-700 dark:text-black">
@@ -48,7 +68,7 @@ const ED = ({ oneLotED, loteID }) => {
               </tr>
             </thead>
             <tbody>
-              {oneLotED.data.map((item, index) => {
+              {(oneLotED ?? []).map((item, index) => {
                 return (
                   <tr
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
