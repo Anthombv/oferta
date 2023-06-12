@@ -1,8 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
 import Navbar from "../../../lib/components/navBar";
 import RoleLayout from "../../../lib/layouts/role_layout";
+import { useAuth } from "../../../lib/hooks/use_auth";
+import { useState } from "react";
 
 export const getServerSideProps = async () => {
   try {
@@ -24,27 +28,54 @@ export const getServerSideProps = async () => {
 };
 
 const LotesVendidosEJ = ({ lotesEJ }) => {
+  const { auth } = useAuth();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState(lotesEJ);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+
+    const filteredItems = lotesEJ.filter((ofertEJ) =>
+      ofertEJ.cli_asesor.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+  };
+
   return (
     <>
       <RoleLayout permissions={[0, 2]}>
         <title>Lotes Vendidos | EL JARDIN</title>
-        <link
-          rel="icon"
-          href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-          sizes="32x32"
-        />
         <Navbar />
         <div className="historial Jardin w-full min-h-screen m-auto absolute Back">
           <p className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
-          Lotes <strong>Vendidos</strong>
-          <img className="mx-auto w-12" src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"/>
+            Lotes <strong>Vendidos</strong>
+            <img
+              className="mx-auto w-12"
+              src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"
+            />
           </p>
-          <a className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out" href="javascript:history.back()"> Volver Atrás</a>
+          <a
+            className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+            href="javascript:history.back()"
+          >
+            Volver Atrás
+          </a>
           <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Buscar por asesor..."
+              className="my-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
             <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
               <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
                 <tr className="text-center">
+                  <th className="xl:px-6 xl:py-3 px-3 py-1">Numero</th>
                   <th className="xl:px-6 xl:py-3 px-3 py-1">Cliente</th>
+                  <th className="xl:px-6 xl:py-3 px-3 py-1">Asesor</th>
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Lote</th>
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Precio</th>
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
@@ -54,11 +85,17 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                 </tr>
               </thead>
               <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                {lotesEJ.map((ofertEJ, index) => {
+                {filteredData.map((ofertEJ, index) => {
                   return (
                     <tr className="text-center" key={index}>
                       <td className="xl:px-6 xl:py-3 px-3 py-1">
+                        {ofertEJ.id}
+                      </td>
+                      <td className="xl:px-6 xl:py-3 px-3 py-1">
                         {ofertEJ.cli_name}
+                      </td>
+                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                        {ofertEJ.cli_asesor}
                       </td>
                       <td className="xl:px-6 xl:py-3 px-2 py-1">
                         {ofertEJ.mae_codinv}
