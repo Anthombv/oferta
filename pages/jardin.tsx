@@ -4,7 +4,7 @@
 import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
 import { useAuth } from "../lib/hooks/use_auth";
@@ -36,6 +36,19 @@ const OfertEJ = ({ lotesEJ }) => {
   const handleGoBack = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     router.back();
+  };
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState(lotesEJ);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+
+    const filteredItems = lotesEJ.filter((ofertEJ) =>
+      ofertEJ.mae_codinv.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filteredItems);
   };
 
   return (
@@ -70,6 +83,13 @@ const OfertEJ = ({ lotesEJ }) => {
           >
             Historial Lotes Vendidos
           </button>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Buscar por lote..."
+            className="my-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr className="text-center">
@@ -82,7 +102,7 @@ const OfertEJ = ({ lotesEJ }) => {
               </tr>
             </thead>
             <tbody>
-              {lotesEJ.map((ofertEJ, index) => {
+              {filteredData.map((ofertEJ, index) => {
                 return (
                   <tr
                     className="fill-jardin bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center"

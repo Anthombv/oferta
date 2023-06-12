@@ -4,7 +4,7 @@
 import axios from "axios";
 import Link from "next/link";
 import Router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import NavBar from "../lib/components/navBar";
 import { useAuth } from "../lib/hooks/use_auth";
@@ -37,6 +37,19 @@ const OfertEM = ({ lotesEM }) => {
     event.preventDefault();
     router.back();
   };
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState(lotesEM);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+
+    const filteredItems = lotesEM.filter((ofertEM) =>
+      ofertEM.mae_codinv.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filteredItems);
+  };
   return (
     <>
       <title>Lotes | EL MANANTIAL</title>
@@ -53,7 +66,7 @@ const OfertEM = ({ lotesEM }) => {
         <a
           className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
           href="#"
-          onClick={handleGoBack}  
+          onClick={handleGoBack}
         >
           Volver Atrás
         </a>
@@ -69,6 +82,13 @@ const OfertEM = ({ lotesEM }) => {
           >
             Historial Lotes Vendidos
           </button>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Buscar por lote..."
+            className="my-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700">
               <tr>
@@ -81,7 +101,7 @@ const OfertEM = ({ lotesEM }) => {
               </tr>
             </thead>
             <tbody>
-              {lotesEM.map((ofertEM, index) => (
+              {filteredData.map((ofertEM, index) => (
                 <tr
                   className="fill-manantial bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   key={index}
