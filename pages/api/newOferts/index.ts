@@ -36,6 +36,7 @@ const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
 const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     cli_name,
+    cli_representante,
     cli_tipoInmueble,
     cli_estadoCivil,
     cli_motivoCompra,
@@ -90,13 +91,16 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_valorOferta,
+    cli_porcentaje,
     cli_descuento,
+    cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
   } = req.body;
 
   dataBase.query("INSERT INTO oferta SET ?", {
     cli_name,
+    cli_representante,
     cli_tipoInmueble,
     cli_estadoCivil,
     cli_motivoCompra,
@@ -151,12 +155,15 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_valorOferta,
+    cli_porcentaje,
     cli_descuento,
+    cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
   });
   return res.status(200).json({
     cli_name,
+    cli_representante,
     cli_tipoInmueble,
     cli_estadoCivil,
     cli_motivoCompra,
@@ -211,7 +218,9 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     encuesta_pr3,
     encuesta_pr4,
     cli_valorOferta,
+    cli_porcentaje,
     cli_descuento,
+    cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
   });
