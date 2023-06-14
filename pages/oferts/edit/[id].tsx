@@ -12,6 +12,7 @@ type Ofert = {
   mae_prevt4: string | number | readonly string[];
   mae_codinv: string | number | readonly string[];
   cli_name: string;
+  cli_representante: string;
   cli_sexo: string;
   cli_tipoInmueble: string;
   cli_estadoCivil: string;
@@ -66,15 +67,19 @@ type Ofert = {
   encuesta_pr3: string;
   encuesta_pr4: string;
   cli_valorOferta: number;
+  cli_porcentaje: string;
   cli_descuento: number;
+  cli_descuentoAdd: number;
   cli_totalOferta: number;
 };
 
 const EditOfert = () => {
+  const [porcentaje, setPorcentaje] = useState("");
   const [initialValues, setInitialValues] = useState<Ofert>({
     mae_prevt4: "",
     mae_codinv: "",
     cli_name: "",
+    cli_representante: "",
     cli_sexo: "",
     cli_tipoInmueble: "",
     cli_estadoCivil: "",
@@ -129,14 +134,18 @@ const EditOfert = () => {
     encuesta_pr3: "",
     encuesta_pr4: "",
     cli_valorOferta: 0,
+    cli_porcentaje: "",
     cli_descuento: 0,
+    cli_descuentoAdd: 0,
     cli_totalOferta: 0,
   });
+
   const loadData = async () => {
     if (Router.asPath !== Router.route) {
       const ofertID = Router.query.id as string;
       const response = await axios.get("/api/newOferts/editOferts/" + ofertID);
-      setInitialValues(response.data.data);
+      setInitialValues(response.data.data ?? []);
+      console.log(response.data.data);
     } else {
       setTimeout(loadData, 1000);
     }
@@ -163,7 +172,7 @@ const EditOfert = () => {
       } else {
         toast.warning("Ocurrio un problema");
       }
-      router.push("javascript:history.back()");
+      router.back();
     } else {
       setTimeout(onSubmit, 1000);
     }
@@ -178,13 +187,33 @@ const EditOfert = () => {
   });
 
   useEffect(() => {
-    formik.values.cli_totalOferta =
-      formik.values.cli_valorOferta - formik.values.cli_descuento;
+    const descuentosPorcentaje = {
+      "0%": 0.0,
+      "1%": 0.01,
+      "2%": 0.02,
+      "3%": 0.03,
+      "4%": 0.04,
+      "5%": 0.05,
+    };
+
+    if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
+      const descuento =
+        formik.values.cli_valorOferta * descuentosPorcentaje[porcentaje];
+      formik.setFieldValue("cli_descuento", descuento);
+    }
+
+    const totalOferta =
+      formik.values.cli_valorOferta -
+      formik.values.cli_descuento -
+      formik.values.cli_descuentoAdd;
+    formik.setFieldValue("cli_totalOferta", totalOferta);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    formik.values.cli_totalOferta,
+    porcentaje,
     formik.values.cli_valorOferta,
     formik.values.cli_descuento,
+    formik.values.cli_descuentoAdd,
   ]);
 
   return (
@@ -543,6 +572,27 @@ const EditOfert = () => {
                   onChange={formik.handleChange}
                 />
               </div>
+              <div className="relative z-0 mb-2 w-full group">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
+                  Porcentaje de descuento
+                </label>
+                <select
+                  id="porcentaje"
+                  name="cli_porcentaje"
+                  value={porcentaje}
+                  onChange={(e) => setPorcentaje(e.target.value)}
+                  style={{ fontSize: "13px" }}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option>Porcentaje de descuento</option>
+                  <option value="0%">0%</option>
+                  <option value="1%">1%</option>
+                  <option value="2%">2%</option>
+                  <option value="3%">3%</option>
+                  <option value="4%">4%</option>
+                  <option value="5%">5%</option>
+                </select>
+              </div>
               <div className="flex flex-wrap">
                 <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Descuento
@@ -553,6 +603,19 @@ const EditOfert = () => {
                   name="cli_descuento"
                   id="cli_descuento"
                   value={formik.values.cli_descuento}
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div className="flex flex-wrap">
+                <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
+                  Descuento Adicional
+                </label>
+                <input
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  type="text"
+                  name="cli_descuentoAdd"
+                  id="cli_descuentoAdd"
+                  value={formik.values.cli_descuentoAdd}
                   onChange={formik.handleChange}
                 />
               </div>
