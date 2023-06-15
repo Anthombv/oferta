@@ -335,7 +335,7 @@ const EditOfert = () => {
                   Fecha de Nacimiento
                 </label>
                 <input
-                  type="text"
+                  type="date"
                   name="cli_fecNac"
                   id="cli_fecNac"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -581,7 +581,10 @@ const EditOfert = () => {
                   type="text"
                   name="cli_valorOferta"
                   id="cli_valorOferta"
-                  value={formik.values.cli_valorOferta}
+                  value={formik.values.cli_valorOferta.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -615,7 +618,10 @@ const EditOfert = () => {
                   type="text"
                   name="cli_descuento"
                   id="cli_descuento"
-                  value={formik.values.cli_descuento}
+                  value={formik.values.cli_descuento.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -641,7 +647,10 @@ const EditOfert = () => {
                   type="text"
                   name="cli_totalOferta"
                   id="cli_totalOferta"
-                  value={formik.values.cli_totalOferta}
+                  value={formik.values.cli_totalOferta.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
                   onChange={formik.handleChange}
                 />
               </div>
