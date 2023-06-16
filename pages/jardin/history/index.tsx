@@ -186,7 +186,7 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                         <button
                           onClick={() =>
                             Router.push({
-                              pathname: `/convenio/${ofertEJ.id}`,
+                              pathname: `/jardin/convenio/${ofertEJ.id}`,
                             })
                           }
                           className="text-green-500 dark:text-green-600 hover:text-orange-600"

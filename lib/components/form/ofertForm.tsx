@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 type Ofert = {
   cli_name: string;
   cli_representante: string;
+  cli_representanteID: string;
+  cli_name2: string;
+  cli_name2ID: string;
   cli_sexo: string;
   cli_tipoInmueble: string;
   cli_estadoCivil: string;
@@ -167,6 +170,9 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const [ofert, setOfert] = useState<Ofert>({
     cli_name: "",
     cli_representante: "",
+    cli_representanteID: "",
+    cli_name2: "",
+    cli_name2ID: "",
     cli_sexo: "",
     cli_tipoInmueble: "",
     cli_estadoCivil: "",
@@ -718,6 +724,25 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 <div className="relative z-0 mb-2 w-full group">
                   <input
                     type="text"
+                    name="cli_id"
+                    id="cli_id"
+                    maxLength={13}
+                    size={13}
+                    value={ofert.cli_id}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    ID Cliente
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
                     name="cli_representante"
                     id="cli_representante"
                     value={ofert.cli_representante}
@@ -735,11 +760,11 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 <div className="relative z-0 mb-2 w-full group">
                   <input
                     type="text"
-                    name="cli_id"
-                    id="cli_id"
+                    name="cli_representanteID"
+                    id="cli_representanteID"
                     maxLength={13}
                     size={13}
-                    value={ofert.cli_id}
+                    value={ofert.cli_representanteID}
                     onChange={handleChange}
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
@@ -748,7 +773,45 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     htmlFor=""
                     className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    C.I o Pasaporte
+                    ID Representante
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_name2"
+                    id="cli_name2"
+                    maxLength={13}
+                    size={13}
+                    value={ofert.cli_name2}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Otro Cliente
+                  </label>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                  <input
+                    type="text"
+                    name="cli_name2ID"
+                    id="cli_name2ID"
+                    maxLength={13}
+                    size={13}
+                    value={ofert.cli_name2ID}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    ID Otro cliente
                   </label>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
