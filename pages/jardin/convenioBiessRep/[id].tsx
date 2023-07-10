@@ -274,8 +274,6 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
 
   const precioFinalText = NumerosALetras(precioFinal);
   const precioFinalTextR = precioFinalText.toLocaleUpperCase();
-  console.log(preciofinaR);
-  console.log(precioFinalTextR);
 
   class DocumentCreator {
     // tslint:disable-next-line: typedef
@@ -974,9 +972,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     ]);
 
     Packer.toBlob(doc).then((blob) => {
-      console.log(blob);
       fileSaver.saveAs(blob, `${lote} - ${names} - ${venta}.docx`);
-      console.log("Document created successfully");
     });
   };
 

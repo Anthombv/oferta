@@ -511,7 +511,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
           {lote.map((item) => {
             ofert.cli_valorOferta = item.mae_preact;
             const descuentosPorcentaje = {
-              "0%": 0.00,
+              "0%": 0.0,
               "1%": 0.01,
               "2%": 0.02,
               "3%": 0.03,
@@ -527,7 +527,10 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
               ofert.cli_descuento -
               ofert.cli_descuentoAdd;
             return (
-              <div className="bg-gray-50 hover:bg-green-50 px-5 rounded-lg py-1 mt-4">
+              <div
+                key={item}
+                className="bg-gray-50 hover:bg-green-50 px-5 rounded-lg py-1 mt-4"
+              >
                 <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
                   <button
                     type="button"
@@ -556,6 +559,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                           value={item.mae_codinv}
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
+                          onChange={handleChange}
                           disabled
                         />
                         <label
@@ -571,6 +575,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                           value={item.mae_prevt4 + " m2"}
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
+                          onChange={handleChange}
                           disabled
                         />
                         <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -630,6 +635,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                             style: "currency",
                             currency: "USD",
                           })}
+                          onChange={handleChange}
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                         />
@@ -666,6 +672,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                             style: "currency",
                             currency: "USD",
                           })}
+                          onChange={handleChange}
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           placeholder=" "
                         />
@@ -1793,9 +1800,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             <div className="text-center w-full group">
               <button
                 className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm w-full sm:w-auto px-12 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mt-3"
-                onClick={() =>
-                  Router.push({ pathname: "javascript:history.back()" })
-                }
+                onClick={() => Router.back()}
               >
                 Menu principal
               </button>

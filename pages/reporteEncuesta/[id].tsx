@@ -19,7 +19,7 @@ const ReporteEncuesta = ({ oneOfertED }) => {
   return (
     <>
       <title>Informe de Encuesta</title>
-      
+
       <div className="encuesta">
         {oneOfertED.data.map((item, index) => {
           return (
@@ -27,7 +27,11 @@ const ReporteEncuesta = ({ oneOfertED }) => {
               className="tabla-encuesta container mx-auto bg-white xl:w-3/5 w-11/12 mt-20 mb-8 rounded-2xl"
               key={index}
             >
-              <img className="icon-login pt-10 mb-4" src="http://grupoancon.com/wp-content/uploads/2023/06/icon-app-oferta-2.svg" alt="logo" />
+              <img
+                className="icon-login pt-10 mb-4"
+                src="http://grupoancon.com/wp-content/uploads/2023/06/icon-app-oferta-2.svg"
+                alt="logo"
+              />
               <h2 className="title w-full text-center text-3xl font-light mt-2 mb-6">
                 Informe de Encuesta
               </h2>
@@ -56,16 +60,15 @@ const ReporteEncuesta = ({ oneOfertED }) => {
               <div className="mb-2">
                 <ul className="space-y-4 list-decimal list-inside xl:mx-10">
                   <li>
-                    <strong>
-                    ¿Por qué medio se enteró de nosotros?
-                    </strong>
+                    <strong>¿Por qué medio se enteró de nosotros?</strong>
                   </li>
                   <ol className="pl-5 mt-2 space-y-1 list-disc list-inside">
                     <li>{item.encuesta_pr1}</li>
                   </ol>
                   <li>
                     <strong>
-                    Antes de tomar la desicion de compra usted nos visito en nuestra/o:
+                      Antes de tomar la desicion de compra usted nos visito en
+                      nuestra/o:
                     </strong>
                   </li>
                   <ol className="pl-5 mt-2 space-y-1 list-disc list-inside">
@@ -74,14 +77,12 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                 </ul>
               </div>
               <div className="text-center">
-              <button
-                onClick={() =>
-                  Router.push({ pathname: "javascript:history.back()" })
-                }
-                className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm w-full sm:w-auto px-12 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mt-2 mb-8"
-              >
-                Atrás
-              </button>
+                <button
+                  onClick={() => Router.back()}
+                  className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm w-full sm:w-auto px-12 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mt-2 mb-8"
+                >
+                  Atrás
+                </button>
               </div>
             </div>
           );

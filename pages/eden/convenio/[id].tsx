@@ -30,12 +30,12 @@ const Convenio = ({ oneOfert, ofertID }) => {
   return (
     <>
       <Navbar />
-      <div className="historial Jardin w-full min-h-screen m-auto absolute Back">
+      <div className="historial Eden w-full min-h-screen m-auto absolute Back">
         <p className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
           CONVENIO DEL LOTE {lote}
           <img
-            className="mx-auto w-12"
-            src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"
+            className="mx-auto w-14"
+            src="http://grupoancon.com/wp-content/uploads/2020/07/icon-eden-project-1-min.png"
           />
         </p>
         <button

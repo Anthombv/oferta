@@ -55,13 +55,13 @@ const LotesVendidosED = ({ lotesED }) => {
               src="http://grupoancon.com/wp-content/uploads/2020/07/icon-eden-project-1-min.png"
             />
           </p>
-          <a
+          <button
             className="backboton mb-4 inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-            href="javascript:history.back()"
+            onClick={() => Router.back()}
           >
             Volver Atrás
-          </a>
-          <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-1/2 mx-auto">
+          </button>
+          <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-5/6 mx-auto">
             <input
               type="text"
               value={searchTerm}
@@ -69,7 +69,7 @@ const LotesVendidosED = ({ lotesED }) => {
               placeholder="Buscar por asesor..."
               className="my-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
+            <table className="w-full whitespace-nowrap text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
               <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
                 <tr className="text-center">
                   <th className="xl:px-6 xl:py-3 px-3 py-1">Numero</th>
@@ -81,6 +81,7 @@ const LotesVendidosED = ({ lotesED }) => {
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Editar</th>
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Reporte</th>
                   <th className="xl:px-6 xl:py-3 px-2 py-1">Encuesta</th>
+                  <th className="xl:px-6 xl:py-3 px-2 py-1">Convenio</th>
                 </tr>
               </thead>
               <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -176,6 +177,32 @@ const LotesVendidosED = ({ lotesED }) => {
                               strokeLinecap="round"
                               strokeLinejoin="round"
                               d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                            />
+                          </svg>
+                        </button>
+                      </td>
+                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                        <button
+                          onClick={() =>
+                            Router.push({
+                              pathname: `/eden/convenio/${ofertED.id}`,
+                            })
+                          }
+                          className="text-lime-500 dark:text-lime-600 hover:text-orange-600"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            width="2.25em"
+                            height="1.50em"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                             />
                           </svg>
                         </button>

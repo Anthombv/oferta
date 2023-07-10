@@ -247,7 +247,7 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const ConvenioBiess = ({ oneOfert, ofertID }) => {
+const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
   const { auth } = useAuth();
   const names = oneOfert.data.map((ofert) => ofert.cli_name);
   const cedula = oneOfert.data.map((ofert) => ofert.cli_id);
@@ -317,14 +317,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                   const arr: Paragraph[] = [];
 
                   arr.push(this.createInstitutionHeader(position.company.name));
-                  const bulletPoints = this.splitParagraphIntoBullets(
-                    position.summary
-                  );
-
-                  bulletPoints.forEach((bulletPoint) => {
-                    arr.push(this.createBullet(bulletPoint));
-                  });
-
+                  arr.push(this.createText(position.summary));
                   return arr;
                 })
                 .reduce((prev, curr) => prev.concat(curr), []),
@@ -347,6 +340,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 })
                 .reduce((prev, curr) => prev.concat(curr), []),
               this.createTextAntecedente3pt1(),
+              this.createTextAntecedente3ptNew(),
               this.createTextAntecedente3pt2(),
               this.createTextAntecedente3pt3(),
 
@@ -405,7 +399,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `Por una parte, el/la señor/a ${names}, con cédula de identidad N° ${cedula}, de estado civil ${estadoCivil}, por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y`
+            `Por una parte, el/la señor/a ${names}, con cédula de identidad N° ${cedula}, de estado civil ${estadoCivil}, y en representación del señor/a ${representante} con numero de identificación ${representanteID}, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y`
           ),
         ],
       });
@@ -456,14 +450,34 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 style: "currency",
                 currency: "USD",
               }
-            )}, se considera un descuento del ${porcentaje} que serian ${descuento.toLocaleString(
+            )}, se otorga un descuento de ${descuentoAdd.toLocaleString(
               "en-US",
               {
                 style: "currency",
                 currency: "USD",
               }
-            )}  
-            por realizar crédito BIESS, por lo que el precio real del lote es de USD. ${preciofinaR} ${precioFinalTextR}. Este valor será cancelado de acuerdo a la siguiente tabla de pagos.`
+            )} por compra en feria, y por ser pago al contado se le otorga un descuento del ${porcentaje} que serian ${descuento.toLocaleString(
+              "en-US",
+              {
+                style: "currency",
+                currency: "USD",
+              }
+            )}, siendo el valor a pagar USD. ${preciofinaR} ${precioFinalTextR}. Este valor será cancelado de acuerdo a la tabla de pagos (Anexo 1) que forma parte integral del mismo.`
+          ),
+        ],
+      });
+    }
+
+    public createTextAntecedente3ptNew(): Paragraph {
+      return new Paragraph({
+        alignment: AlignmentType.JUSTIFIED,
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun(
+            `Las promociones y ofrecimientos acordados se harán efectivos a la entrega del lote. En caso de cambio de forma de pago se considerará el precio real del inventario y perderá los beneficios otorgados en esta negociación.`
           ),
         ],
       });
@@ -478,7 +492,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.\n\nSi parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
+            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado adicionalmente perderá los beneficios acordados por la compra al contado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento. `
           ),
         ],
       });
@@ -493,7 +507,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `Si parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
+            `Si parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente, acordado en plan de pagos, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
           ),
         ],
       });
@@ -609,48 +623,6 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
           },
         },
         rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "REPRESENTANTE",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representante}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representanteID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
           new TableRow({
             children: [
               new TableCell({
@@ -920,7 +892,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Mediante escritura pública celebrada el 21 de noviembre del 2019 ante el notario primero del Cantón Pedro Vicente Maldonado Dr. Marcelo Javier Villacis Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió a los cónyuges Yuri Wladimir Torres Rites y Yadira Noemi Vinueza Tamayo el lote de terreno signado con el número 6, legalmente inscrito en el Registro de la Propiedad del cantón Puerto Quito el 5 de septiembre del 2019;\n\nMediante ordenanza número 2020-008 se aprueba la urbanización “El Jardín de Puerto Quito”, otorgada el 18 de agosto del 2020 ante el notario Primero del cantón Pedro Vicente Maldonado, doctor Marcelo Javier Villacís Medina, legalmente inscrito en el registro de la propiedad de Puerto Quito el 10 de febrero del 2021, la misma que está compuesta por 263 lotes de una superficie aproximada de 700m2, con sus respectivas áreas comunales, vías, red de agua potable y red eléctrica.",
+        "a) Mediante escritura pública celebrada el 10 de enero del 2019 ante la Notaria Trigésima Primera del cantón Quito Dra. María José Palacios, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió a los cónyuges Carlos Augusto Witt Sánchez y Catalina del Carmen Chiriboga Acosta el lote de terreno signado con el número 5, legalmente inscrito en el Registro de la Propiedad del cantón Puerto Quito el 5 de febrero del 2019; b) Mediante ordenanza número 047-PQ-2019 se aprueba la urbanización para uso habitacional “El Edén de Puerto Quito”, otorgada el 28 de agosto del 2019 ante el notario Primero del cantón Pedro Vicente Maldonado, doctor Marcelo Javier Villacís Medina, legalmente inscrito en el registro de la propiedad de Puerto Quito el 30 de Octubre del 2019, la misma que está compuesta por 270 lotes de una superficie aproximada de 700m2, con sus respectivas áreas comunales, vías, red de agua potable y red eléctrica.",
       company: {
         name: "PRIMERA - ANTECEDENTE",
       },
@@ -939,7 +911,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
   const antecedenteTercera = [
     {
       alignment: AlignmentType.JUSTIFIED,
-      summary: `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.\n\nSi parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`,
+      summary: `Las promociones y ofrecimientos acordados se harán efectivos a la entrega del lote. En caso de cambio de forma de pago se considerará el precio real del inventario y perderá los beneficios otorgados en esta negociación.`,
       company: {
         name: "TERCERA. - PRECIO Y FORMA DE PAGO",
       },
@@ -958,7 +930,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "El plazo para la transferencia de dominio y la consecuente entrega del lote, objeto de este convenio, es cuando haya sido CANCELADO EN SU TOTALIDAD el valor acordado en el anexo 1 de este documento, y una vez se inscriba en el Registro de la Propiedad la escritura de compraventa suscrita por las partes, de dicho lote. Por lo que el plazo es el previsto en el Plan de pagos.",
+        "Los FUTUROS ADQUIRIENTES declaran bajo juramento no estar incursos en ninguna de las prohibiciones determinadas en la ley de Mercado de Valores y demás normas aplicables y, que los fondos con los que van a adquirir el bien determinado en este contrato, tiene un origen licito y en especial no provienen de ninguna actividad relacionada con el cultivo, fabricación, almacenamiento, transporte o tráfico ilícito de sustancias estupefacientes o psicotrópicas.",
       company: {
         name: "QUINTA. - PLAZO",
       },
@@ -966,7 +938,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los clientes, que se encontraren al día en el pago de sus dividendos, conforme el plan de pagos,  aún  sin escritura de compraventa suscrita y en proceso pago o de registro,  pueden ingresar en calidad de visitantes del VENDEDOR, y por lo tanto se obligan a cumplir con las restricciones y condiciones de uso y goce de las áreas de la urbanización previstas en el Acuerdo Colectivo de Propietarios sobre el uso, mantenimiento y gestión de Áreas Verdes y Comunales de la Urbanización El Jardín de Puerto Quito. Para lo anterior solicitarán autorización al correo aperez@grupoancon.com con 48 HORAS de anticipación a la fecha de ingreso, con la lista de invitados, y el horario de entrada y salida y el día previsto para la visita. En caso de necesitar autorización para más de 10 personas se solicitará un pago anticipado, a partir del onceavo invitado, de USD 5,oo diario en días normales y USD. 10,oo en los feriados (incluye todos los días de feriado), que será cancelado de manera anticipada al VENDEDOR y posteriormente a la Administración (cuando el lote se encuentre entregado).En señal de aceptación, el Cliente o FUTUROS ADQUIRENTES, lo suscribe el cual deberá ser cumplido, y así lo acepta, luego de que se convierta en propietario de la Urbanización El Jardín de Puerto Quito, de esto que también se obliga a suscribir en conjunto con la escritura de compraventa del lote, la Carta de Adhesión a la Asociación de Propietarios de la Urbanización el Jardín de Puerto Quito, como habilitante para poder acceder a la Urbanización.",
+        "Los clientes, que se encontraren al día en el pago de sus dividendos, conforme el plan de pagos,  aún  sin escritura de compraventa suscrita y en proceso pago o de registro,  pueden ingresar en calidad de visitantes del VENDEDOR, y por lo tanto se obligan a cumplir con las restricciones y condiciones de uso y goce de las áreas de la urbanización previstas en el Acuerdo Colectivo de Propietarios sobre el uso, mantenimiento y gestión de Áreas Verdes y Comunales de la Urbanización El Edén de Puerto Quito Para lo anterior solicitarán  autorización al correo aperez@grupoancon.com con 48 HORAS de anticipación a la fecha de ingreso, con la lista de invitados, y el horario de entrada y salida y el día previsto para la visita. En caso de necesitar autorización para más de 10 personas se solicitará un pago anticipado, a partir del onceavo invitado, de USD 5,oo diario en días normales y USD. 10,oo en los feriados (incluye todos los días de feriado), que será cancelado de manera anticipada al VENDEDOR y posteriormente a la Administración (cuando el lote se encuentre entregado). En señal de aceptación, el Cliente o FUTUROS ADQUIRENTES, lo suscribe el cual deberá ser cumplido, y así lo acepta, luego de que se convierta en propietario de la Urbanización El Edén de Puerto Quito, de esto que también se obliga a suscribir en conjunto con la escritura de compraventa del lote, la Carta de Adhesión a la Asociación de Propietarios de la Urbanización el Edén de Puerto Quito, como habilitante para poder acceder a la Urbanización.",
       company: {
         name: "SEXTA. - VISITAS Y ACUERDO DE USO DE LA URBANIZACION:",
       },
@@ -974,7 +946,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo,  conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compra venta, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor comprobada.",
+        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo, conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor.",
       company: {
         name: "SEPTIMA. - DESISTIMIENTO",
       },
@@ -982,7 +954,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "La escritura del lote es individual; todos los gastos e impuestos que demande la celebración de la escritura pública de compraventa serán dé cuenta de los FUTUROS ADQUIRIENTES, y en caso de existir pago de mejoras y plusvalía correrá a cargo del PROMITENTE VENDEDOR. LOS FUTUROS ADQUIRIENTES se comprometen a cancelar la alícuota comunal fijada por la Administración, una vez que el lote sea entregado, o se inicie el uso de áreas comunales.",
+        "Todos los gastos e impuestos que demande la celebración de la escritura pública de compraventa serán de cuenta de los FUTUROS ADQUIRIENTES, y en caso de existir pago de mejoras y plusvalía correrá a cargo del PROMITENTE VENDEDOR. LOS FUTUROS ADQUIRIENTES se comprometen a cancelar una alícuota comunal por USD. 25,00, a partir de la fecha que consta en el plan de pagos, y posteriormente a la Administración.",
       company: {
         name: "OCTAVA. - GASTOS E IMPUESTOS",
       },
@@ -990,7 +962,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones de la Administración vigente, y aprobadas por la mayoría de los Propietarios.",
+        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones detalladas en el Acuerdo Colectivo de Propietarios, así como acatar las disposiciones de la administración y reglamento vigente, y aprobadas por la mayoría de los Propietarios.",
       company: {
         name: "NOVENA. - ACEPTACIÓN",
       },
@@ -1000,7 +972,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       summary:
         "En caso de que existan controversias o diferencias derivadas de la ejecución de este convenio, que no puedan ser resueltas por mutuo acuerdo, las partes renuncian fuero y domicilio y deciden someterse a la decisión en derecho del Tribunal de Arbitraje de la Cámara de Comercio de Quito, que se sujetará a lo dispuesto por la Ley de Arbitraje y Mediación, el reglamento del centro de Arbitraje y Mediación de la Cámara de Comercio de Quito y cualquier otra reglamentación que se expida sobre este particular. El arbitraje se llevará a cabo en equidad.",
       company: {
-        name: "DECIMA. - DOMICILIO JURISDICCIÓN Y COMPETENCIA",
+        name: "NOVENA. - DOMICILIO JURISDICCIÓN Y COMPETENCIA",
       },
     },
   ];
@@ -1025,11 +997,11 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     <>
       <div>
         <p>
-          <button onClick={generate}>Generar Convenio con derechos</button>
+          <button onClick={generate}>Generar Convenio sin derechos</button>
         </p>
       </div>
     </>
   );
 };
 
-export default ConvenioBiess;
+export default ConvenioContadoREP;

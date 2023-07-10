@@ -252,7 +252,9 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
   const names = oneOfert.data.map((ofert) => ofert.cli_name);
   const cedula = oneOfert.data.map((ofert) => ofert.cli_id);
   const representante = oneOfert.data.map((ofert) => ofert.cli_representante);
-  const representanteID = oneOfert.data.map((ofert) => ofert.cli_representanteID);
+  const representanteID = oneOfert.data.map(
+    (ofert) => ofert.cli_representanteID
+  );
   const name2 = oneOfert.data.map((ofert) => ofert.cli_name2);
   const name2ID = oneOfert.data.map((ofert) => ofert.cli_name2ID);
   const estadoCivil = oneOfert.data.map((ofert) => ofert.cli_estadoCivil);
@@ -274,8 +276,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
 
   const precioFinalText = NumerosALetras(precioFinal);
   const precioFinalTextR = precioFinalText.toLocaleUpperCase();
-  console.log(preciofinaR);
-  console.log(precioFinalTextR);
 
   class DocumentCreator {
     // tslint:disable-next-line: typedef
@@ -961,9 +961,7 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
     ]);
 
     Packer.toBlob(doc).then((blob) => {
-      console.log(blob);
       fileSaver.saveAs(blob, `${lote} - ${names} - ${venta}.docx`);
-      console.log("Document created successfully");
     });
   };
 
