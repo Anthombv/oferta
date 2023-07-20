@@ -132,9 +132,13 @@ const ML = ({ oneLotML, loteID }) => {
                       <button
                         disabled={CheckPermissions(auth, [1])}
                         onClick={() =>
-                          Router.push({
-                            pathname: `/reporteEncuesta/${item.id}`,
-                          })
+                          item.encuesta_pr1 === ""
+                            ? Router.push({
+                                pathname: `/encuesta/new/${item.id}`,
+                              })
+                            : Router.push({
+                                pathname: `/reporteEncuesta/${item.id}`,
+                              })
                         }
                         className="text-sky-700 dark:text-sky-800 hover:text-orange-600"
                       >

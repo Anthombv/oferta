@@ -9,6 +9,8 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         return await getOfertEDOn(req, res);
+      case "PUT":
+        return await updateOfert(req, res);
       default:
         break;
     }
@@ -24,7 +26,7 @@ export default async function handler(
 const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
   dataBase.query(
-    "SELECT * FROM oferta, invmae WHERE oferta.id = ? && invmae.mae_codinv = oferta.mae_codinv",
+    "SELECT * FROM ofertas, invmae WHERE ofertas.id = ? && invmae.mae_codinv = ofertas.mae_codinv",
     [id],
     function (error, rows, fields) {
       return res.status(200).json({
@@ -34,6 +36,19 @@ const getOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
       });
     }
   );
+};
+
+const updateOfert = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+  const { encuesta_pr1, encuesta_pr2 } = req.body;
+  dataBase.query(
+    "UPDATE ofertas SET encuesta_pr1 = ?, encuesta_pr2 = ? WHERE id = ?",
+    [encuesta_pr1, encuesta_pr2, id]
+  );
+  return res.status(200).json({
+    encuesta_pr1,
+    encuesta_pr2,
+  });
 };
 
 export const config = {

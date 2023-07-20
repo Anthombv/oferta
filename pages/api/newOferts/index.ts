@@ -24,7 +24,7 @@ export default async function handler(
 }
 
 const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
-  dataBase.query("SELECT * FROM oferta", function (err, rows, fields) {
+  dataBase.query("SELECT * FROM ofertas", function (err, rows, fields) {
     return res.status(200).json({
       message: "Todas las ofertas",
       data: rows,
@@ -101,7 +101,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     mae_codinv,
   } = req.body;
 
-  dataBase.query("INSERT INTO oferta SET ?", {
+  dataBase.query("INSERT INTO ofertas SET ?", {
     cli_name,
     cli_representante,
     cli_representanteID,

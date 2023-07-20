@@ -84,32 +84,6 @@ type Option = {
 let options: Array<Option> = [
   { label: "HUERTO", value: "HUERTO" },
   { label: "TANQUE BIODIGESTOR", value: "TANQUE BIODIGESTOR" },
-  { label: "TRABAJO EN LOTE", value: "TRABAJO EN LOTE" },
-];
-
-type OptionEncuesta = {
-  label: string;
-  value: string;
-};
-
-let optionsEncuesta: Array<OptionEncuesta> = [
-  { label: "FACEBOOK", value: "FACEBOOK" },
-  { label: "INSTAGRAM", value: "INSTAGRAM" },
-  { label: "TIKTOK", value: "TIKTOK" },
-  { label: "PAGINA WEB", value: "PAGINA WEB" },
-  { label: "TRUEQUE", value: "TRUEQUE" },
-  { label: "CLIENTE ANTIGUO", value: "CLIENTE ANTIGUO" },
-  { label: "OFICINA", value: "OFICINA" },
-  { label: "ROTULO", value: "ROTULO" },
-  { label: "FUNCIONARIO DE LA EMPRESA", value: "FUNCIONARIO DE LA EMPRESA" },
-  { label: "CONTACTO PERSONAL", value: "CONTACTO PERSONAL" },
-  { label: "CANJE", value: "CANJE" },
-  { label: "REFERIDO EXTERNO", value: "REFERIDO EXTERNO" },
-  { label: "REFERIDO CLIENTE", value: "REFERIDO CLIENTE" },
-  { label: "REFERIDO FAMILIAR ASESOR", value: "REFERIDO FAMILIAR ASESOR" },
-  { label: "STAND RECREO", value: "STAND RECREO" },
-  { label: "STAND CONDADO", value: "STAND CONDADO" },
-  { label: "STAND QUICENTRO SUR", value: "STAND QUICENTRO SUR" },
 ];
 
 type OptionAsesores = {
@@ -249,9 +223,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   const [mostrarFormularioReferidos, setMostrarFormularioReferidos] =
     useState(false);
   const [mostrarFormularioAsesor, setMostrarFormularioAsesor] = useState(false);
-  const [mostrarFormularioEncuesta, setMostrarFormularioEncuesta] =
-    useState(false);
-  const [selectedValuesEncuesta, setSelectedValuesEncuesta] = useState([]);
   const [selectedValuesOfercimiento, setSelectedValuesOfrecimiento] = useState(
     []
   );
@@ -277,9 +248,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
   };
   const mostrarFormularioHandleroAsesor = () => {
     setMostrarFormularioAsesor(!mostrarFormularioAsesor);
-  };
-  const mostrarFormularioHandlerEncuesta = () => {
-    setMostrarFormularioEncuesta(!mostrarFormularioEncuesta);
   };
 
   const loadData = async () => {
@@ -427,87 +395,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
           Despliegue las pestañas para ingresar sus datos:
         </label>
         <form onSubmit={handleSubmit} className="m-2">
-          <div className="bg-gray-50 hover:bg-green-50 px-5 rounded-lg py-1 mt-4">
-            <div className="text-center text-xl font-normal leading-normal mt-4 mb-4">
-              <button
-                type="button"
-                className="px-4 py-2 color-blu transition"
-                onClick={mostrarFormularioHandlerEncuesta}
-              >
-                {mostrarFormularioEncuesta
-                  ? "Datos de la encuesta"
-                  : "Datos de la encuesta"}
-              </button>
-            </div>
-            <Transition
-              show={mostrarFormularioEncuesta}
-              enter="-transition-all duration-500"
-              enterFrom="opacity-0 -translate-y-full"
-              enterTo="opacity-100 -translate-y-0"
-              leave="-transition-all duration-500"
-              leaveFrom="opacity-100 -translate-y-0"
-              leaveTo="opacity-0 -translate-y-6"
-            >
-              <div className="opciones grid grid-cols sm:grid-cols md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-                <div className="relative z-0 mb-2 w-full group">
-                  <Select
-                    isMulti
-                    options={optionsEncuesta}
-                    onChange={(items) => {
-                      const word = items.map((item) => item.value);
-                      setSelectedValuesEncuesta(word);
-                      setOfert((prev) => ({
-                        ...prev,
-                        encuesta_pr1: word.join(", "),
-                      }));
-                    }}
-                    value={selectedValuesEncuesta.map((value) => ({
-                      label: value,
-                      value: value,
-                    }))}
-                    placeholder={"¿Por qué medio se enteró de nosotros?"}
-                    styles={{
-                      placeholder: (base) => ({
-                        ...base,
-                        fontWeight: 400,
-                        color: "black",
-                        fontSize: "13px",
-                      }),
-                      option: (base1) => ({
-                        ...base1,
-                        fontSize: "13px",
-                      }),
-                    }}
-                    isClearable={true}
-                    isSearchable={true}
-                    isDisabled={false}
-                    isLoading={false}
-                    isRtl={false}
-                    closeMenuOnSelect={false}
-                  />
-                </div>
-                <div className="relative z-0 mb-2 w-full group">
-                  <select
-                    name="encuesta_pr2"
-                    id="encuesta_pr2"
-                    value={ofert.encuesta_pr2}
-                    onChange={handleChange}
-                    style={{ fontSize: "13px" }}
-                    className="px-2 bg-white border border-gray-300 text-gray-900 text-sm h-10 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option>
-                      Antes de tomar la desicion de compra usted nos visito en
-                      nuestra/o:
-                    </option>
-                    <option value="Pagina Web">Página Web</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Instagram">Instagram</option>
-                    <option value="TikTok">TikTok</option>
-                  </select>
-                </div>
-              </div>
-            </Transition>
-          </div>
           {lote.map((item) => {
             ofert.cli_valorOferta = item.mae_preact;
             const descuentosPorcentaje = {

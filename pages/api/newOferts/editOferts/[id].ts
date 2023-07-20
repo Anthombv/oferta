@@ -26,7 +26,7 @@ export default async function handler(
 const getEditOfertEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
   dataBase.query(
-    "SELECT * FROM oferta, invmae WHERE oferta.id = ? && invmae.mae_codinv = oferta.mae_codinv",
+    "SELECT * FROM ofertas, invmae WHERE ofertas.id = ? && invmae.mae_codinv = ofertas.mae_codinv",
     [id],
     function (error, rows, fields) {
       return res.status(200).json({
@@ -67,7 +67,7 @@ const EditOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_state,
   } = req.body;
   dataBase.query(
-    "UPDATE oferta SET cli_name = ?, cli_representante = ?, cli_estadoCivil = ?, cli_id = ?, cli_sexo = ?, cli_fecNac = ?, cli_telef = ?, cli_cell = ?, cli_mail = ?, cli_trabajo = ?, cli_cargoT = ?, cli_direccT = ?, cli_telefT = ?, cli_conyuName = ?, cli_conyuID = ?, cli_conyuCell = ?, cli_conyuTrab = ?, cli_conyuDireccT = ?, cli_conyuTelT = ?, cli_porcentaje = ?, cli_descuento = ?, cli_descuentoAdd = ?, cli_totalOferta = ?, cli_state = ? WHERE id = ?",
+    "UPDATE ofertas SET cli_name = ?, cli_representante = ?, cli_estadoCivil = ?, cli_id = ?, cli_sexo = ?, cli_fecNac = ?, cli_telef = ?, cli_cell = ?, cli_mail = ?, cli_trabajo = ?, cli_cargoT = ?, cli_direccT = ?, cli_telefT = ?, cli_conyuName = ?, cli_conyuID = ?, cli_conyuCell = ?, cli_conyuTrab = ?, cli_conyuDireccT = ?, cli_conyuTelT = ?, cli_porcentaje = ?, cli_descuento = ?, cli_descuentoAdd = ?, cli_totalOferta = ?, cli_state = ? WHERE id = ?",
     [
       cli_name,
       cli_representante,

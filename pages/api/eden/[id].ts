@@ -24,7 +24,7 @@ export default async function handler(
 const getLotesEDOn = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
   dataBase.query(
-    "SELECT * FROM oferta WHERE mae_codinv = ?",
+    "SELECT * FROM ofertas WHERE mae_codinv = ?",
     [id],
     function (error, rows, fields) {
       return res.status(200).json({
