@@ -39,7 +39,7 @@ const listOfOne = async (req: NextApiRequest, res: NextApiResponse) => {
     const soliciter = user.userName;
 
     dataBase.query(
-      "SELECT * FROM ofertas WHERE soliciter = ?",
+      "SELECT * FROM ofertas, invmae WHERE soliciter = ? AND ofertas.mae_codinv = invmae.mae_codinv",
       [soliciter],
       function (error, rows, fields) {
         return res.status(200).json({

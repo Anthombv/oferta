@@ -20,6 +20,7 @@ const MisVentas = () => {
       );
       const todasVentas = response.data ?? [];
       setVentas(todasVentas);
+      console.log(ventas);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -30,7 +31,18 @@ const MisVentas = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(ventas);
+  const asignar_proyecto = (codigo) => {
+    if (codigo.startsWith("ED")) {
+      return "EL EDEN";
+    } else if (codigo.startsWith("EJ")) {
+      return "EL JARDIN";
+    } else if (codigo.startsWith("EM")) {
+      return "EL MANANTIAL";
+    } else if (codigo.startsWith("ML")) {
+      return "MIRADOR DEL LAGO";
+    }
+  };
+
   return (
     <>
       <div className="limiteOfert Back">
@@ -48,8 +60,10 @@ const MisVentas = () => {
           <table className="w-full text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
             <thead className="text-xs text-white text-center uppercase bg-gray-700 dark:bg-gray-700 dark:text-black">
               <tr className="text-center">
-                <th className="xl:px-6 xl:py-3 px-3 py-1">#</th>
+                <th className="xl:px-6 xl:py-3 px-3 py-1">Oferta</th>
                 <th className="xl:px-6 xl:py-3 px-2 py-1">Cliente</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Proyecto</th>
+                <th className="xl:px-6 xl:py-3 px-2 py-1">Inmueble</th>
                 <th className="xl:px-6 xl:py-3 px-2 py-1">Fecha</th>
                 <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
               </tr>
@@ -64,6 +78,12 @@ const MisVentas = () => {
                     <td className="xl:px-6 xl:py-3 px-3 py-1">{item.id}</td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       {item.cli_name}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {asignar_proyecto(item.mae_codinv)}
+                    </td>
+                    <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      {item.mae_codinv}
                     </td>
                     <td className="xl:px-6 xl:py-3 px-2 py-1">
                       {item.fechaCreacion}

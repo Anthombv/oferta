@@ -17,6 +17,7 @@ const ReporteGeneral = () => {
       auth.role
     );
     const datos = response.data ?? [];
+    console.log(reporte);
     setReporte(datos);
   };
 
@@ -27,13 +28,12 @@ const ReporteGeneral = () => {
 
   const handleMonthFilterChange = (event) => {
     const selectedMonthValue = event.target.value;
-    console.log("Mes seleccionado:", selectedMonthValue);
     setSelectedMonth(selectedMonthValue);
   };
 
   const filteredInmuebles = reporte.filter((item) => {
     if (!selectedMonth) {
-      return true; // Mostrar todos los datos si no se ha seleccionado un mes
+      return true;
     }
 
     const fechaParte = item.fechaCreacion.split(",")[0];
@@ -121,7 +121,7 @@ const ReporteGeneral = () => {
                   Precio
                 </th>
                 <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Terreno
+                  Tipo Venta
                 </th>
               </tr>
             </thead>
@@ -163,7 +163,7 @@ const ReporteGeneral = () => {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_prevt2} m2
+                          {item.cli_tipoVenta}
                         </td>
                       </tr>
                     );
@@ -213,7 +213,7 @@ const ReporteGeneral = () => {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_prevt2} m2
+                          {item.cli_tipoVenta}
                         </td>
                       </tr>
                     );
@@ -263,7 +263,7 @@ const ReporteGeneral = () => {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_prevt2} m2
+                          {item.cli_tipoVenta}
                         </td>
                       </tr>
                     );
@@ -313,7 +313,7 @@ const ReporteGeneral = () => {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_prevt2} m2
+                          {item.cli_tipoVenta}
                         </td>
                       </tr>
                     );

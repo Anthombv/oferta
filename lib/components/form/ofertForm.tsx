@@ -574,6 +574,23 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                           Total Lote
                         </label>
                       </div>
+                      <div className="relative z-0 mb-2 w-full group">
+                        <select
+                          id="cli_tipoInmueble"
+                          name="cli_tipoInmueble"
+                          value={ofert.cli_tipoInmueble}
+                          onChange={handleChange}
+                          style={{ fontSize: "13px" }}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option>Tipo de Inmueble</option>
+                          <option value="LOCAL">LOCAL</option>
+                          <option value="CASA">CASA</option>
+                          <option value="DEPARTAMENTO">DEPARTAMENTO</option>
+                          <option value="SUITE">SUITE</option>
+                          <option value="TERRENO">TERRENO</option>
+                        </select>
+                      </div>
                     </div>
                   </Transition>
                 </div>
@@ -929,23 +946,6 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   >
                     Ahorro actual
                   </label>
-                </div>
-                <div className="relative z-0 mb-2 w-full group">
-                  <select
-                    id="cli_tipoInmueble"
-                    name="cli_tipoInmueble"
-                    value={ofert.cli_tipoInmueble}
-                    onChange={handleChange}
-                    style={{ fontSize: "13px" }}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option>Tipo de Inmueble</option>
-                    <option value="LOCAL">LOCAL</option>
-                    <option value="CASA">CASA</option>
-                    <option value="DEPARTAMENTO">DEPARTAMENTO</option>
-                    <option value="SUITE">SUITE</option>
-                    <option value="TERRENO">TERRENO</option>
-                  </select>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
                   <select
@@ -1672,7 +1672,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                   </select>
                 </div>
                 <div className="relative z-0 mb-2 w-full group">
-                <input
+                  <input
                     type="text"
                     name="encuesta_pr3"
                     id="encuesta_pr3"
