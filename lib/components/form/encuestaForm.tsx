@@ -65,6 +65,7 @@ const EncuestaForm = ({ ofertID }: { ofertID: string }) => {
     cli_descuento: "",
     cli_totalOferta: "",
     mae_codinv: "",
+    soliciter: "",
   });
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });

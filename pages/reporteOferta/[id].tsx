@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import styles from "../../styles/ReporteOferta.module.css";
 import { useReactToPrint } from "react-to-print";
 import axios from "axios";
@@ -18,12 +18,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const ReportOfertED = ({ oneOfertED, ofertID }) => {
-  const [ofert, setOfert] = useState<any>({
-    cli_totalOferta: "",
-  });
-  const handleChange = ({ target: { name, value } }) => {
-    setOfert({ ...ofert, [name]: value });
-  };
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -68,7 +62,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
         <div className="tabla-oferta container mx-auto block xl:mx-auto bg-white w-min mt-20 mb-3">
           <div className={styles.hoja}>
             {(oneOfertED.data ?? []).map((item, index) => {
-              ofert.cli_totalOferta = item.mae_preact - item.cli_descuento;
+              console.log(item.cli_totalOferta);
               return (
                 <div
                   className="text-sm text-gray-800"
@@ -136,7 +130,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                                 {item.mae_prevt4} m2
                               </td>
                               <td className="border-r border-black">
-                                {item.mae_preact.toLocaleString("en-US", {
+                                {item.cli_valorOferta.toLocaleString("en-US", {
                                   style: "currency",
                                   currency: "USD",
                                 })}
@@ -160,23 +154,27 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                               <td className="border-r border-t border-black"></td>
                               <td className="border-r border-t border-black"></td>
                               <th className="border-r border-t border-black">
+                                Descuento Add
+                              </th>
+                              <td className="border-r border-t border-black">
+                                -
+                                {item.cli_descuentoAdd.toLocaleString("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                })}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border-r border-t border-black"></td>
+                              <td className="border-r border-t border-black"></td>
+                              <th className="border-r border-t border-black">
                                 Total
                               </th>
                               <td className="border-r border-t border-black">
-                                <input
-                                  className="text-center"
-                                  type="text"
-                                  name="cli_totalOferta"
-                                  id="cli_totalOferta"
-                                  onChange={handleChange}
-                                  value={ofert.cli_totalOferta.toLocaleString(
-                                    "en-US",
-                                    {
-                                      style: "currency",
-                                      currency: "USD",
-                                    }
-                                  )}
-                                />
+                                {item.cli_totalOferta.toLocaleString("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                })}
                               </td>
                             </tr>
                           </tbody>
@@ -480,10 +478,17 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                             <span>{item.cli_contac.toUpperCase()}</span>
                           </div>
                         </div>
-                        <div className="mx-4 mb-3">
-                          <strong>Planificación: </strong>
-                          <span>{item.cli_state.toUpperCase()}</span>
+                        <div className="grid grid-cols-2 mx-4">
+                          <div className="relative z-0 mb-3 w-full">
+                            <strong>Planificación: </strong>
+                            <span>{item.cli_state.toUpperCase()}</span>
+                          </div>
+                          <div className="relative z-0 mb-3 w-full">
+                            <strong>Cliente Referido: </strong>
+                            <span>{item.encuesta_pr3.toUpperCase()}</span>
+                          </div>
                         </div>
+
                         <div>
                           <p
                             className="mt-3 mb-3 mx-4"

@@ -8,6 +8,7 @@ import Select from "react-select";
 import Router from "next/router";
 import { Transition } from "@headlessui/react";
 import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/use_auth";
 
 type Ofert = {
   cli_name: string;
@@ -74,6 +75,7 @@ type Ofert = {
   cli_descuentoAdd: number;
   cli_totalOferta: number;
   mae_codinv: string;
+  soliciter: string;
 };
 
 type Option = {
@@ -141,6 +143,7 @@ let optionsAsesores: Array<OptionAsesores> = [
 ];
 
 const OfertForm = ({ loteID }: { loteID: string }) => {
+  const { auth } = useAuth();
   const [ofert, setOfert] = useState<Ofert>({
     cli_name: "",
     cli_representante: "",
@@ -206,6 +209,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
     cli_descuentoAdd: 0,
     cli_totalOferta: 0,
     mae_codinv: loteID,
+    soliciter: auth.userName,
   });
 
   const [lote, setLote] = useState([]);
@@ -564,7 +568,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                           placeholder=" "
                         />
                         <label
-                          htmlFor="cli_descuento"
+                          htmlFor="cli_totalOferta"
                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
                           Total Lote
@@ -1666,6 +1670,23 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                       <option value="FACEBOOK EMPRESA">FACEBOOK EMPRESA</option>
                     </optgroup>
                   </select>
+                </div>
+                <div className="relative z-0 mb-2 w-full group">
+                <input
+                    type="text"
+                    name="encuesta_pr3"
+                    id="encuesta_pr3"
+                    value={ofert.encuesta_pr3}
+                    onChange={handleChange}
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor=""
+                    className="label-size peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Datos del Referido
+                  </label>
                 </div>
               </div>
               <div className="relative z-0 mb-2 w-full group text-left mt-4">

@@ -24,7 +24,7 @@ export default async function handler(
 }
 
 const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
-  dataBase.query("SELECT * FROM ofertas", function (err, rows, fields) {
+  dataBase.query("SELECT * FROM ofertas, invmae where ofertas.mae_codinv = invmae.mae_codinv", function (err, rows, fields) {
     return res.status(200).json({
       message: "Todas las ofertas",
       data: rows,
@@ -99,6 +99,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
+    soliciter,
   } = req.body;
 
   dataBase.query("INSERT INTO ofertas SET ?", {
@@ -166,6 +167,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
+    soliciter
   });
   return res.status(200).json({
     cli_name,
@@ -232,6 +234,7 @@ const saveOfert = async (req: NextApiRequest, res: NextApiResponse) => {
     cli_descuentoAdd,
     cli_totalOferta,
     mae_codinv,
+    soliciter,
   });
 };
 

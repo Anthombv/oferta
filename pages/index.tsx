@@ -4,30 +4,41 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Navbar from "../lib/components/navBar";
+import Router from "next/router";
+import { useAuth } from "../lib/hooks/use_auth";
+import { CheckPermissions } from "../lib/utils/check_permissions";
+import { toast } from "react-toastify";
 
 const Home = () => {
+  const { auth } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
     setIsLoading(true);
   };
+
+  const handleVentas = () => {
+    Router.push({ pathname: `/misVentas` });
+  };
+
+  const handleReporte = () => {
+    CheckPermissions(auth, [0, 2])
+      ? Router.push({ pathname: `/reporteGeneral` })
+      : toast.warning("No tiene permiso para ver el reporte General");
+  };
   return (
     <>
       <title>Inicio</title>
-      <link
-        rel="icon"
-        href="https://www.grupoancon.com/wp-content/uploads/2020/07/logo.svg"
-        sizes="32x32"
-        type="image/svg+xml"
-      />
       <div className="main-side w-full mx-auto min-h-fit">
         <Navbar />
         <h2 className="title-main text-center text-4xl leading-normal">
           ¿En donde quieres la oferta?
         </h2>
+
         <p className="subtitle-main text-center text-lg mt-2 pb-5">
           Seleccione un proyecto
         </p>
+
         <div className="option-box px-20 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-5">
           {/* Jardin */}
           <div>
@@ -264,6 +275,24 @@ const Home = () => {
                 text-align: center;
               }
             `}</style>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 mx-auto gap-4 w-4/12">
+          <div>
+            <button
+              className="bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-200"
+              onClick={handleVentas}
+            >
+              MIS VENTAS
+            </button>
+          </div>
+          <div>
+            <button
+              className="bg-orange-500 whitespace-nowrap text-white font-bold py-2 px-4 rounded hover:bg-orange-200"
+              onClick={handleReporte}
+            >
+              REPORTE DE VENTAS
+            </button>
           </div>
         </div>
         <br />

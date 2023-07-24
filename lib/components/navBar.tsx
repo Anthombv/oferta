@@ -27,7 +27,7 @@ const Navbar = () => {
                 alt="logo"
               />
               <p className="user-title text-white">
-                Bienvenido, {`${auth?.name}`}
+                Bienvenido/a, {`${auth?.name}`}
               </p>
               <div className="md:hidden">
                 <button

@@ -77,6 +77,7 @@ const CrearEncuesta = ({ ofertID, oneOfert }) => {
     cli_descuento: "",
     cli_totalOferta: "",
     mae_codinv: "",
+    soliciter: "",
   });
   const handleChange = ({ target: { name, value } }) => {
     setOfert({ ...ofert, [name]: value });
@@ -131,7 +132,9 @@ const CrearEncuesta = ({ ofertID, oneOfert }) => {
             continuación será muy valiosa
           </p>
           <form onSubmit={handleSubmit} className="m-2 text-lg">
-            <label className="font-bold">¿Por qué medio se enteró de nosotros?</label>
+            <label className="font-bold">
+              ¿Por qué medio se enteró de nosotros?
+            </label>
             <select
               name="encuesta_pr1"
               id="encuesta_pr1"
