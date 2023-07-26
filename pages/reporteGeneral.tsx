@@ -7,7 +7,9 @@ import Navbar from "../lib/components/navBar";
 const ReporteGeneral = () => {
   const { auth } = useAuth();
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedAsesor, setSelectedAsesor] = useState("");
   const [reporte, setReporte] = useState([]);
+  const [filteredAsesores, setFilteredAsesores] = useState([]);
 
   const loadData = async () => {
     const response = await HttpClient(
@@ -17,8 +19,11 @@ const ReporteGeneral = () => {
       auth.role
     );
     const datos = response.data ?? [];
-    console.log(reporte);
     setReporte(datos);
+
+    // Obtener lista de asesores sin duplicados
+    const asesores = new Set(datos.map((item) => item.cli_asesor));
+    setFilteredAsesores(Array.from(asesores));
   };
 
   useEffect(() => {
@@ -29,6 +34,11 @@ const ReporteGeneral = () => {
   const handleMonthFilterChange = (event) => {
     const selectedMonthValue = event.target.value;
     setSelectedMonth(selectedMonthValue);
+  };
+
+  const handleAsesorFilterChange = (event) => {
+    const selectedAsesorValue = event.target.value;
+    setSelectedAsesor(selectedAsesorValue);
   };
 
   const filteredInmuebles = reporte.filter((item) => {
@@ -43,17 +53,25 @@ const ReporteGeneral = () => {
     return monthNumber === selectedMonthNumber;
   });
 
+  const filteredByAsesor = filteredInmuebles.filter((item) => {
+    if (!selectedAsesor) {
+      return true;
+    }
+
+    return item.cli_asesor.toLowerCase().includes(selectedAsesor.toLowerCase());
+  });
+
   // Inmuebles por tipo
-  const inmueblesEJ = filteredInmuebles.filter((item) =>
+  const inmueblesEJ = filteredByAsesor.filter((item) =>
     item.mae_codinv.startsWith("EJ")
   );
-  const inmueblesED = filteredInmuebles.filter((item) =>
+  const inmueblesED = filteredByAsesor.filter((item) =>
     item.mae_codinv.startsWith("ED")
   );
-  const inmueblesML = filteredInmuebles.filter((item) =>
+  const inmueblesML = filteredByAsesor.filter((item) =>
     item.mae_codinv.startsWith("ML")
   );
-  const inmueblesEM = filteredInmuebles.filter((item) =>
+  const inmueblesEM = filteredByAsesor.filter((item) =>
     item.mae_codinv.startsWith("EM")
   );
 
@@ -62,7 +80,7 @@ const ReporteGeneral = () => {
   const totalED = inmueblesED.length;
   const totalML = inmueblesML.length;
   const totalEM = inmueblesEM.length;
-  const totalGeneral = filteredInmuebles.length;
+  const totalGeneral = filteredByAsesor.length;
 
   return (
     <RoleLayout permissions={[0, 2]}>
@@ -74,7 +92,7 @@ const ReporteGeneral = () => {
         </h2>
 
         <div className="w-11/12 mx-auto">
-          <div className="mb-4">
+          <div className="mb-4 md:w-32">
             <label
               htmlFor="monthFilter"
               className="block font-medium text-gray-700"
@@ -102,6 +120,22 @@ const ReporteGeneral = () => {
               <option value="12">Diciembre</option>
             </select>
           </div>
+          <div className="mb-4 md:w-1/5">
+            <label
+              htmlFor="asesorFilter"
+              className="block font-medium text-gray-700"
+            >
+              Filtrar por asesor:
+            </label>
+            <input
+              type="text"
+              id="asesorFilter"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50"
+              value={selectedAsesor}
+              onChange={handleAsesorFilterChange}
+              placeholder="Nombre del asesor"
+            />
+          </div>
           <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
@@ -123,6 +157,9 @@ const ReporteGeneral = () => {
                 <th className="px-6 py-3 text-left text-gray-700 font-semibold">
                   Tipo Venta
                 </th>
+                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
+                  Dato de Venta
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -130,7 +167,7 @@ const ReporteGeneral = () => {
               {inmueblesEJ.length > 0 && (
                 <>
                   <tr>
-                    <td colSpan={6} className="font-bold text-lg py-2">
+                    <td colSpan={7} className="font-bold text-lg py-2">
                       LOTES VENDIDOS EL JARDIN
                     </td>
                   </tr>
@@ -165,6 +202,9 @@ const ReporteGeneral = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                           {item.cli_tipoVenta}
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                          {item.cli_contac}
+                        </td>
                       </tr>
                     );
                   })}
@@ -180,7 +220,7 @@ const ReporteGeneral = () => {
               {inmueblesED.length > 0 && (
                 <>
                   <tr>
-                    <td colSpan={6} className="font-bold text-lg py-2">
+                    <td colSpan={7} className="font-bold text-lg py-2">
                       LOTES VENDIDOS EL EDEN
                     </td>
                   </tr>
@@ -215,6 +255,9 @@ const ReporteGeneral = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                           {item.cli_tipoVenta}
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                          {item.cli_contac}
+                        </td>
                       </tr>
                     );
                   })}
@@ -230,7 +273,7 @@ const ReporteGeneral = () => {
               {inmueblesML.length > 0 && (
                 <>
                   <tr>
-                    <td colSpan={6} className="font-bold text-lg py-2">
+                    <td colSpan={7} className="font-bold text-lg py-2">
                       LOTES VENDIDOS MIRADOR DEL LAGO
                     </td>
                   </tr>
@@ -265,11 +308,14 @@ const ReporteGeneral = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                           {item.cli_tipoVenta}
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                          {item.cli_contac}
+                        </td>
                       </tr>
                     );
                   })}
                   <tr>
-                    <td colSpan={6} className="font-bold">
+                    <td colSpan={7} className="font-bold">
                       Total LOTES VENDIDOS MIRADOR DEL LAGO: {totalML}
                     </td>
                   </tr>
@@ -315,11 +361,14 @@ const ReporteGeneral = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                           {item.cli_tipoVenta}
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                          {item.cli_contac}
+                        </td>
                       </tr>
                     );
                   })}
                   <tr>
-                    <td colSpan={6} className="font-bold">
+                    <td colSpan={7} className="font-bold">
                       Total LOTES VENDIDOS EL MANANTIAL: {totalEM}
                     </td>
                   </tr>
@@ -329,7 +378,7 @@ const ReporteGeneral = () => {
             {/* Total General */}
             <tfoot>
               <tr className="bg-gray-100">
-                <td colSpan={6} className="font-bold">
+                <td colSpan={7} className="font-bold">
                   TOTAL LOTES VENDIDOS GENERALES: {totalGeneral}
                 </td>
               </tr>

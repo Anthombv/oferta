@@ -87,8 +87,6 @@ const CrearEncuesta = ({ ofertID, oneOfert }) => {
     await axios.put("/api/newOferts/" + ofertID, ofert);
     Router.back();
   };
-
-  console.log(ofert);
   return (
     <>
       <title>Crear Encuesta</title>

@@ -62,7 +62,6 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
         <div className="tabla-oferta container mx-auto block xl:mx-auto bg-white w-min mt-20 mb-3">
           <div className={styles.hoja}>
             {(oneOfertED.data ?? []).map((item, index) => {
-              console.log(item.cli_totalOferta);
               return (
                 <div
                   className="text-sm text-gray-800"

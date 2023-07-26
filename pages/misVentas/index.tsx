@@ -20,7 +20,6 @@ const MisVentas = () => {
       );
       const todasVentas = response.data ?? [];
       setVentas(todasVentas);
-      console.log(ventas);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
