@@ -13,7 +13,7 @@ const MisVentas = () => {
   const loadData = async () => {
     try {
       const response = await HttpClient(
-        `/api/listOfOne/${auth.userName}`,
+        "/api/listOfOne",
         "GET",
         auth.userName,
         auth.role
@@ -29,6 +29,7 @@ const MisVentas = () => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(ventas);
 
   const asignar_proyecto = (codigo) => {
     if (codigo.startsWith("ED")) {
@@ -41,6 +42,7 @@ const MisVentas = () => {
       return "MIRADOR DEL LAGO";
     }
   };
+
 
   return (
     <>
@@ -69,6 +71,10 @@ const MisVentas = () => {
             </thead>
             <tbody>
               {ventas.map((item, index) => {
+                if (item.soliciter !== auth?.userName) {
+                  return null;
+                }
+
                 return (
                   <tr
                     className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center"

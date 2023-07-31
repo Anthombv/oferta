@@ -25,7 +25,7 @@ export default async function handler(
 
 const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
   dataBase.query(
-    "SELECT * FROM ofertas, invmae where ofertas.mae_codinv = invmae.mae_codinv",
+    "SELECT * FROM ofertas",
     function (err, rows, fields) {
       return res.status(200).json({
         message: "Todas las ofertas",
