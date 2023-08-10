@@ -291,8 +291,14 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -571,6 +577,73 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
+      const rowData = [
+        {
+          title: "REPRESENTANTE",
+          data: [
+            { label: "Representante", value: representante },
+            { label: "Representante ID", value: representanteID },
+          ],
+        },
+        {
+          title: "OTRO DUEÑO",
+          data: [
+            { label: "Otro Dueño", value: name2 },
+            { label: "Otro Dueño ID", value: name2ID },
+          ],
+        },
+        {
+          title: "CONYUGE",
+          data: [
+            { label: "Cónyuge", value: nameConyu },
+            { label: "Cónyuge ID", value: idConyu },
+          ],
+        },
+      ];
+
+      const rows = rowData
+        .filter((row) => row.data.some((cell) => !!cell.value))
+        .map((row) => {
+          return new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: row.title,
+                        bold: true,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              ...row.data
+                .map((cell) => {
+                  if (cell.value) {
+                    return new TableCell({
+                      width: {
+                        size: 33,
+                        type: WidthType.PERCENTAGE,
+                      },
+                      children: [
+                        new Paragraph({
+                          children: [new TextRun(cell.value)],
+                        }),
+                      ],
+                    });
+                  }
+                  return null;
+                })
+                .filter((cell) => cell !== null),
+            ],
+          });
+        });
+
       const table = new Table({
         alignment: AlignmentType.CENTER,
         width: {
@@ -595,134 +668,7 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
             size: 1,
           },
         },
-        rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "REPRESENTANTE",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representante}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representanteID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "OTRO DUEÑO",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2ID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "CONYUGE",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${nameConyu}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${idConyu}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
-        ],
+        rows: rows,
       });
 
       return table;
@@ -863,8 +809,10 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {

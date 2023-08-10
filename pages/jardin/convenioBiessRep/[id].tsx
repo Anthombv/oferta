@@ -252,7 +252,9 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
   const names = oneOfert.data.map((ofert) => ofert.cli_name);
   const cedula = oneOfert.data.map((ofert) => ofert.cli_id);
   const representante = oneOfert.data.map((ofert) => ofert.cli_representante);
-  const representanteID = oneOfert.data.map((ofert) => ofert.cli_representanteID);
+  const representanteID = oneOfert.data.map(
+    (ofert) => ofert.cli_representanteID
+  );
   const name2 = oneOfert.data.map((ofert) => ofert.cli_name2);
   const name2ID = oneOfert.data.map((ofert) => ofert.cli_name2ID);
   const estadoCivil = oneOfert.data.map((ofert) => ofert.cli_estadoCivil);
@@ -289,8 +291,14 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -582,31 +590,59 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
-      const table = new Table({
-        alignment: AlignmentType.CENTER,
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-        },
-        rows: [
+      const rows = [];
+
+      // Representante
+      if (representante || representanteID) {
+        rows.push(
+          new TableRow({
+            children: [
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: "REPRESENTANTE",
+                        bold: true,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [new TextRun(`${representante || ""}`)],
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [new TextRun(`${representanteID || ""}`)],
+                  }),
+                ],
+              }),
+            ],
+          })
+        );
+      }
+
+      // Otro Dueño
+      if (name2 || name2ID) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -632,7 +668,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${name2}`)],
+                    children: [new TextRun(`${name2 || ""}`)],
                   }),
                 ],
               }),
@@ -643,12 +679,18 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${name2ID}`)],
+                    children: [new TextRun(`${name2ID || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
+          })
+        );
+      }
+
+      // Cónyuge
+      if (nameConyu || idConyu) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -674,7 +716,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${nameConyu}`)],
+                    children: [new TextRun(`${nameConyu || ""}`)],
                   }),
                 ],
               }),
@@ -685,13 +727,40 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${idConyu}`)],
+                    children: [new TextRun(`${idConyu || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
-        ],
+          })
+        );
+      }
+
+      const table = new Table({
+        alignment: AlignmentType.CENTER,
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          bottom: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          left: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          right: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+        },
+        rows: rows,
       });
 
       return table;
@@ -832,8 +901,10 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {

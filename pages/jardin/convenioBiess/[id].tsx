@@ -291,8 +291,14 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -584,31 +590,11 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
-      const table = new Table({
-        alignment: AlignmentType.CENTER,
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-        },
-        rows: [
+      const rows = [];
+
+      // Representante
+      if (representante || representanteID) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -634,7 +620,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${representante}`)],
+                    children: [new TextRun(`${representante || ""}`)],
                   }),
                 ],
               }),
@@ -645,12 +631,18 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${representanteID}`)],
+                    children: [new TextRun(`${representanteID || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
+          })
+        );
+      }
+
+      // Otro Dueño
+      if (name2 || name2ID) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -676,7 +668,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${name2}`)],
+                    children: [new TextRun(`${name2 || ""}`)],
                   }),
                 ],
               }),
@@ -687,12 +679,18 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${name2ID}`)],
+                    children: [new TextRun(`${name2ID || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
+          })
+        );
+      }
+
+      // Cónyuge
+      if (nameConyu || idConyu) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -718,7 +716,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${nameConyu}`)],
+                    children: [new TextRun(`${nameConyu || ""}`)],
                   }),
                 ],
               }),
@@ -729,13 +727,40 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${idConyu}`)],
+                    children: [new TextRun(`${idConyu || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
-        ],
+          })
+        );
+      }
+
+      const table = new Table({
+        alignment: AlignmentType.CENTER,
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          bottom: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          left: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          right: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+        },
+        rows: rows,
       });
 
       return table;
@@ -876,8 +901,10 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {

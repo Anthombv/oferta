@@ -1,8 +1,17 @@
-.hoja{
-    width: 210mm;
-    height: 594mm;
-    position: relative;
-    border: 1px solid #d1d5db;
-    border-radius: 5px;
-    font-family: 'poppins';
+.hoja {
+  width: 210mm;
+  height: 594mm;
+  position: relative;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-family: "poppins";
+}
+
+.hojaLicitud {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-family: "poppins";
 }

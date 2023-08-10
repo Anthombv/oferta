@@ -252,7 +252,9 @@ const ConvenioContado = ({ oneOfert, ofertID }) => {
   const names = oneOfert.data.map((ofert) => ofert.cli_name);
   const cedula = oneOfert.data.map((ofert) => ofert.cli_id);
   const representante = oneOfert.data.map((ofert) => ofert.cli_representante);
-  const representanteID = oneOfert.data.map((ofert) => ofert.cli_representanteID);
+  const representanteID = oneOfert.data.map(
+    (ofert) => ofert.cli_representanteID
+  );
   const name2 = oneOfert.data.map((ofert) => ofert.cli_name2);
   const name2ID = oneOfert.data.map((ofert) => ofert.cli_name2ID);
   const estadoCivil = oneOfert.data.map((ofert) => ofert.cli_estadoCivil);
@@ -289,8 +291,14 @@ const ConvenioContado = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -879,8 +887,10 @@ const ConvenioContado = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {

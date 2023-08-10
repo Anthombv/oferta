@@ -291,8 +291,14 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -872,8 +878,10 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {

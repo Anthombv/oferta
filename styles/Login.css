@@ -1,493 +1,567 @@
 .banner {
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    height: 100%;
-    position: absolute;
-    width: 40%;
-    top: 0;
-    box-shadow: 0px 4px 18px #ff3333;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  height: 100%;
+  position: absolute;
+  width: 40%;
+  top: 0;
+  box-shadow: 0px 4px 18px #ff3333;
 }
 .move-side {
-    position: absolute;
-    right: 0;
-    width: 60%;
+  position: absolute;
+  right: 0;
+  width: 60%;
 }
 .logo-title {
-    margin: 0 auto;
-    width: 440px;
-    height: -webkit-fill-available;
-    vertical-align: middle;
+  margin: 0 auto;
+  width: 440px;
+  height: -webkit-fill-available;
+  vertical-align: middle;
 }
 .logo-login {
-    display: block;
-    width: 180px;
-    position: relative;
-    margin-right: 0.8em;
+  display: block;
+  width: 180px;
+  position: relative;
+  margin-right: 0.8em;
 }
 .text-login {
-    display: block;
-    color: #fff;
-    font-family: poppins;
-    font-weight: 300;
-    font-size: 38px;
-    line-height: 42px;
+  display: block;
+  color: #fff;
+  font-family: poppins;
+  font-weight: 300;
+  font-size: 38px;
+  line-height: 42px;
 }
 .text-login strong {
-    font-weight: 900;
-    color: #a2ffd3;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 44px;
+  font-weight: 900;
+  color: #a2ffd3;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 44px;
 }
 .copyright {
-    font-family: poppins;
-    font-size: 9px;
-    font-weight: 300;
-    background: #1e2b35;
-    padding: 5px 30px;
-    position: absolute;
-    display: block;
-    bottom: 20px;
-    border-radius: 0 10px 10px 0;
-    animation-duration: 1s;
-    animation-name: slidein;
+  font-family: poppins;
+  font-size: 9px;
+  font-weight: 300;
+  background: #1e2b35;
+  padding: 5px 30px;
+  position: absolute;
+  display: block;
+  bottom: 20px;
+  border-radius: 0 10px 10px 0;
+  animation-duration: 1s;
+  animation-name: slidein;
 }
 @keyframes slidein {
-    from {
-        transform: translate(-500px, 0px);
-    }
-  
-    to {
-        transform: translate(0px, 0px);
-    }
+  from {
+    transform: translate(-500px, 0px);
   }
+
+  to {
+    transform: translate(0px, 0px);
+  }
+}
 .copyright span {
-    color: #c5c5c5;
+  color: #c5c5c5;
 }
 .copyright span a {
-    color: #c5c5c5;
-    text-transform: none;
+  color: #c5c5c5;
+  text-transform: none;
 }
 .copyright span a:hover {
-    color: #fff;
-    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: #fff;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* BOX LOGIN */
 .login-box {
-    font-family: poppins;
-    background-color: #f3f3f3;
-    color: #1e2b35;
+  font-family: poppins;
+  background-color: #f3f3f3;
+  color: #1e2b35;
 }
 .login-box .box h1 {
-    text-align: center;
-    font-weight: 300;
-    font-size: 28px;
+  text-align: center;
+  font-weight: 300;
+  font-size: 28px;
 }
 .form-login .boton-enviar {
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    box-shadow: 2px 1px 6px #ff3333;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  box-shadow: 2px 1px 6px #ff3333;
 }
 .form-login .boton-actualizar {
-  background: linear-gradient(300deg, rgb(56, 202, 102) 0%, rgb(13, 184, 133) 100%);
+  background: linear-gradient(
+    300deg,
+    rgb(56, 202, 102) 0%,
+    rgb(13, 184, 133) 100%
+  );
   box-shadow: 2px 1px 6px #4bd419;
 }
 .form-login .boton-actualizar:hover {
   transition: ease-in;
-  background:#4bd419;
+  background: #4bd419;
   box-shadow: 0px 0px 2px #369e10;
 }
 .form-login .boton-enviar:hover {
-    transition: ease-in;
-    background:#FF7E34;
-    box-shadow: 0px 0px 2px #ff3333;
+  transition: ease-in;
+  background: #ff7e34;
+  box-shadow: 0px 0px 2px #ff3333;
 }
 .icon-login {
-    width: 50px;
-    text-align: center;
-    margin: 0 auto;
+  width: 50px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* FOOTER */
 .footer {
-    position: absolute;
-    font-family: poppins;
-    font-weight: 300;
-    z-index: 9;
-    font-size: 12px;
-    bottom: 0;
-    margin: 0 20px 20px 0;
-    right: 0;
+  position: absolute;
+  font-family: poppins;
+  font-weight: 300;
+  z-index: 9;
+  font-size: 12px;
+  bottom: 0;
+  margin: 0 20px 20px 0;
+  right: 0;
 }
 .footer .linkcompany img {
-    width: 50px;
-    display: inline-block;
+  width: 50px;
+  display: inline-block;
 }
 .linkcompany p a img {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 .linkcompany p a img:hover {
-    transform: scale(1.05, 1.05);
-    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: scale(1.05, 1.05);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 /* NAVBAR */
 .menu {
-    font-family: poppins;
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    box-shadow: 2px 1px 6px #ff3333;
-    position: fixed;
-    top: 0;
-    z-index: 9;
+  font-family: poppins;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  box-shadow: 2px 1px 6px #ff3333;
+  position: fixed;
+  top: 0;
+  z-index: 9;
 }
 .menu .justify-between {
-    height: 48px;
+  height: 48px;
 }
 .menu .flex {
-    width: 350px;
+  width: 350px;
 }
 .menu img.logo {
-    width: 70px;
-    position: absolute;
-    top: 10px;
-    filter: drop-shadow(1px 2px 5px #E64918);
+  width: 70px;
+  position: absolute;
+  top: 10px;
+  filter: drop-shadow(1px 2px 5px #e64918);
 }
 .menu .user-title {
-    margin-left: 25%;
-    font-size: 12px;
-    font-weight: 500;
+  margin-left: 25%;
+  font-size: 12px;
+  font-weight: 500;
 }
 .options li a {
-    font-size: 14px;
-    font-style: normal;
-    padding: 3px 15px;
-    background-color: #ff872c;
-    border-radius: 10px;
-    text-decoration: none;
-    text-transform: initial;
-    box-shadow: 0px 2px 6px rgba(209, 27, 27, 0.3);
+  font-size: 14px;
+  font-style: normal;
+  padding: 3px 15px;
+  background-color: #ff872c;
+  border-radius: 10px;
+  text-decoration: none;
+  text-transform: initial;
+  box-shadow: 0px 2px 6px rgba(209, 27, 27, 0.3);
 }
 .options li a:hover {
-    box-shadow: none;
-    background-color: #ff6933;
+  box-shadow: none;
+  background-color: #ff6933;
 }
 .options .close-session {
-    background-color: #1e2b35;
-    padding: 8px 15px;
-    border-radius: 10px;
-    color: #c8c8c8;
+  background-color: #1e2b35;
+  padding: 8px 15px;
+  border-radius: 10px;
+  color: #c8c8c8;
 }
 .options .close-session:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 /* MAIN SIDE */
 .main-side {
-    color: #1e2b35;
-    font-family: 'poppins';
+  color: #1e2b35;
+  font-family: "poppins";
 }
 .main-side .title-main {
-    margin-top: 8%;
-    font-weight: 300;
+  margin-top: 8%;
+  font-weight: 300;
 }
 .main-side .subtitle-main {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.title-report-general {
+  margin-top: 8%;
+  font-weight: 300;
+  color: #1e2b35;
+  font-family: "poppins";
 }
 .option-box .box {
-    font-family: 'poppins';
-    height: 300px;
-    background-color: #f3f3f3;
-    color: #1e2b35;
+  font-family: "poppins";
+  height: 300px;
+  background-color: #f3f3f3;
+  color: #1e2b35;
 }
 .option-box .box:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 3px 12px 2px rgb(230 73 24 / 60%);
-    -webkit-transition: all 0.1s linear;
-    -moz-transition: all 0.1s linear;
-    -ms-transition: all 0.1s linear;
-    -o-transition: all 0.1s linear;
-    transition: all 0.1s linear;
+  transform: scale(1.02);
+  box-shadow: 0px 3px 12px 2px rgb(230 73 24 / 60%);
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -ms-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 .box .gradient-box img {
-    margin-top: -30px;
-    filter: drop-shadow(1px 2px 4px #1e2b35);
+  margin-top: -30px;
+  filter: drop-shadow(1px 2px 4px #1e2b35);
 }
 .box .label {
-    color: #fff;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-left: 20px;
-    padding: 0 8px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    border-radius: 5px;
-    text-shadow: 0px 1px 2px rgb(0 0 0 / 51%);
+  color: #fff;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-left: 20px;
+  padding: 0 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  border-radius: 5px;
+  text-shadow: 0px 1px 2px rgb(0 0 0 / 51%);
 }
 .box .label.new {
-    background-color: #25c466;
+  background-color: #25c466;
 }
 .box .label.last {
-    background-color: #ff3b3b;
+  background-color: #ff3b3b;
 }
 .box .label.exclu {
-    background: linear-gradient(300deg, rgba(250,238,162,1) 0%, rgba(200,156,52,1) 100%);
+  background: linear-gradient(
+    300deg,
+    rgba(250, 238, 162, 1) 0%,
+    rgba(200, 156, 52, 1) 100%
+  );
 }
 .box .image-project {
-    height: 120px;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: -2;
+  height: 120px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: -2;
 }
 .box .image-project.jardin {
-    border-bottom: solid 8px #21d2bc;
-    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-jardin-1-min.jpg) center center/cover no-repeat;
+  border-bottom: solid 8px #21d2bc;
+  background: #fff
+    url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-jardin-1-min.jpg)
+    center center/cover no-repeat;
 }
 .box .image-project.eden {
-    border-bottom: solid 8px #c6ffab;
-    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-eden-1-min.jpg) center center/cover no-repeat;
+  border-bottom: solid 8px #c6ffab;
+  background: #fff
+    url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-eden-1-min.jpg)
+    center center/cover no-repeat;
 }
 .box .image-project.mirador {
-    border-bottom: solid 8px #02488d;
-    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-mirador-1-min.jpg) center center/cover no-repeat;
+  border-bottom: solid 8px #02488d;
+  background: #fff
+    url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-mirador-1-min.jpg)
+    center center/cover no-repeat;
 }
 .box .image-project.manantial {
-    border-bottom: solid 8px #59cd7b;
-    background: #fff url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-manantial-1-min.jpg) center center/cover no-repeat;
+  border-bottom: solid 8px #59cd7b;
+  background: #fff
+    url(http://grupoancon.com/wp-content/uploads/2023/05/img-box-manantial-1-min.jpg)
+    center center/cover no-repeat;
 }
 .box .info {
-    padding: 10px 20px 0;
+  padding: 10px 20px 0;
 }
 .box .boton {
-    position: absolute;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: #fff;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
+  position: absolute;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #fff;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
 }
 .box .boton:hover {
-    background: #ff6933;
+  background: #ff6933;
 }
 
 /* PROJECTS FORMS */
 .Back .backboton {
-    position: fixed;
-    bottom: 40px;
-    left: 60px;
-    padding: 10px 40px;
-  }
-  .Back .backboton:hover {
-    background: #1e2b35;
-    color: #fff;
-  }
-  .limite {
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    position: absolute;
-    background: linear-gradient(180deg, #752f2f, #201318);
-  }
-  .limiteOfert {
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    position: absolute;
-    background: #1e2b35;
-  }
-  .background-animate {
-    background-size: 400%;
-    
-    -webkit-animation: AnimationName 3s ease infinite;
-    -moz-animation: AnimationName 3s ease infinite;
-    animation: AnimationName 3s ease infinite;
-  }
-  
-  @keyframes AnimationName {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-  
-  /* GENERAL STYLES */
-  .limiterProjects {
-    color: #1e2b35;
-    font-family: 'poppins';
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    position: absolute;
-  }
-  .limiterProjects .title-projects {
-    font-weight: 300;
-    padding: 30px;
-    background: #f3f3f3;
-    border-radius: 20px;
-    display: block;
-    margin: 90px auto 20px;
-    width: 70%;
-  }
-  .limiterProjects .title-projects img {
-    display: inline-block;
-    margin-left: 20px;
-    position: absolute;
-    margin-top: -6px;
-  }
-  .Jardin .title-projects {
-    border-right: solid 30px #02b298;
-  }
-  .limiterProjects.Jardin {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(51, 255, 197) 100%);
+  position: fixed;
+  bottom: 40px;
+  left: 60px;
+  padding: 10px 40px;
 }
-  .Eden .title-projects {
-    border-right: solid 30px #c6ffab;
-  }
-  .limiterProjects.Eden {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(198, 255, 171) 100%);
-  }
-  .Manantial .title-projects {
-    border-right: solid 30px #59cd7b;
-  }
-  .limiterProjects.Manantial {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(89, 205, 123) 100%);
-  }
-  .Mirador .title-projects {
-    border-right: solid 30px #02488d;
-  }
-  .limiterProjects.Mirador {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(2, 72, 141) 100%);
-  }
+.Back .backboton:hover {
+  background: #1e2b35;
+  color: #fff;
+}
+.limite {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+  background: linear-gradient(180deg, #752f2f, #201318);
+}
+.limiteOfert {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+  background: #1e2b35;
+}
+.background-animate {
+  background-size: 400%;
 
-  .history-button .boton {
-    position: fixed;
-    bottom: 40px;
-    right: 60px;
-    padding: 10px 40px;
-  }
-  .history-button .boton:hover {
-    background: #ff872c;
-    color: #fff;
-  }
-  .fill-jardin:hover {
-    background-color: rgb(204 251 241) !important;
-  }
-  .fill-eden:hover {
-    background-color: rgb(236 252 203) !important;
-  }
-  .fill-mirador:hover {
-    background-color: rgb(224 242 254) !important;
-  }
-  .fill-manantial:hover {
-    background-color: rgb(220 252 231) !important;
-  }
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
+}
 
+@keyframes AnimationName {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* GENERAL STYLES */
+.limiterProjects {
+  color: #1e2b35;
+  font-family: "poppins";
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: absolute;
+}
+.limiterProjects .title-projects {
+  font-weight: 300;
+  padding: 30px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  display: block;
+  margin: 90px auto 20px;
+  width: 70%;
+}
+.limiterProjects .title-projects img {
+  display: inline-block;
+  margin-left: 20px;
+  position: absolute;
+  margin-top: -6px;
+}
+.Jardin .title-projects {
+  border-right: solid 30px #02b298;
+}
+.limiterProjects.Jardin {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(51, 255, 197) 100%
+  );
+}
+.Eden .title-projects {
+  border-right: solid 30px #c6ffab;
+}
+.limiterProjects.Eden {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(198, 255, 171) 100%
+  );
+}
+.Manantial .title-projects {
+  border-right: solid 30px #59cd7b;
+}
+.limiterProjects.Manantial {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(89, 205, 123) 100%
+  );
+}
+.Mirador .title-projects {
+  border-right: solid 30px #02488d;
+}
+.limiterProjects.Mirador {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(2, 72, 141) 100%
+  );
+}
+
+.history-button .boton {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  padding: 10px 40px;
+}
+.history-button .boton:hover {
+  background: #ff872c;
+  color: #fff;
+}
+.fill-jardin:hover {
+  background-color: rgb(204 251 241) !important;
+}
+.fill-eden:hover {
+  background-color: rgb(236 252 203) !important;
+}
+.fill-mirador:hover {
+  background-color: rgb(224 242 254) !important;
+}
+.fill-manantial:hover {
+  background-color: rgb(220 252 231) !important;
+}
 
 /* PROJECTS FORMS  HISTORIAL */
-  .historial {
-    font-family: poppins;
-    color: #1e2b35;
-  }
-  .historial .title-projects {
-    font-weight: 300;
-    padding: 30px;
-    background: #f3f3f3;
-    border-radius: 20px;
-    display: block;
-    margin: 90px auto 20px;
-    width: 70%;
-  }
-  .historial .title-projects img {
-    display: inline-block;
-    margin-left: 20px;
-    position: absolute;
-    margin-top: -6px;
-  }
-  .Jardin .title-projects {
-    border-right: solid 30px #02b298;
-  }
-  .historial.Jardin {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(51, 255, 197) 100%);
+.historial {
+  font-family: poppins;
+  color: #1e2b35;
 }
-  .Eden .title-projects {
-    border-right: solid 30px #c6ffab;
-  }
-  .historial.Eden {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(198, 255, 171) 100%);
-  }
-  .Manantial .title-projects {
-    border-right: solid 30px #59cd7b;
-  }
-  .historial.Manantial {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(89, 205, 123) 100%);
-  }
-  .Mirador .title-projects {
-    border-right: solid 30px #02488d;
-  }
-  .historial.Mirador {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 30%, rgb(2, 72, 141) 100%);
-  }
+.historial .title-projects {
+  font-weight: 300;
+  padding: 30px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  display: block;
+  margin: 90px auto 20px;
+  width: 70%;
+}
+.historial .title-projects img {
+  display: inline-block;
+  margin-left: 20px;
+  position: absolute;
+  margin-top: -6px;
+}
+.Jardin .title-projects {
+  border-right: solid 30px #02b298;
+}
+.historial.Jardin {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(51, 255, 197) 100%
+  );
+}
+.Eden .title-projects {
+  border-right: solid 30px #c6ffab;
+}
+.historial.Eden {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(198, 255, 171) 100%
+  );
+}
+.Manantial .title-projects {
+  border-right: solid 30px #59cd7b;
+}
+.historial.Manantial {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(89, 205, 123) 100%
+  );
+}
+.Mirador .title-projects {
+  border-right: solid 30px #02488d;
+}
+.historial.Mirador {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 30%,
+    rgb(2, 72, 141) 100%
+  );
+}
 
-  /* PROJECTS FORMS  LISTA */
-  .limiteOfert .boton:hover {
-    background: #ff872c;
-    color: #fff;
-  }
-  .limiteOfert {
-    font-family: poppins;
-    color: #1e2b35;
-  }
-  .limiteOfert .title-projects {
-    font-weight: 300;
-    padding: 30px;
-    background: #f3f3f3;
-    border-radius: 20px;
-    display: block;
-    margin: 90px auto 20px;
-    width: 70%;
-  }
-  .limiteOfert .title-projects img {
-    display: inline-block;
-    margin-left: 20px;
-    position: absolute;
-    margin-top: -6px;
-  }
-  .Jardin .title-projects {
-    border-right: solid 30px #02b298;
-  }
-  .Eden .title-projects {
-    border-right: solid 30px #c6ffab;
-  }
-  .Manantial .title-projects {
-    border-right: solid 30px #59cd7b;
-  }
-  .Mirador .title-projects {
-    border-right: solid 30px #02488d;
-  }
+/* PROJECTS FORMS  LISTA */
+.limiteOfert .boton:hover {
+  background: #ff872c;
+  color: #fff;
+}
+.limiteOfert {
+  font-family: poppins;
+  color: #1e2b35;
+}
+.limiteOfert .title-projects {
+  font-weight: 300;
+  padding: 30px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  display: block;
+  margin: 90px auto 20px;
+  width: 70%;
+}
+.limiteOfert .title-projects img {
+  display: inline-block;
+  margin-left: 20px;
+  position: absolute;
+  margin-top: -6px;
+}
+.Jardin .title-projects {
+  border-right: solid 30px #02b298;
+}
+.Eden .title-projects {
+  border-right: solid 30px #c6ffab;
+}
+.Manantial .title-projects {
+  border-right: solid 30px #59cd7b;
+}
+.Mirador .title-projects {
+  border-right: solid 30px #02488d;
+}
 
- /* NUEVA OFERTA */
-  .limiterOferts {
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    background-size: cover;
-    position: absolute;
+/* NUEVA OFERTA */
+.limiterOferts {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  background-size: cover;
+  position: absolute;
 }
 .tabla-oferta {
   font-family: poppins;
 }
-.tabla-oferta .icon-login{
+.tabla-oferta .icon-login {
   padding-top: 70px;
   padding-bottom: 10px;
 }
@@ -507,14 +581,14 @@
   font-weight: 300;
 }
 .opciones .relative div div {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 .label-size {
   font-size: 13px;
 }
 
- /* PRINT OFERTA */
- .print-oferta {
+/* PRINT OFERTA */
+.print-oferta {
   font-family: poppins;
   width: 100%;
   margin: 0 auto;
@@ -522,54 +596,70 @@
   background: #f3f3f3;
   background-size: cover;
   position: absolute;
-  }
-   .menu-print {
-    font-family: poppins;
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    box-shadow: 2px 1px 6px #ff3333;
-    position: fixed;
-    top: 0;
-    z-index: 9;
-  }
-  .menu-print .boton-print {
-    background: linear-gradient(190deg, rgb(90, 225, 126) 0%, rgb(43, 121, 45) 100%);
-    box-shadow: 0px 0px 8px #50ff47;
-  }
-  .menu-print .boton-print:hover {
-    background: rgb(43, 121, 45);
-    box-shadow: 0px 0px 6px #c8ffc5;
-  }
-  .menu-print .logo-print {
-    width: 70px;
-    filter: drop-shadow(1px 2px 5px #E64918);
-    position: absolute;
-  }
-  .boton-cerrar {
-    position: absolute;
-    right: 0;
-  }
-  .bottom-print {
-    background: linear-gradient(190deg, rgb(90, 225, 126) 0%, rgb(43, 121, 45) 100%);
-    box-shadow: 0px 0px 8px #50ff47;
-  }
-  .bottom-print:hover {
-    background: rgb(43, 121, 45);
-    box-shadow: 0px 0px 6px #c8ffc5;
-  }
+}
+.menu-print {
+  font-family: poppins;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  box-shadow: 2px 1px 6px #ff3333;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+}
+.menu-print .boton-print {
+  background: linear-gradient(
+    190deg,
+    rgb(90, 225, 126) 0%,
+    rgb(43, 121, 45) 100%
+  );
+  box-shadow: 0px 0px 8px #50ff47;
+}
+.menu-print .boton-print:hover {
+  background: rgb(43, 121, 45);
+  box-shadow: 0px 0px 6px #c8ffc5;
+}
+.menu-print .logo-print {
+  width: 70px;
+  filter: drop-shadow(1px 2px 5px #e64918);
+  position: absolute;
+}
+.boton-cerrar {
+  position: absolute;
+  right: 0;
+}
+.bottom-print {
+  background: linear-gradient(
+    190deg,
+    rgb(90, 225, 126) 0%,
+    rgb(43, 121, 45) 100%
+  );
+  box-shadow: 0px 0px 8px #50ff47;
+}
+.bottom-print:hover {
+  background: rgb(43, 121, 45);
+  box-shadow: 0px 0px 6px #c8ffc5;
+}
 
-   /* ENCUESTA OFERTA */
-   .encuesta {
-    font-family: poppins;
-    width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: linear-gradient(300deg, rgba(255,51,51,1) 0%, rgba(255,128,51,1) 100%);
-    background-size: cover;
-    position: absolute;
-   }
-   .encuesta .tabla-encuesta {
-    box-shadow: 2px 1px 6px #ff3333;
-   }
-   .tabla-encuesta .title {
-    color: #1e2b35;;
-   }
+/* ENCUESTA OFERTA */
+.encuesta {
+  font-family: poppins;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(
+    300deg,
+    rgba(255, 51, 51, 1) 0%,
+    rgba(255, 128, 51, 1) 100%
+  );
+  background-size: cover;
+  position: absolute;
+}
+.encuesta .tabla-encuesta {
+  box-shadow: 2px 1px 6px #ff3333;
+}
+.tabla-encuesta .title {
+  color: #1e2b35;
+}

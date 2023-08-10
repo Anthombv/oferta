@@ -291,8 +291,14 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
           {
             children: [
               new Paragraph({
-                text: "CONVENIO DE COMPRA",
-                heading: HeadingLevel.TITLE,
+                children: [
+                  new TextRun({
+                    text: "CONVENIO DE COMPRA",
+                    bold: true,
+                    size: 32,
+                    color: "000000",
+                  }),
+                ],
                 alignment: AlignmentType.CENTER,
                 spacing: {
                   before: 200,
@@ -395,7 +401,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -411,7 +417,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -427,11 +433,11 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
-              `Con estos antecedentes, las partes acuerdan libre y voluntariamente celebrar y suscribir el presente convenio, por el cual la COMPAÑÍA INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., reservan para la venta a los FUTUROS ADQUIRIENTES, el lote que forma parte de la lotización rural “EL MANANTIAL” que se detalla a continuación:`
+            `Con estos antecedentes, las partes acuerdan libre y voluntariamente celebrar y suscribir el presente convenio, por el cual la COMPAÑÍA INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., reservan para la venta a los FUTUROS ADQUIRIENTES, el lote que forma parte de la lotización rural “EL MANANTIAL” que se detalla a continuación:`
           ),
         ],
       });
@@ -443,7 +449,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -466,14 +472,13 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       });
     }
 
-
     public createTextAntecedente3pt2(): Paragraph {
       return new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -489,7 +494,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -505,7 +510,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -521,7 +526,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         children: [
           new TextRun(
@@ -536,7 +541,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276
+          line: 276,
         },
         tabStops: [
           {
@@ -880,8 +885,10 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+
       return new Paragraph({
-        children: [new TextRun(`${names}`)],
+        children: [new TextRun(upperCaseNames)],
       });
     }
     public createFirmas3(): Paragraph {
@@ -950,7 +957,6 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
   ];
 
   const antecedentePrimera = [
-    
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:

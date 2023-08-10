@@ -136,254 +136,254 @@ const ReporteGeneral = () => {
               placeholder="Nombre del asesor"
             />
           </div>
-          <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Fecha
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Cliente
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Asesor
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Inmueble
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Precio
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Tipo Venta
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700 font-semibold">
-                  Dato de Venta
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Datos de LOTES VENDIDOS EL JARDIN */}
-              {inmueblesEJ.length > 0 && (
-                <>
-                  <tr>
-                    <td colSpan={7} className="font-bold text-lg py-2">
-                      LOTES VENDIDOS EL JARDIN
-                    </td>
-                  </tr>
-                  {inmueblesEJ.map((item, index) => {
-                    const [fechaParte, horaParte] =
-                      item.fechaCreacion.split(",");
-                    const [dia, mes, anio] = fechaParte.split("/");
-                    const fechaFormateada = `${dia}/${mes}/${anio}`;
-                    return (
-                      <tr
-                        key={index}
-                        className={index % 2 === 0 ? "bg-gray-50" : ""}
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {fechaFormateada}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_asesor}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_codinv}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_totalOferta.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_tipoVenta}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_contac}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={6} className="font-bold">
-                      Total LOTES VENDIDOS EL JARDIN: {totalEJ}
-                    </td>
-                  </tr>
-                </>
-              )}
+            <table className="bg-white mb-8 w-full">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Fecha
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Cliente
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Asesor
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Inmueble
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Precio
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Tipo Venta
+                  </th>
+                  <th className="px-2 py-2 text-left text-gray-700 font-semibold">
+                    Dato de Venta
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Datos de LOTES VENDIDOS EL JARDIN */}
+                {inmueblesEJ.length > 0 && (
+                  <>
+                    <tr>
+                      <td colSpan={7} className="font-bold text-xs py-2 text-center">
+                        LOTES VENDIDOS EL JARDIN
+                      </td>
+                    </tr>
+                    {inmueblesEJ.map((item, index) => {
+                      const [fechaParte, horaParte] =
+                        item.fechaCreacion.split(",");
+                      const [dia, mes, anio] = fechaParte.split("/");
+                      const fechaFormateada = `${dia}/${mes}/${anio}`;
+                      return (
+                        <tr
+                          key={index}
+                          className={index % 2 === 0 ? "bg-gray-50" : ""}
+                        >
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {fechaFormateada}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800 uppercase">
+                            {item.cli_name}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_asesor}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.mae_codinv}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_totalOferta.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_tipoVenta}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_contac}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td colSpan={6} className="font-bold text-sm">
+                        Total LOTES VENDIDOS EL JARDIN: {totalEJ}
+                      </td>
+                    </tr>
+                  </>
+                )}
 
-              {/* Datos de LOTES VENDIDOS EL EDEN */}
-              {inmueblesED.length > 0 && (
-                <>
-                  <tr>
-                    <td colSpan={7} className="font-bold text-lg py-2">
-                      LOTES VENDIDOS EL EDEN
-                    </td>
-                  </tr>
-                  {inmueblesED.map((item, index) => {
-                    const [fechaParte, horaParte] =
-                      item.fechaCreacion.split(",");
-                    const [dia, mes, anio] = fechaParte.split("/");
-                    const fechaFormateada = `${dia}/${mes}/${anio}`;
-                    return (
-                      <tr
-                        key={index}
-                        className={index % 2 === 0 ? "bg-gray-50" : ""}
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {fechaFormateada}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_asesor}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_codinv}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_totalOferta.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_tipoVenta}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_contac}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={6} className="font-bold">
-                      Total LOTES VENDIDOS EL EDEN: {totalED}
-                    </td>
-                  </tr>
-                </>
-              )}
+                {/* Datos de LOTES VENDIDOS EL EDEN */}
+                {inmueblesED.length > 0 && (
+                  <>
+                    <tr>
+                      <td colSpan={7} className="font-bold text-xs py-2 text-center">
+                        LOTES VENDIDOS EL EDEN
+                      </td>
+                    </tr>
+                    {inmueblesED.map((item, index) => {
+                      const [fechaParte, horaParte] =
+                        item.fechaCreacion.split(",");
+                      const [dia, mes, anio] = fechaParte.split("/");
+                      const fechaFormateada = `${dia}/${mes}/${anio}`;
+                      return (
+                        <tr
+                          key={index}
+                          className={index % 2 === 0 ? "bg-gray-50" : ""}
+                        >
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {fechaFormateada}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800 uppercase">
+                            {item.cli_name}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_asesor}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.mae_codinv}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_totalOferta.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_tipoVenta}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_contac}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td colSpan={6} className="font-bold text-sm">
+                        Total LOTES VENDIDOS EL EDEN: {totalED}
+                      </td>
+                    </tr>
+                  </>
+                )}
 
-              {/* Datos de LOTES VENDIDOS MIRADOR DEL LAGO */}
-              {inmueblesML.length > 0 && (
-                <>
-                  <tr>
-                    <td colSpan={7} className="font-bold text-lg py-2">
-                      LOTES VENDIDOS MIRADOR DEL LAGO
-                    </td>
-                  </tr>
-                  {inmueblesML.map((item, index) => {
-                    const [fechaParte, horaParte] =
-                      item.fechaCreacion.split(",");
-                    const [dia, mes, anio] = fechaParte.split("/");
-                    const fechaFormateada = `${dia}/${mes}/${anio}`;
-                    return (
-                      <tr
-                        key={index}
-                        className={index % 2 === 0 ? "bg-gray-50" : ""}
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {fechaFormateada}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_asesor}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_codinv}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_totalOferta.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_tipoVenta}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_contac}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={7} className="font-bold">
-                      Total LOTES VENDIDOS MIRADOR DEL LAGO: {totalML}
-                    </td>
-                  </tr>
-                </>
-              )}
+                {/* Datos de LOTES VENDIDOS MIRADOR DEL LAGO */}
+                {inmueblesML.length > 0 && (
+                  <>
+                    <tr>
+                      <td colSpan={7} className="font-bold text-xs py-2 text-center">
+                        LOTES VENDIDOS MIRADOR DEL LAGO
+                      </td>
+                    </tr>
+                    {inmueblesML.map((item, index) => {
+                      const [fechaParte, horaParte] =
+                        item.fechaCreacion.split(",");
+                      const [dia, mes, anio] = fechaParte.split("/");
+                      const fechaFormateada = `${dia}/${mes}/${anio}`;
+                      return (
+                        <tr
+                          key={index}
+                          className={index % 2 === 0 ? "bg-gray-50" : ""}
+                        >
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {fechaFormateada}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800 uppercase">
+                            {item.cli_name}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_asesor}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.mae_codinv}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_totalOferta.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_tipoVenta}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_contac}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td colSpan={7} className="font-bold text-sm">
+                        Total LOTES VENDIDOS MIRADOR DEL LAGO: {totalML}
+                      </td>
+                    </tr>
+                  </>
+                )}
 
-              {/* Datos de LOTES VENDIDOS EL MANANTIAL */}
-              {inmueblesEM.length > 0 && (
-                <>
-                  <tr>
-                    <td colSpan={6} className="font-bold text-lg py-2">
-                      LOTES VENDIDOS EL MANANTIAL
-                    </td>
-                  </tr>
-                  {inmueblesEM.map((item, index) => {
-                    const [fechaParte, horaParte] =
-                      item.fechaCreacion.split(",");
-                    const [dia, mes, anio] = fechaParte.split("/");
-                    const fechaFormateada = `${dia}/${mes}/${anio}`;
-                    return (
-                      <tr
-                        key={index}
-                        className={index % 2 === 0 ? "bg-gray-50" : ""}
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {fechaFormateada}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_asesor}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.mae_codinv}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_totalOferta.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_tipoVenta}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                          {item.cli_contac}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={7} className="font-bold">
-                      Total LOTES VENDIDOS EL MANANTIAL: {totalEM}
-                    </td>
-                  </tr>
-                </>
-              )}
-            </tbody>
-            {/* Total General */}
-            <tfoot>
-              <tr className="bg-gray-100">
-                <td colSpan={7} className="font-bold">
-                  TOTAL LOTES VENDIDOS GENERALES: {totalGeneral}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+                {/* Datos de LOTES VENDIDOS EL MANANTIAL */}
+                {inmueblesEM.length > 0 && (
+                  <>
+                    <tr>
+                      <td colSpan={6} className="font-bold text-xs py-2 text-center">
+                        LOTES VENDIDOS EL MANANTIAL
+                      </td>
+                    </tr>
+                    {inmueblesEM.map((item, index) => {
+                      const [fechaParte, horaParte] =
+                        item.fechaCreacion.split(",");
+                      const [dia, mes, anio] = fechaParte.split("/");
+                      const fechaFormateada = `${dia}/${mes}/${anio}`;
+                      return (
+                        <tr
+                          key={index}
+                          className={index % 2 === 0 ? "bg-gray-50" : ""}
+                        >
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {fechaFormateada}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800 uppercase">
+                            {item.cli_name}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_asesor}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.mae_codinv}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_totalOferta.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_tipoVenta}
+                          </td>
+                          <td className="px-2 py-2 text-xs text-gray-800">
+                            {item.cli_contac}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td colSpan={7} className="font-bold text-sm">
+                        Total LOTES VENDIDOS EL MANANTIAL: {totalEM}
+                      </td>
+                    </tr>
+                  </>
+                )}
+              </tbody>
+              {/* Total General */}
+              <tfoot>
+                <tr className="bg-gray-100">
+                  <td colSpan={7} className="font-bold text-lg">
+                    TOTAL LOTES VENDIDOS GENERALES: {totalGeneral}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
         </div>
       </div>
     </RoleLayout>
