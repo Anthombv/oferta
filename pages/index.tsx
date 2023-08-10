@@ -36,7 +36,7 @@ const Home = () => {
         </h2>
 
         <p className="subtitle-main text-center text-lg mt-2 pb-5">
-          Seleccione un proyecto
+          Selecciona un proyecto
         </p>
 
         <div className="option-box px-20 grid grid-cols-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-5">
