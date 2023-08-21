@@ -354,7 +354,6 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
                 .reduce((prev, curr) => prev.concat(curr), []),
               this.createTextAntecedente3pt1(),
               this.createTextAntecedente3pt2(),
-              this.createTextAntecedente3pt3(),
 
               ...antecedenteVarios
                 .map((position) => {
@@ -395,9 +394,12 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
-          new TextRun(
-            `En la ciudad de Quito, hoy ${fechaActual}, convienen en celebrar el siguiente convenio:`
-          ),
+          new TextRun("En la ciudad de Quito, hoy "),
+          new TextRun({
+            text: fechaActual,
+            bold: true,
+          }),
+          new TextRun(", convienen en celebrar el siguiente convenio:"),
         ],
       });
     }
@@ -410,8 +412,23 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
+          new TextRun("Por una parte, el/la señor/a "),
+          new TextRun({
+            text: `${names[0].toUpperCase()}`,
+            bold: true,
+          }),
+          new TextRun(", con cédula de identidad N° "),
+          new TextRun({
+            text: `${cedula}`,
+            bold: true,
+          }),
+          new TextRun(", de estado civil "),
+          new TextRun({
+            text: `${estadoCivil}`,
+            bold: true,
+          }),
           new TextRun(
-            `Por una parte, el/la señor/a ${names}, con cédula de identidad N° ${cedula}, de estado civil ${estadoCivil}, por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y`
+            ", por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
           ),
         ],
       });
@@ -455,8 +472,13 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
+          new TextRun(`El precio del lote reservado es de `),
+          new TextRun({
+            text: `USD. ${preciofinaR} ${precioFinalTextR}`,
+            bold: true,
+          }),
           new TextRun(
-            `El precio del lote reservado es de USD.  ${preciofinaR} ${precioFinalTextR}. Este valor será cancelado de acuerdo a la tabla de pagos (Anexo 1) que forma parte integral del mismo.`
+            ". Este valor será cancelado de acuerdo a la tabla de pagos (Anexo 1) que forma parte integral del mismo."
           ),
         ],
       });
@@ -472,21 +494,6 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
         children: [
           new TextRun(
             `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.\n\nSi parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
-          ),
-        ],
-      });
-    }
-
-    public createTextAntecedente3pt3(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `Si parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
           ),
         ],
       });
@@ -577,34 +584,11 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
-      const rowData = [
-        {
-          title: "REPRESENTANTE",
-          data: [
-            { label: "Representante", value: representante },
-            { label: "Representante ID", value: representanteID },
-          ],
-        },
-        {
-          title: "OTRO DUEÑO",
-          data: [
-            { label: "Otro Dueño", value: name2 },
-            { label: "Otro Dueño ID", value: name2ID },
-          ],
-        },
-        {
-          title: "CONYUGE",
-          data: [
-            { label: "Cónyuge", value: nameConyu },
-            { label: "Cónyuge ID", value: idConyu },
-          ],
-        },
-      ];
-
-      const rows = rowData
-        .filter((row) => row.data.some((cell) => !!cell.value))
-        .map((row) => {
-          return new TableRow({
+      const rows = [];
+      // Cónyuge
+      if (nameConyu || idConyu) {
+        rows.push(
+          new TableRow({
             children: [
               new TableCell({
                 width: {
@@ -615,34 +599,44 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
                   new Paragraph({
                     children: [
                       new TextRun({
-                        text: row.title,
+                        text: "CONYUGE",
                         bold: true,
                       }),
                     ],
                   }),
                 ],
               }),
-              ...row.data
-                .map((cell) => {
-                  if (cell.value) {
-                    return new TableCell({
-                      width: {
-                        size: 33,
-                        type: WidthType.PERCENTAGE,
-                      },
-                      children: [
-                        new Paragraph({
-                          children: [new TextRun(cell.value)],
-                        }),
-                      ],
-                    });
-                  }
-                  return null;
-                })
-                .filter((cell) => cell !== null),
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        text: `${nameConyu[0].toUpperCase() || ""}`,
+                        bold: true,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              new TableCell({
+                width: {
+                  size: 33,
+                  type: WidthType.PERCENTAGE,
+                },
+                children: [
+                  new Paragraph({
+                    children: [new TextRun(`${idConyu || ""}`)],
+                  }),
+                ],
+              }),
             ],
-          });
-        });
+          })
+        );
+      }
 
       const table = new Table({
         alignment: AlignmentType.CENTER,
@@ -812,12 +806,12 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
       const upperCaseNames = String(names).toUpperCase();
 
       return new Paragraph({
-        children: [new TextRun(upperCaseNames)],
+        children: [new TextRun({ text: upperCaseNames, bold: true })],
       });
     }
     public createFirmas3(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`N. º ${cedula}`)],
+        children: [new TextRun({ text: `N. º ${cedula}`, bold: true })],
       });
     }
 
@@ -832,12 +826,16 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
 
     public createFirmas5(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`INMOCONSTRUCCIONES CIA. LTDA.`)],
+        children: [
+          new TextRun({ text: `INMOCONSTRUCCIONES CIA. LTDA.`, bold: true }),
+        ],
       });
     }
     public createFirmas6(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`RUC N. º. 1791714881001`)],
+        children: [
+          new TextRun({ text: `RUC N. º. 1791714881001`, bold: true }),
+        ],
       });
     }
   }
@@ -857,7 +855,7 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
       summary:
         "Mediante escritura pública celebrada el 21 de noviembre del 2019 ante el notario primero del Cantón Pedro Vicente Maldonado Dr. Marcelo Javier Villacis Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió a los cónyuges Yuri Wladimir Torres Rites y Yadira Noemi Vinueza Tamayo el lote de terreno signado con el número 6, legalmente inscrito en el Registro de la Propiedad del cantón Puerto Quito el 5 de septiembre del 2019;\n\nMediante ordenanza número 2020-008 se aprueba la urbanización “El Jardín de Puerto Quito”, otorgada el 18 de agosto del 2020 ante el notario Primero del cantón Pedro Vicente Maldonado, doctor Marcelo Javier Villacís Medina, legalmente inscrito en el registro de la propiedad de Puerto Quito el 10 de febrero del 2021, la misma que está compuesta por 263 lotes de una superficie aproximada de 700m2, con sus respectivas áreas comunales, vías, red de agua potable y red eléctrica.",
       company: {
-        name: "PRIMERA - ANTECEDENTE",
+        name: "PRIMERA. - ANTECEDENTE",
       },
     },
   ];
@@ -925,7 +923,7 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones de la Administración vigente, y aprobadas por la mayoría de los Propietarios.",
+        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones de la Administración vigente, y aprobadas por la mayoría de los Propietarios. EL VENDEDOR está comprometido con la información personal de nuestros clientes por lo que le comunicamos que estamos cumpliendo con la Ley Orgánica de Protección de Datos Personales.",
       company: {
         name: "NOVENA. - ACEPTACIÓN",
       },
