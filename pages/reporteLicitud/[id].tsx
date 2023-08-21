@@ -836,7 +836,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                               style={{ fontSize: "9px" }}
                             >
                               <hr className="mb-1 border-t-2 border-gray-600 w-3/6 mx-auto" />
-                              {auth?.name} - ASESOR DE VENTAS
+                              {item.cli_asesor} - ASESOR DE VENTAS
                             </td>
                           </tr>
                         </tbody>
