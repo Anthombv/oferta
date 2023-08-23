@@ -131,7 +131,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Nombre y Apellidos:
                             </td>
-                            <td colSpan={6} className="border border-black">
+                            <td colSpan={6} className="border border-black uppercase">
                               {item.cli_name}
                             </td>
                           </tr>
@@ -145,7 +145,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Nacionalidad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_nacionalidad}
                             </td>
                             <td className="border border-black font-semibold">
@@ -165,7 +165,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Calle:
                             </td>
-                            <td className="border border-black" colSpan={5}>
+                            <td className="border border-black uppercase" colSpan={5}>
                               {item.cli_direcc}
                             </td>
                           </tr>
@@ -173,13 +173,13 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Sector:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_sector}
                             </td>
                             <td className="border border-black font-semibold">
                               Ciudad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_ciudad}
                             </td>
                             <td className="border border-black font-semibold">
@@ -195,14 +195,14 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             </td>
                             <td
                               colSpan={3}
-                              className="border border-black font-semibold"
+                              className="border border-black uppercase"
                             >
                               {item.cli_trabajo}
                             </td>
                             <td className="border border-black font-semibold">
                               Actividad laboral:
                             </td>
-                            <td colSpan={2} className="border border-black">
+                            <td colSpan={2} className="border border-black uppercase">
                               {item.cli_cargoT}
                             </td>
                           </tr>
@@ -216,7 +216,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Calle:
                             </td>
-                            <td className="border border-black" colSpan={5}>
+                            <td className="border border-black uppercase" colSpan={5}>
                               {item.cli_direccT}
                             </td>
                           </tr>
@@ -224,13 +224,13 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Sector:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_sectorT}
                             </td>
                             <td className="border border-black font-semibold">
                               Ciudad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_ciudadT}
                             </td>
                             <td className="border border-black font-semibold">
@@ -251,7 +251,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Respuesta:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.relacion1}
                             </td>
                           </tr>
@@ -262,7 +262,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             >
                               Si es afirmativo, favor coloque nombre y relación
                             </td>
-                            <td colSpan={5} className="border border-black">
+                            <td colSpan={5} className="border border-black uppercase">
                               {item.detalleRelacion1}
                             </td>
                           </tr>
@@ -277,7 +277,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Respuesta:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.relacion2}
                             </td>
                           </tr>
@@ -288,7 +288,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             >
                               Si es afirmativo, favor indiquela:
                             </td>
-                            <td colSpan={5} className="border border-black">
+                            <td colSpan={5} className="border border-black uppercase">
                               {item.detalleRelacion2}
                             </td>
                           </tr>
@@ -303,7 +303,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Respuesta:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.relacion3}
                             </td>
                           </tr>
@@ -315,7 +315,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                               Si es afirmativo, favor indique fecha, cargo y
                               pais:
                             </td>
-                            <td colSpan={5} className="border border-black">
+                            <td colSpan={5} className="border border-black uppercase">
                               {item.detalleRelacion3}
                             </td>
                           </tr>
@@ -334,7 +334,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Nombre y Apellidos:
                             </td>
-                            <td colSpan={6} className="border border-black">
+                            <td colSpan={6} className="border border-black uppercase">
                               {item.cli_representante}
                             </td>
                           </tr>
@@ -348,13 +348,13 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Nacionalidad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_nacionalidadR}
                             </td>
                             <td className="border border-black font-semibold">
                               Estado civil:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_estadoCivilR}
                             </td>
                           </tr>
@@ -368,7 +368,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Calle:
                             </td>
-                            <td className="border border-black" colSpan={5}>
+                            <td className="border border-black uppercase" colSpan={5}>
                               {item.cli_direccR}
                             </td>
                           </tr>
@@ -376,13 +376,13 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Sector:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_sectorR}
                             </td>
                             <td className="border border-black font-semibold">
                               Ciudad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_ciudadR}
                             </td>
                             <td className="border border-black font-semibold">
@@ -398,14 +398,14 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             </td>
                             <td
                               colSpan={3}
-                              className="border border-black font-semibold"
+                              className="border border-black font-semibold uppercase"
                             >
                               {item.cli_trabajoR}
                             </td>
                             <td className="border border-black font-semibold">
                               Actividad laboral:
                             </td>
-                            <td colSpan={2} className="border border-black">
+                            <td colSpan={2} className="border border-black uppercase">
                               {item.cli_cargoR}
                             </td>
                           </tr>
@@ -419,7 +419,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Calle:
                             </td>
-                            <td className="border border-black" colSpan={5}>
+                            <td className="border border-black uppercase" colSpan={5}>
                               {item.cli_direccTR}
                             </td>
                           </tr>
@@ -427,19 +427,19 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Sector:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_sectorTR}
                             </td>
                             <td className="border border-black font-semibold">
                               Ciudad:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_ciudadTR}
                             </td>
                             <td className="border border-black font-semibold">
                               Telefono:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.cli_telefTR}
                             </td>
                           </tr>
@@ -454,7 +454,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black font-semibold">
                               Respuesta:
                             </td>
-                            <td className="border border-black">
+                            <td className="border border-black uppercase">
                               {item.intermediarioR1}
                             </td>
                           </tr>
@@ -470,7 +470,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td colSpan={1} className="border border-black">
                               Nombre Completo
                             </td>
-                            <td colSpan={4} className="border border-black">
+                            <td colSpan={4} className="border border-black uppercase">
                               {item.intermediario_nameR}
                             </td>
                           </tr>
@@ -521,7 +521,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             >
                               Fuente de los ingresos:
                             </td>
-                            <td colSpan={2} className="border border-black">
+                            <td colSpan={2} className="border border-black uppercase">
                               {item.fuenteIngresos}
                             </td>
                           </tr>
@@ -541,7 +541,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             >
                               Fuente del Patrimonio:
                             </td>
-                            <td colSpan={2} className="border border-black">
+                            <td colSpan={2} className="border border-black uppercase">
                               {item.fuentePatrimonio}
                             </td>
                           </tr>
@@ -613,24 +613,24 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             </td>
                           </tr>
                           <tr>
-                            <td className="border border-black" colSpan={3}>
+                            <td className="border border-black uppercase" colSpan={3}>
                               {item.banco1}
                             </td>
                             <td className="border border-black" colSpan={1}>
                               {item.cuenta1}
                             </td>
-                            <td className="border border-black" colSpan={4}>
+                            <td className="border border-black uppercase" colSpan={4}>
                               {item.refComercial1}
                             </td>
                           </tr>
                           <tr>
-                            <td className="border border-black" colSpan={3}>
+                            <td className="border border-black uppercase" colSpan={3}>
                               {item.banco2}
                             </td>
                             <td className="border border-black" colSpan={1}>
                               {item.cuenta2}
                             </td>
-                            <td className="border border-black" colSpan={4}>
+                            <td className="border border-black uppercase" colSpan={4}>
                               {item.refComercial2}
                             </td>
                           </tr>
@@ -670,10 +670,10 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black" colSpan={3}>
                               {item.monto1}
                             </td>
-                            <td className="border border-black" colSpan={1}>
+                            <td className="border border-black uppercase" colSpan={1}>
                               {item.tipo_transacc1}
                             </td>
-                            <td className="border border-black" colSpan={4}>
+                            <td className="border border-black uppercase" colSpan={4}>
                               {item.transacc_cuenta1}
                             </td>
                           </tr>
@@ -681,10 +681,10 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             <td className="border border-black" colSpan={3}>
                               {item.monto2}
                             </td>
-                            <td className="border border-black" colSpan={1}>
+                            <td className="border border-black uppercase" colSpan={1}>
                               {item.tipo_transacc2}
                             </td>
-                            <td className="border border-black" colSpan={4}>
+                            <td className="border border-black uppercase" colSpan={4}>
                               {item.transacc_cuenta2}
                             </td>
                           </tr>
@@ -703,7 +703,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                               colSpan={8}
                             >
                               LOS FONDOS, BIENES MUEBLES E INMUELES DE ESTA
-                              TRANSACCION PROVIENE DE: {item.declaracionFondos1}
+                              TRANSACCION PROVIENE DE: {item.declaracionFondos1.toUpperCase()}
                             </td>
                           </tr>
                           <tr>
@@ -713,7 +713,7 @@ const Licitud = ({ oneOfertED, ofertID }) => {
                             >
                               LOS FONDOS, BIENES MUEBLES E INMUELES DE ESTA
                               TRANSACCION SERAN UTILIZADOS PARA:{" "}
-                              {item.declaracionFondos2}
+                              {(item.declaracionFondos2).toUpperCase()}
                             </td>
                           </tr>
                           <tr>

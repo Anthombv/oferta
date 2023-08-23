@@ -42,6 +42,14 @@ const LotesVendidosED = ({ lotesED }) => {
     );
     setFilteredData(filteredItems);
   };
+
+  const numbersItems = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const startIndex = (currentPage - 1) * numbersItems;
+  const endIndex = startIndex + numbersItems;
+
+  const currentData = filteredData.slice(startIndex, endIndex);
   return (
     <>
       <RoleLayout permissions={[0, 2]}>
@@ -61,7 +69,7 @@ const LotesVendidosED = ({ lotesED }) => {
           >
             Volver Atrás
           </button>
-          <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-5/6 mx-auto">
+          <div className="relative overflow-x-auto sm:rounded-lg w-11/12 xl:w-9/12 mx-auto">
             <input
               type="text"
               value={searchTerm}
@@ -69,48 +77,48 @@ const LotesVendidosED = ({ lotesED }) => {
               placeholder="Buscar por asesor..."
               className="my-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <table className="w-full whitespace-nowrap text-xs xl:text-sm md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
+            <table className="w-full whitespace-nowrap text-xs xl:text-xs md:text-sm text-center text-gray-500 dark:text-gray-400 [&>tbody>*:nth-child(odd)]:bg-white [&>tbody>*:nth-child(even)]:bg-gray-100">
               <thead className="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-700 w-full">
                 <tr className="text-center">
-                  <th className="xl:px-6 xl:py-3 px-3 py-1">Numero</th>
-                  <th className="xl:px-6 xl:py-3 px-3 py-1">Cliente</th>
-                  <th className="xl:px-6 xl:py-3 px-3 py-1">Asesor</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Lote</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Precio</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Estado</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Editar</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Reporte</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Licitud</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Encuesta</th>
-                  <th className="xl:px-6 xl:py-3 px-2 py-1">Convenio</th>
+                  <th className="xl:px-2 xl:py-2 px-3 py-1">Numero</th>
+                  <th className="xl:px-2 xl:py-2 px-3 py-1">Cliente</th>
+                  <th className="xl:px-2 xl:py-2 px-3 py-1">Asesor</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Lote</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Precio</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Estado</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Editar</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Reporte</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Licitud</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Encuesta</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Convenio</th>
                 </tr>
               </thead>
               <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                {filteredData.map((ofertED, index) => {
+                {currentData.map((ofertED, index) => {
                   return (
                     <tr className="text-center" key={index}>
-                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      <td className="xl:px-2 xl:py-2 px-3 py-1">
                         {ofertED.id}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      <td className="xl:px-2 xl:py-2 px-3 py-1">
                         {ofertED.cli_name}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      <td className="xl:px-2 xl:py-2 px-3 py-1">
                         {ofertED.cli_asesor}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         {ofertED.mae_codinv}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         {ofertED.cli_totalOferta.toLocaleString("en-US", {
                           style: "currency",
                           currency: "USD",
                         })}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         {ofertED.cli_state}
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         <Link
                           href={`/oferts/edit/${ofertED.id}`}
                           className="text-lime-500 dark:text-lime-600 hover:text-orange-600"
@@ -133,7 +141,7 @@ const LotesVendidosED = ({ lotesED }) => {
                           </svg>
                         </Link>
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      <td className="xl:px-2 xl:py-2 px-3 py-1">
                         <Link
                           href={`/reporteOferta/${ofertED.id}`}
                           className="text-lime-500 dark:text-lime-600 hover:text-orange-600"
@@ -156,7 +164,7 @@ const LotesVendidosED = ({ lotesED }) => {
                           </svg>
                         </Link>
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-3 py-1">
+                      <td className="xl:px-2 xl:py-2 px-3 py-1">
                         <Link
                           href={`/reporteLicitud/${ofertED.id}`}
                           className="text-lime-500 dark:text-lime-600 hover:text-orange-600"
@@ -167,6 +175,7 @@ const LotesVendidosED = ({ lotesED }) => {
                             viewBox="0 0 24 24"
                             strokeWidth="1.5"
                             stroke="currentColor"
+                            className="mx-auto"
                             width="2.25em"
                             height="1.50em"
                           >
@@ -178,7 +187,7 @@ const LotesVendidosED = ({ lotesED }) => {
                           </svg>
                         </Link>
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         <button
                           onClick={() =>
                             Router.push({
@@ -204,7 +213,7 @@ const LotesVendidosED = ({ lotesED }) => {
                           </svg>
                         </button>
                       </td>
-                      <td className="xl:px-6 xl:py-3 px-2 py-1">
+                      <td className="xl:px-2 xl:py-2 px-2 py-1">
                         <button
                           onClick={() =>
                             Router.push({
@@ -235,6 +244,22 @@ const LotesVendidosED = ({ lotesED }) => {
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-4 py-1 mx-1 bg-slate-200 hover:bg-gray-900 hover:text-white dark:bg-gray-700 rounded-2xl"
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => setCurrentPage(currentData + 1)}
+              disabled={endIndex >= lotesED.length}
+              className="px-4 py-1 mx-1 bg-slate-200 hover:bg-gray-900 hover:text-white dark:bg-gray-700 rounded-2xl"
+            >
+              Siguiente
+            </button>
           </div>
         </div>
       </RoleLayout>

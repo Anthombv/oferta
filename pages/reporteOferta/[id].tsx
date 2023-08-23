@@ -169,7 +169,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                               <th className="border-r border-t border-black">
                                 Total
                               </th>
-                              <td className="border-r border-t border-black">
+                              <td className="border-r border-t border-black font-bold">
                                 {item.cli_totalOferta.toLocaleString("en-US", {
                                   style: "currency",
                                   currency: "USD",
@@ -543,13 +543,17 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                           style={{ width: "98%" }}
                         >
                           <p className="m-1 text-justify text-xs">
-                            <strong>NOTA:</strong>Con el valor que usted entrega
+                            <strong>NOTA: </strong>Con el valor que usted entrega
                             a la firma de este instrumento, ha reservado su
                             inmueble. En caso de que usted desista de la compra,
                             perderá este primer abono, a menos que a la firma de
                             este documento usted no conozca el bien, lo que
                             podrá realizarlo en los próximos tres dias; nuestros
-                            asesores estaran gustosos de atenderle
+                            asesores estaran gustosos de atenderle. EL VENDEDOR
+                            está comprometido con la información personal de
+                            nuestros clientes por lo que le comunicamos que
+                            estamos cumpliendo con la Ley Orgánica de Protección
+                            de Datos Personales.
                           </p>
                         </div>
                         <p className="text-xs mt-2 mx-2">
