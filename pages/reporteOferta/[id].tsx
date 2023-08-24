@@ -563,7 +563,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                           </strong>
                         </p>
                       </div>
-                      <div className="mt-32 grid grid-cols-3 mx-4 text-center">
+                      <div className="mt-20 grid grid-cols-3 mx-4 text-center">
                         <div className="relative z-0 mb-3 w-full">
                           <hr className="w-52 h-1 mx-auto bg-black border rounded" />
                           CLIENTE
