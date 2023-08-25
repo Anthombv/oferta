@@ -70,17 +70,6 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                 >
                   <div style={{ height: "290mm", position: "relative" }}>
                     <div className="mx-10 mt-6">
-                      <img
-                        src="/logoAncon.png"
-                        alt="/logoAncon.png"
-                        style={{
-                          position: "absolute",
-                          width: "60px",
-                          height: "60px",
-                          left: "70px",
-                          top: "16px",
-                        }}
-                      />
                       <h1 className="text-center pt-6 text-2xl font-normal">
                         OFERTA DE COMPRA <strong>{item.id}</strong>
                       </h1>
@@ -91,7 +80,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                     </div>
                     <div className="border border-gray-300 rounded-xl mx-8">
                       {/* Datos Inmueble */}
-                      <div className="mb-3">
+                      <div>
                         <h2
                           className="text-center font-bold rounded-lg py-1 my-2 bg-green-200 mx-auto"
                           style={{ width: "98%" }}
@@ -354,19 +343,6 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <img
-                        src="/footerPrestamos.png"
-                        alt=""
-                        style={{
-                          width: "100%",
-                          bottom: 0,
-                          backgroundSize: "cover",
-                          position: "absolute",
-                          backgroundRepeat: "no-repeat",
-                        }}
-                      />
-                    </div>
                   </div>
                   {/* Hoja 2 conyuge */}
                   <div
@@ -563,7 +539,7 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                           </strong>
                         </p>
                       </div>
-                      <div className="mt-20 grid grid-cols-3 mx-4 text-center">
+                      <div className="mt-28 grid grid-cols-3 mx-4 text-center">
                         <div className="relative z-0 mb-3 w-full">
                           <hr className="w-52 h-1 mx-auto bg-black border rounded" />
                           CLIENTE
@@ -577,19 +553,6 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                           PROMOTOR
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <img
-                        src="/footerPrestamos.png"
-                        alt=""
-                        style={{
-                          width: "100%",
-                          bottom: 0,
-                          backgroundSize: "cover",
-                          position: "absolute",
-                          backgroundRepeat: "no-repeat",
-                        }}
-                      />
                     </div>
                   </div>
                 </div>
