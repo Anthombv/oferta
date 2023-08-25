@@ -864,7 +864,7 @@ const ConvenioDirecto = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       company: {
-        name: "SEGUNDA. - OBJETO DEL CONVENIO DE RESERVA",
+        name: "SEGUNDA. - OBJETO DEL CONVENIO DE COMPRA",
       },
     },
   ];

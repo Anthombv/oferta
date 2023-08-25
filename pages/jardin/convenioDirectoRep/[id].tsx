@@ -825,7 +825,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
       });
     }
 
-
     public createFirmas4(): Paragraph {
       return new Paragraph({
         spacing: {
@@ -875,7 +874,7 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       company: {
-        name: "SEGUNDA. - OBJETO DEL CONVENIO DE RESERVA",
+        name: "SEGUNDA. - OBJETO DEL CONVENIO DE COMPRA",
       },
     },
   ];
@@ -934,7 +933,7 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones de la Administración vigente, y aprobadas por la mayoría de los Propietarios.",
+        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. Los FUTUROS ADQUIRIENTES se comprometen a cumplir las disposiciones de la Administración vigente, y aprobadas por la mayoría de los Propietarios. EL VENDEDOR está comprometido con la información personal de nuestros clientes por lo que le comunicamos que estamos cumpliendo con la Ley Orgánica de Protección de Datos Personales.",
       company: {
         name: "NOVENA. - ACEPTACIÓN",
       },

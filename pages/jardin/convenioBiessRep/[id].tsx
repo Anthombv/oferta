@@ -822,7 +822,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
       });
     }
 
-     public createFirmas2(): Paragraph {
+    public createFirmas2(): Paragraph {
       const upperCaseNames = String(names).toUpperCase();
 
       return new Paragraph({
@@ -884,7 +884,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       company: {
-        name: "SEGUNDA. - OBJETO DEL CONVENIO DE RESERVA",
+        name: "SEGUNDA. - OBJETO DEL CONVENIO DE COMPRA",
       },
     },
   ];

@@ -388,9 +388,12 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
-          new TextRun(
-            `En la ciudad de Quito, hoy ${fechaActual}, convienen en celebrar el siguiente convenio:`
-          ),
+          new TextRun("En la ciudad de Quito, hoy "),
+          new TextRun({
+            text: fechaActual,
+            bold: true,
+          }),
+          new TextRun(", convienen en celebrar el siguiente convenio:"),
         ],
       });
     }
@@ -401,11 +404,25 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276,
         },
         children: [
+          new TextRun("Por una parte, el/la señor/a "),
+          new TextRun({
+            text: `${names[0].toUpperCase()}`,
+            bold: true,
+          }),
+          new TextRun(", con cédula de identidad N° "),
+          new TextRun({
+            text: `${cedula}`,
+            bold: true,
+          }),
+          new TextRun(", de estado civil "),
+          new TextRun({
+            text: `${estadoCivil}`,
+            bold: true,
+          }),
           new TextRun(
-            `Por una parte, el/la señor/a ${names}, con cédula de identidad N° ${cedula}, de estado civil ${estadoCivil}, por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y`
+            ", por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
           ),
         ],
       });
@@ -437,7 +454,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `Con estos antecedentes, las partes acuerdan libre y voluntariamente celebrar y suscribir el presente convenio, por el cual la COMPAÑÍA INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., reservan para la venta a los FUTUROS ADQUIRIENTES, el lote que forma parte de la lotización rural “EL MANANTIAL” que se detalla a continuación:`
+            `Con estos antecedentes, las partes acuerdan, libre y voluntariamente celebrar y suscribir el presente contrato, por el cual INMOCONSTUCCIONES reserva para la venta al COMPRADOR, el inmueble detallado a continuación:`
           ),
         ],
       });
@@ -449,24 +466,25 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         spacing: {
           before: 200,
           after: 200,
-          line: 276,
         },
         children: [
+          new TextRun("El precio del lote reservado es de USD. "),
+          new TextRun({
+            text: `${precioLote.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}`,
+            bold: true,
+          }),
           new TextRun(
-            `El precio del lote reservado es de USD. ${precioLote.toLocaleString(
-              "en-US",
-              {
-                style: "currency",
-                currency: "USD",
-              }
-            )}, se considera un descuento del ${porcentaje} que serían ${descuento.toLocaleString(
-              "en-US",
-              {
-                style: "currency",
-                currency: "USD",
-              }
-            )}  
-            por realizar crédito BIESS, por lo que el precio real del lote es de USD. ${preciofinaR} ${precioFinalTextR}. Este valor será cancelado de acuerdo a la siguiente tabla de pagos.`
+            `, se considera un descuento del ${porcentaje}%, por realizar crédito BIESS, por lo que el precio real del lote es de `
+          ),
+          new TextRun({
+            text: `USD. ${preciofinaR} ${precioFinalTextR}`,
+            bold: true,
+          }),
+          new TextRun(
+            ". Este valor será cancelado de acuerdo a la siguiente tabla de pagos."
           ),
         ],
       });
@@ -593,115 +611,10 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
-      const table = new Table({
-        alignment: AlignmentType.CENTER,
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-        },
-        rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "REPRESENTANTE",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representante}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${representanteID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "OTRO DUEÑO",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2ID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
+      const rows = [];
+      // Cónyuge
+      if (nameConyu || idConyu) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -727,7 +640,12 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${nameConyu}`)],
+                    children: [
+                      new TextRun({
+                        text: `${nameConyu[0].toUpperCase() || ""}`,
+                        bold: true,
+                      }),
+                    ],
                   }),
                 ],
               }),
@@ -738,13 +656,40 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${idConyu}`)],
+                    children: [new TextRun(`${idConyu || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
-        ],
+          })
+        );
+      }
+
+      const table = new Table({
+        alignment: AlignmentType.CENTER,
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          bottom: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          left: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          right: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+        },
+        rows: rows,
       });
 
       return table;
@@ -888,12 +833,12 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       const upperCaseNames = String(names).toUpperCase();
 
       return new Paragraph({
-        children: [new TextRun(upperCaseNames)],
+        children: [new TextRun({ text: upperCaseNames, bold: true })],
       });
     }
     public createFirmas3(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`N. º ${cedula}`)],
+        children: [new TextRun({ text: `N. º ${cedula}`, bold: true })],
       });
     }
 
@@ -908,12 +853,16 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
 
     public createFirmas5(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`INMOCONSTRUCCIONES CIA. LTDA.`)],
+        children: [
+          new TextRun({ text: `INMOCONSTRUCCIONES CIA. LTDA.`, bold: true }),
+        ],
       });
     }
     public createFirmas6(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`RUC N. º. 1791714881001`)],
+        children: [
+          new TextRun({ text: `RUC N. º. 1791714881001`, bold: true }),
+        ],
       });
     }
 
@@ -926,7 +875,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `b) Sobre el terreno indicado anteriormente, se realiza la lotización rural “EL MANANTIAL”, el mismo que está compuesto por 299 lotes de una superficie estimada de 800m2, con sus respectivas áreas comunales, vía lastrada, red de agua potable y red eléctrica.`
+            `b) Sobre el terreno indicado anteriormente, se encuentra el Proyecto de Huertos Familiares “EL MIRADOR DEL LAGO”, el mismo que estará compuesto aproximadamente por 20 lotes de una superficie estimada de dos mil quinientos metros cuadrados que incluye: Portón de ingreso, conserjería, áreas comunales, vía interna empedrada, punto de luz, punto de agua potable, punto de riego, tanque biodigestor, estaca de linderos.`
           ),
         ],
       });
@@ -940,7 +889,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `Es voluntad de las partes suscribir el presente convenio por ser beneficioso para las mismas`
+            `c) Es voluntad de las partes suscribir el presente convenio por ser beneficioso para las mismas.`
           ),
         ],
       });
@@ -960,9 +909,9 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "a) Mediante escritura pública celebrada el treinta de mayo del dos mil diecisiete ante el Notario Primero del cantón Pedro Vicente Maldonado el Dr. Marcelo Javier Villacís Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió al señor Esteban Andres Olmedo Obando el lote de terreno signado con el número 19 y 19C, legalmente inscrito en el Registro de la Propiedad del mismo cantón con fecha trece de junio del dos mil diecisiete; con fecha 24 de agosto del 2017 se inscribió la unificación de los referidos lotes de terreno, ubicados en la parroquia y cantón Puerto Quito provincia de Pichincha cuya superficie total es de TREINTA Y SEIS PUNTO TREINTA Y SIETE HECTAREAS.",
+        "a) Mediante Escritura de Compra y Venta celebrada el 02 de abril del año dos mil quince, ante el Notario Segundo del Cantón Otavalo, Doctor Luis Fernando Vaca Mantilla, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió al Sr. Edwar Patricio Cárdenas Cárdenas como mandatario de la señorita Gloria Maria Cárdenas el lote de terreno de la superficie total de doce punto cero cero catorce hectáreas (12.0014 has), situado en el punto denominado Moraspungo, perteneciente al sector rural de la Parroquia San Luis, Cantón Otavalo, Provincia de Imbabura.",
       company: {
-        name: "PRIMERA - ANTECEDENTE",
+        name: "PRIMERA. - ANTECEDENTE",
       },
     },
   ];
@@ -971,7 +920,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       company: {
-        name: "SEGUNDA. - OBJETO DEL CONVENIO DE RESERVA",
+        name: "SEGUNDA. - OBJETO DEL CONTRATO",
       },
     },
   ];
@@ -989,7 +938,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES declaran bajo juramento no estar incursos en ninguna de las prohibiciones determinadas en la ley de Mercado de Valores y demás normas aplicables y que los fondos con los que van a adquirir el bien determinado en este contrato, tiene un origen licito y en especial no provienen de ninguna actividad relacionada con el cultivo, fabricación, almacenamiento, transporte o tráfico ilícito de sustancias estupefacientes o psicotrópicas.",
+        "El COMPRADOR declara bajo juramento no estar incurso en ninguna de las prohibiciones determinadas en la ley de Mercado de Valores y demás normas aplicables y que los fondos con los que va a adquirir el bien determinado en este contrato, tienen un origen lícito y en especial no provienen de ninguna actividad relacionada con el cultivo, fabricación, almacenamiento, transporte o tráfico ilícito de sustancias estupefacientes o psicotrópicas.",
       company: {
         name: "CUARTA. - ORIGEN DE LOS FONDOS",
       },
@@ -997,7 +946,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "El plazo para la entrega del lote, objeto de este convenio de reserva es cuando haya sido CANCELADA Y ESCRITURADO POR EL VALOR TOTAL CANCELADO. No se podrá realizar ninguna construcción en el lote mientras no haya sido formalmente entregado al Adquiriente. En caso de realizar el pago de contado o con crédito directo la escritura deberá realizarse de manera inmediata una vez cancelado el valor pactado por el lote, se podrá posponer por un plazo no mayor a tres meses previa solicitud escrita y aceptada por el Dpto. de Gestión y Crédito; de no realizarse se considerará como causal de incumplimiento y se aplicará la cláusula séptima sexta de este contrato.",
+        "El plazo para la entrega definitiva del inmueble objeto de este contrato de compraventa es cuando el inmueble haya sido cancelado en su TOTALIDAD y ESCRITURADO. Se realizará una preentrega con el pago del 30% y se firmará un acuerdo en un centro de mediación, con esto se le otorgará el uso del inmueble.",
       company: {
         name: "QUINTA. - PLAZO",
       },
@@ -1005,7 +954,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble que se reserva, la parte que incumpla se obliga para con la otra a: Pagar una multa del DIEZ POR CIENTO del precio total del inmueble, multa que será pagada por la parte que incumpliere este contrato a la parte que se mantenga en el mismo, además queda establecido: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES en la forma, plazos establecidos y demás condiciones estipuladas en este contrato, sus anexos y la ley en materia, de hecho el promitente vendedor, rescindirá este contrato y hará efectivo el valor de la multa en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento sin derecho a reclamo alguno; en caso de que el valor cancelado por los FUTUROS ADQUIRIENTES sea mayor al 10% se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas si el incumplimiento es por parte del promitente VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, éste además de restituir los valores pagados por los FUTUROS ADQUIRIENTES deberán pagar también una multa del DIEZ POR CIENTO en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento, se excluye de la multa el incumplimiento por razones de caso fortuito o fuerza mayor.",
+        "En caso de que cualquiera de las partes el VENDEDOR y/o el COMPRADOR desistiere respectivamente de la compra y la adquisición del inmueble, la parte que incumpla se obliga para con la otra a: Pagar una multa del DIEZ POR CIENTO del precio total de inmueble, multa que será pagada por la parte que incumpliere este contrato a la parte que se mantenga en el mismo. Además, queda establecido: UNO.- Si el incumplimiento es imputable al COMPRADOR en la forma, plazos establecidos y demás condiciones estipuladas en este contrato, sus anexos y la ley en materia, de hecho, el Promitente Vendedor, rescindirá este contrato y hará efectivo a su favor el valor de la multa en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento, sin derecho a reclamo alguno y no se reconocerá ningún valor por trabajos realizados en el lote. DOS.- Más si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, éste además de restituir los valores pagados por el COMPRADOR deberá pagar también una multa del DIEZ POR CIENTO en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento, se excluye de la multa el incumplimiento por razones de caso fortuito o fuerza mayor.",
       company: {
         name: "SEXTA. - DESISTIMIENTO",
       },
@@ -1013,7 +962,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Todos los gastos e impuestos que demande la celebración de la escritura pública de compraventa, serán de cuenta de los FUTUROS ADQUIRIENTES, y en caso de existir pago de mejoras y plusvalía correrá a cargo del PROMITENTE VENDEDOR.",
+        "Todos los gastos e impuestos que demande la celebración de la escritura pública de compraventa, serán de cuenta del COMPRADOR, y en caso de existir pago de mejoras y plusvalía correrá a cargo del VENDEDOR.",
       company: {
         name: "SEPTIMA. - GASTOS E IMPUESTOS",
       },
@@ -1021,7 +970,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses.",
+        "El COMPRADOR y el VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. En caso de que el COS emitido por el Municipio de Otavalo sea menor al 30%, la compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA LTDA, se compromete a devolver inmediatamente el valor abonado por el COMPRADOR. EL VENDEDOR está comprometido con la información personal de nuestros clientes por lo que le comunicamos que estamos cumpliendo con la Ley Orgánica de Protección de Datos Personales.",
       company: {
         name: "OCTAVA. - ACEPTACIÓN",
       },
@@ -1029,7 +978,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que existan controversias o diferencias derivadas de la ejecución de este convenio, que no puedan ser resueltas por mutuo acuerdo, las partes renuncian fuero y domicilio y deciden someterse a la decisión en derecho del Tribunal de Arbitraje de la Cámara de Comercio de Quito, que se sujetará a lo dispuesto por la Ley de Arbitraje y Mediación, el reglamento del centro de Arbitraje y Mediación de la Cámara de Comercio de Quito y cualquier otra reglamentación que se expida sobre este particular.",
+        "En caso de que existan controversias o diferencias derivadas de la ejecución de este contrato, que no puedan ser resueltas por mutuo acuerdo, las partes renuncian fuero y domicilio y deciden someterse a la decisión en derecho del Tribunal de Arbitraje de la Cámara de Comercio de Quito, que se sujetará a lo dispuesto por la Ley de Arbitraje y Mediación, el reglamento del Centro de Arbitraje y Mediación de la Cámara de Comercio de Quito y cualquier otra reglamentación que se expida sobre el particular.",
       company: {
         name: "NOVENA. - DOMICILIO JURISDICCIÓN Y COMPETENCIA",
       },

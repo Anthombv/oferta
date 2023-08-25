@@ -390,9 +390,12 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
-          new TextRun(
-            `En la ciudad de Quito, hoy ${fechaActual}, convienen en celebrar el siguiente convenio:`
-          ),
+          new TextRun("En la ciudad de Quito, hoy "),
+          new TextRun({
+            text: fechaActual,
+            bold: true,
+          }),
+          new TextRun(", convienen en celebrar el siguiente convenio:"),
         ],
       });
     }
@@ -405,8 +408,33 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
+          new TextRun("Por una parte, el/la señor/a "),
+          new TextRun({
+            text: `${names[0].toUpperCase()}`,
+            bold: true,
+          }),
+          new TextRun(", con cédula de identidad N° "),
+          new TextRun({
+            text: `${cedula}`,
+            bold: true,
+          }),
+          new TextRun(", de estado civil "),
+          new TextRun({
+            text: `${estadoCivil}`,
+            bold: true,
+          }),
+          new TextRun(`, y en representación del señor/a `),
+          new TextRun({
+            text: `${representante[0].toUpperCase()}`,
+            bold: true,
+          }),
+          new TextRun(" con numero de identificación "),
+          new TextRun({
+            text: `${representanteID}`,
+            bold: true,
+          }),
           new TextRun(
-            `Por una parte, el/la señor/a ${names}, con cédula de identidad N° ${cedula}, de estado civil ${estadoCivil}, y en representación del señor/a ${representante} con numero de identificación ${representanteID}, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y`
+            ", conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
           ),
         ],
       });
@@ -450,26 +478,23 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
           after: 200,
         },
         children: [
+          new TextRun("El precio del lote reservado es de USD. "),
+          new TextRun({
+            text: `${precioLote.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}`,
+            bold: true,
+          }),
           new TextRun(
-            `El precio del lote reservado es de USD. ${precioLote.toLocaleString(
-              "en-US",
-              {
-                style: "currency",
-                currency: "USD",
-              }
-            )}, se otorga un descuento de ${descuentoAdd.toLocaleString(
-              "en-US",
-              {
-                style: "currency",
-                currency: "USD",
-              }
-            )} por compra en feria, y por ser pago al contado se le otorga un descuento del ${porcentaje} que serian ${descuento.toLocaleString(
-              "en-US",
-              {
-                style: "currency",
-                currency: "USD",
-              }
-            )}, siendo el valor a pagar USD. ${preciofinaR} ${precioFinalTextR}. Este valor será cancelado de acuerdo a la tabla de pagos (Anexo 1) que forma parte integral del mismo.`
+            `, se otorga un descuento del ${porcentaje}%, por ser pago al Contado, siendo el valor a pagar `
+          ),
+          new TextRun({
+            text: `USD. ${preciofinaR} ${precioFinalTextR}`,
+            bold: true,
+          }),
+          new TextRun(
+            ". Este valor será cancelado de acuerdo a la siguiente tabla de pagos (Anexo 1) que forma parte integral del mismo."
           ),
         ],
       });
@@ -590,73 +615,10 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     }
 
     public createTableInfoAdd(): Table {
-      const table = new Table({
-        alignment: AlignmentType.CENTER,
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-        },
-        rows: [
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "OTRO DUEÑO",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2}`)],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${name2ID}`)],
-                  }),
-                ],
-              }),
-            ],
-          }),
+      const rows = [];
+      // Cónyuge
+      if (nameConyu || idConyu) {
+        rows.push(
           new TableRow({
             children: [
               new TableCell({
@@ -682,7 +644,12 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${nameConyu}`)],
+                    children: [
+                      new TextRun({
+                        text: `${nameConyu[0].toUpperCase() || ""}`,
+                        bold: true,
+                      }),
+                    ],
                   }),
                 ],
               }),
@@ -693,13 +660,40 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
                 },
                 children: [
                   new Paragraph({
-                    children: [new TextRun(`${idConyu}`)],
+                    children: [new TextRun(`${idConyu || ""}`)],
                   }),
                 ],
               }),
             ],
-          }),
-        ],
+          })
+        );
+      }
+
+      const table = new Table({
+        alignment: AlignmentType.CENTER,
+        width: {
+          size: 100,
+          type: WidthType.PERCENTAGE,
+        },
+        borders: {
+          top: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          bottom: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          left: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+          right: {
+            style: BorderStyle.SINGLE,
+            size: 1,
+          },
+        },
+        rows: rows,
       });
 
       return table;
@@ -843,12 +837,12 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
       const upperCaseNames = String(names).toUpperCase();
 
       return new Paragraph({
-        children: [new TextRun(upperCaseNames)],
+        children: [new TextRun({ text: upperCaseNames, bold: true })],
       });
     }
     public createFirmas3(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`N. º ${cedula}`)],
+        children: [new TextRun({ text: `N. º ${cedula}`, bold: true })],
       });
     }
 
@@ -863,12 +857,16 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
 
     public createFirmas5(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`INMOCONSTRUCCIONES CIA. LTDA.`)],
+        children: [
+          new TextRun({ text: `INMOCONSTRUCCIONES CIA. LTDA.`, bold: true }),
+        ],
       });
     }
     public createFirmas6(): Paragraph {
       return new Paragraph({
-        children: [new TextRun(`RUC N. º. 1791714881001`)],
+        children: [
+          new TextRun({ text: `RUC N. º. 1791714881001`, bold: true }),
+        ],
       });
     }
 
@@ -917,7 +915,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
       summary:
         "a) Mediante escritura pública celebrada el treinta de mayo del dos mil diecisiete ante el Notario Primero del cantón Pedro Vicente Maldonado el Dr. Marcelo Javier Villacís Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió al señor Esteban Andres Olmedo Obando el lote de terreno signado con el número 19 y 19C, legalmente inscrito en el Registro de la Propiedad del mismo cantón con fecha trece de junio del dos mil diecisiete; con fecha 24 de agosto del 2017 se inscribió la unificación de los referidos lotes de terreno, ubicados en la parroquia y cantón Puerto Quito provincia de Pichincha cuya superficie total es de TREINTA Y SEIS PUNTO TREINTA Y SIETE HECTAREAS.",
       company: {
-        name: "PRIMERA - ANTECEDENTE",
+        name: "PRIMERA. - ANTECEDENTE",
       },
     },
   ];
@@ -926,7 +924,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       company: {
-        name: "SEGUNDA. - OBJETO DEL CONVENIO DE RESERVA",
+        name: "SEGUNDA. - OBJETO DEL CONVENIO DE COMPRA",
       },
     },
   ];
@@ -976,7 +974,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses.",
+        "Los FUTUROS ADQUIRIENTES y el PROMITENTE VENDEDOR, declaran que aceptan en su totalidad el contenido del presente instrumento por estar hecho en beneficio de sus intereses. EL VENDEDOR está comprometido con la información personal de nuestros clientes por lo que le comunicamos que estamos cumpliendo con la Ley Orgánica de Protección de Datos Personales.",
       company: {
         name: "OCTAVA. - ACEPTACIÓN",
       },
