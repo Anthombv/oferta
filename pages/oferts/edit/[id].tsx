@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Pendiente } from "../../../lib/utils/constans";
 import FormatedDate from "../../../lib/utils/date";
-
+import InputMask from "react-input-mask";
 type Ofert = {
   mae_prevt4: string | number | readonly string[];
   mae_codinv: string | number | readonly string[];
@@ -195,9 +195,9 @@ const EditOfert = () => {
       "5%": 0.05,
     };
 
-    if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
+    if (descuentosPorcentaje.hasOwnProperty(formik.values.cli_porcentaje)) {
       const descuento =
-        formik.values.cli_valorOferta * descuentosPorcentaje[porcentaje];
+        formik.values.cli_valorOferta * descuentosPorcentaje[formik.values.cli_porcentaje];
       formik.setFieldValue("cli_descuento", descuento);
     }
 
@@ -209,7 +209,7 @@ const EditOfert = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    porcentaje,
+    formik.values.cli_porcentaje,
     formik.values.cli_valorOferta,
     formik.values.cli_descuento,
     formik.values.cli_descuentoAdd,
@@ -301,16 +301,15 @@ const EditOfert = () => {
                   name="cli_estadoCivil"
                   value={formik.values.cli_estadoCivil ?? ""}
                   onChange={formik.handleChange}
-                  //required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Estado civil</option>
-                  <option value="SOLTERO">SOLTERO</option>
-                  <option value="DIVORCIADO">DIVORCIADO</option>
-                  <option value="CASADO">CASADO</option>
+                  <option value="SOLTERO/A">SOLTERO/A</option>
+                  <option value="DIVORCIADO/A">DIVORCIADO/A</option>
+                  <option value="CASADO/A">CASADO/A</option>
                   <option value="U.LIBRE">U.LIBRE</option>
-                  <option value="SEPARADO">SEPARADO</option>
-                  <option value="VIUDO">VIUDO</option>
+                  <option value="SEPARADO/A">SEPARADO/A</option>
+                  <option value="VIUDO/A">VIUDO/A</option>
                 </select>
               </div>
               <div className="flex flex-wrap">
@@ -333,13 +332,15 @@ const EditOfert = () => {
                 <label className="block mb-2 label-size font-medium text-gray-900 dark:text-white">
                   Fecha de Nacimiento
                 </label>
-                <input
-                  type="date"
+                <InputMask
+                  type="text"
                   name="cli_fecNac"
                   id="cli_fecNac"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.cli_fecNac.substring(0, 10)}
+                  value={formik.values.cli_fecNac}
                   onChange={formik.handleChange}
+                  mask="99/99/9999"
+                  maskPlaceholder=""
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
               <div className="flex flex-wrap">
@@ -557,7 +558,7 @@ const EditOfert = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="text"
                   value={initialValues.mae_codinv ?? ""}
-                  disabled 
+                  disabled
                 />
               </div>
               <div className="flex flex-wrap">
@@ -580,10 +581,12 @@ const EditOfert = () => {
                   type="text"
                   name="cli_valorOferta"
                   id="cli_valorOferta"
-                  value={formik.values.cli_valorOferta.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }) ?? ""}
+                  value={
+                    formik.values.cli_valorOferta.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }) ?? ""
+                  }
                   onChange={formik.handleChange}
                 />
               </div>
@@ -594,8 +597,8 @@ const EditOfert = () => {
                 <select
                   id="porcentaje"
                   name="cli_porcentaje"
-                  value={porcentaje ?? ""}
-                  onChange={(e) => setPorcentaje(e.target.value)}
+                  value={formik.values.cli_porcentaje ?? ""}
+                  onChange={formik.handleChange}
                   style={{ fontSize: "13px" }}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
@@ -617,10 +620,12 @@ const EditOfert = () => {
                   type="text"
                   name="cli_descuento"
                   id="cli_descuento"
-                  value={formik.values.cli_descuento.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }) ?? ""}
+                  value={
+                    formik.values.cli_descuento.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }) ?? ""
+                  }
                   onChange={formik.handleChange}
                 />
               </div>
@@ -646,10 +651,12 @@ const EditOfert = () => {
                   type="text"
                   name="cli_totalOferta"
                   id="cli_totalOferta"
-                  value={formik.values.cli_totalOferta.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }) ?? ""}
+                  value={
+                    formik.values.cli_totalOferta.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }) ?? ""
+                  }
                   onChange={formik.handleChange}
                 />
               </div>
