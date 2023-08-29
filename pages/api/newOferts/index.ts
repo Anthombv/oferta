@@ -24,7 +24,7 @@ export default async function handler(
 }
 
 const getOfert = async (req: NextApiRequest, res: NextApiResponse) => {
-  dataBase.query("SELECT * FROM ofertas WHERE cli_state <> 'Anulado'", function (err, rows, fields) {
+  dataBase.query("SELECT * FROM ofertas WHERE cli_state <> 'Anulado' AND cli_state <> 'Pendiente'", function (err, rows, fields) {
     return res.status(200).json({
       message: "Todas las ofertas",
       data: rows,
