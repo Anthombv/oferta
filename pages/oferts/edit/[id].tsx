@@ -193,6 +193,7 @@ const EditOfert = () => {
       "3%": 0.03,
       "4%": 0.04,
       "5%": 0.05,
+      "6%": 0.06,
     };
 
     if (descuentosPorcentaje.hasOwnProperty(formik.values.cli_porcentaje)) {
@@ -609,6 +610,7 @@ const EditOfert = () => {
                   <option value="3%">3%</option>
                   <option value="4%">4%</option>
                   <option value="5%">5%</option>
+                  <option value="6%">6%</option>
                 </select>
               </div>
               <div className="flex flex-wrap">
