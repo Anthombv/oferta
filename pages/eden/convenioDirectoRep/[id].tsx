@@ -280,7 +280,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
   class DocumentCreator {
     // tslint:disable-next-line: typedef
     public create([
-      informacionAdicional,
       antecedentePrimera,
       antecedenteSegunda,
       antecedenteTercera,
@@ -307,14 +306,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
               }),
               this.createContactFecha(),
               this.createInfoClient(),
-              ...informacionAdicional
-                .map((position) => {
-                  const arr: Paragraph[] = [];
-                  arr.push(this.createInstitutionHeader(position.company.name));
-                  return arr;
-                })
-                .reduce((prev, curr) => prev.concat(curr), []),
-              this.createTableInfoAdd(),
               this.createInfoClient2(),
               this.createContactInfo(),
 
@@ -419,6 +410,22 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
           new TextRun(", de estado civil "),
           new TextRun({
             text: `${estadoCivil}`,
+            bold: true,
+          }),
+          new TextRun(
+            `${nameConyu[0].toUpperCase() === "" ? "" : ", con el/la señor/a "}`
+          ),
+          new TextRun({
+            text: `${nameConyu[0].toUpperCase() === "" ? "" : nameConyu}`,
+            bold: true,
+          }),
+          new TextRun(
+            `${
+              nameConyu[0].toUpperCase() === "" ? "" : ", con cedula de identidad N° "
+            }`
+          ),
+          new TextRun({
+            text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
             bold: true,
           }),
           new TextRun(", y en representación del señor/a "),
@@ -617,91 +624,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
       return text.split("\n\n");
     }
 
-    public createTableInfoAdd(): Table {
-      const rows = [];
-      // Cónyuge
-      if (nameConyu || idConyu) {
-        rows.push(
-          new TableRow({
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: "CONYUGE",
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [
-                      new TextRun({
-                        text: `${nameConyu[0].toUpperCase() || ""}`,
-                        bold: true,
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    children: [new TextRun(`${idConyu || ""}`)],
-                  }),
-                ],
-              }),
-            ],
-          })
-        );
-      }
-
-      const table = new Table({
-        alignment: AlignmentType.CENTER,
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        borders: {
-          top: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          bottom: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          left: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-          right: {
-            style: BorderStyle.SINGLE,
-            size: 1,
-          },
-        },
-        rows: rows,
-      });
-
-      return table;
-    }
-
     public createTable(): Table {
       const table = new Table({
         alignment: AlignmentType.CENTER,
@@ -874,15 +796,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
     }
   }
 
-  const informacionAdicional = [
-    {
-      alignment: AlignmentType.JUSTIFIED,
-      company: {
-        name: "INFORMACIÓN ADICIONAL",
-      },
-    },
-  ];
-
   const antecedentePrimera = [
     {
       alignment: AlignmentType.JUSTIFIED,
@@ -974,7 +887,6 @@ const ConvenioDirectoREP = ({ oneOfert, ofertID }) => {
   const generate = () => {
     const documentCreator = new DocumentCreator();
     const doc = documentCreator.create([
-      informacionAdicional,
       antecedentePrimera,
       antecedenteSegunda,
       antecedenteTercera,
