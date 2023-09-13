@@ -11,7 +11,7 @@ import { useState } from "react";
 export const getServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "https://oferta.grupoancon.com//api/histories/jardin"
+      "https://oferta.grupoancon.com/api/histories/jardin"
     );
     return {
       props: {
@@ -37,8 +37,10 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
     const value = event.target.value;
     setSearchTerm(value);
 
-    const filteredItems = lotesEJ.filter((ofertEJ) =>
-      ofertEJ.cli_asesor.toLowerCase().includes(value.toLowerCase())
+    const filteredItems = lotesEJ.filter(
+      (ofertEJ) =>
+        ofertEJ.cli_asesor.toLowerCase().includes(value.toLowerCase()) ||
+        ofertEJ.mae_codinv.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredData(filteredItems);
   };
@@ -88,7 +90,7 @@ const LotesVendidosEJ = ({ lotesEJ }) => {
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Precio</th>
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Estado</th>
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Editar</th>
-                  <th className="xl:px-2 xl:py-2 px-2 py-1">Reporte</th>
+                  <th className="xl:px-2 xl:py-2 px-2 py-1">Oferta</th>
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Licitud</th>
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Encuesta</th>
                   <th className="xl:px-2 xl:py-2 px-2 py-1">Convenio</th>

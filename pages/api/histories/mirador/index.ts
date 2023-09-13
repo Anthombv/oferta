@@ -23,7 +23,7 @@ export default async function handler(
 
 const getOfertML = async (req: NextApiRequest, res: NextApiResponse) => {
   dataBase.query(
-    "SELECT * FROM ofertas WHERE mae_codinv BETWEEN 'ML-000' AND 'ML-999' && cli_state = 'Vendido' ",
+    "SELECT * FROM ofertas WHERE mae_codinv BETWEEN 'ML-000' AND 'ML-999' && cli_state = 'Vendido' ORDER BY id DESC",
     function (err, rows, fields) {
       return res.status(200).json({
         message: "Ofertas vendidas",

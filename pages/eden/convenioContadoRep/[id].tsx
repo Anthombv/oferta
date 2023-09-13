@@ -223,6 +223,7 @@ import {
   BorderStyle,
   Document,
   HeadingLevel,
+  LevelFormat,
   Packer,
   Paragraph,
   TabStopPosition,
@@ -232,6 +233,7 @@ import {
   TableRow,
   TextRun,
   WidthType,
+  convertInchesToTwip,
 } from "docx";
 import { useAuth } from "../../../lib/hooks/use_auth";
 
@@ -286,6 +288,43 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
       antecedenteVarios,
     ]): Document {
       const document = new Document({
+        numbering: {
+          config: [
+            {
+              reference: "lista",
+              levels: [
+                {
+                  level: 0,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "a)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+                {
+                  level: 1,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "b)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
         sections: [
           {
             children: [
@@ -305,8 +344,92 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
                 },
               }),
               this.createContactFecha(),
-              this.createInfoClient(),
-              this.createInfoClient2(),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 0,
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun("Por una parte, el/la señor/a "),
+                  new TextRun({
+                    text: `${names[0].toUpperCase()}`,
+                    bold: true,
+                  }),
+                  new TextRun(", con cédula de identidad N° "),
+                  new TextRun({
+                    text: `${cedula}`,
+                    bold: true,
+                  }),
+                  new TextRun(", de estado civil "),
+                  new TextRun({
+                    text: `${estadoCivil}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con el/la señor/a "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : nameConyu[0].toUpperCase()
+                    }`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con cédula de identidad N° "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
+                    bold: true,
+                  }),
+                  new TextRun(", representado por el señor/a"),
+                  new TextRun({
+                    text: `${representante[0].toUpperCase()}`,
+                    bold: true,
+                  }),
+                  new TextRun(", con número de identificación "),
+                  new TextRun({
+                    text: `${representanteID}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    ", conforme consta en los documentos que se adjuntan como habilitantes; a quienes se le denominará FUTUROS ADQUIRIENTES; y"
+                  ),
+                ],
+              }),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 1,
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun(
+                    `La compañía INMOBILIARIO Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante Legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitante; parte a la que en adelante y para efectos del presente contrato, se le denominara EL VENDEDOR.`
+                  ),
+                ],
+              }),
+
               this.createContactInfo(),
 
               ...antecedentePrimera
@@ -314,7 +437,14 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
                   const arr: Paragraph[] = [];
 
                   arr.push(this.createInstitutionHeader(position.company.name));
-                  arr.push(this.createText(position.summary));
+                  const bulletPoints = this.splitParagraphIntoBullets(
+                    position.summary
+                  );
+
+                  bulletPoints.forEach((bulletPoint) => {
+                    arr.push(this.createBullet(bulletPoint));
+                  });
+
                   return arr;
                 })
                 .reduce((prev, curr) => prev.concat(curr), []),
@@ -337,9 +467,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
                 })
                 .reduce((prev, curr) => prev.concat(curr), []),
               this.createTextAntecedente3pt1(),
-              this.createTextAntecedente3ptNew(),
               this.createTextAntecedente3pt2(),
-              this.createTextAntecedente3pt3(),
 
               ...antecedenteVarios
                 .map((position) => {
@@ -354,6 +482,8 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
               this.createContactFirmas(),
               this.createFirmas(),
               this.createFirmas2(),
+              this.createFirmas2rep(),
+              this.createFirmas2rep2(),
               this.createFirmas3(),
               this.createFirmas4(),
               this.createFirmas5(),
@@ -390,77 +520,6 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
       });
     }
 
-    public createInfoClient(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun("Por una parte, el/la señor/a "),
-          new TextRun({
-            text: `${names[0].toUpperCase()}`,
-            bold: true,
-          }),
-          new TextRun(", con cédula de identidad N° "),
-          new TextRun({
-            text: `${cedula}`,
-            bold: true,
-          }),
-          new TextRun(", de estado civil "),
-          new TextRun({
-            text: `${estadoCivil}`,
-            bold: true,
-          }),
-          new TextRun(
-            `${nameConyu[0].toUpperCase() === "" ? "" : ", con el/la señor/a "}`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : nameConyu}`,
-            bold: true,
-          }),
-          new TextRun(
-            `${
-              nameConyu[0].toUpperCase() === "" ? "" : ", con cedula de identidad N° "
-            }`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
-            bold: true,
-          }),
-          new TextRun(`, y en representación del señor/a `),
-          new TextRun({
-            text: `${representante[0].toUpperCase()}`,
-            bold: true,
-          }),
-          new TextRun(" con numero de identificación "),
-          new TextRun({
-            text: `${representanteID}`,
-            bold: true,
-          }),
-          new TextRun(
-            ", conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
-          ),
-        ],
-      });
-    }
-
-    public createInfoClient2(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `La compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante Legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitante; parte a la que en adelante y para efectos del presente contrato, se le denominará EL VENDEDOR.`
-          ),
-        ],
-      });
-    }
-
     public createTextAntecedente2(): Paragraph {
       return new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
@@ -493,29 +552,14 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
             bold: true,
           }),
           new TextRun(
-            `, se otorga un descuento del ${porcentaje}%, por ser pago al Contado, siendo el valor a pagar `
+            `, se otorga un descuento del ${porcentaje}, por ser pago al Contado, siendo el valor a pagar `
           ),
           new TextRun({
             text: `USD. ${preciofinaR} ${precioFinalTextR}`,
             bold: true,
           }),
           new TextRun(
-            ". Este valor será cancelado de acuerdo a la siguiente tabla de pagos (Anexo 1) que forma parte integral del mismo."
-          ),
-        ],
-      });
-    }
-
-    public createTextAntecedente3ptNew(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `Las promociones y ofrecimientos acordados se harán efectivos a la entrega del lote. En caso de cambio de forma de pago se considerará el precio real del inventario y perderá los beneficios otorgados en esta negociación.`
+            ". En caso de que exista un cambio en el plan de pagos se considerara el precio real del inventario. Este valor será cancelado de acuerdo a la siguiente tabla de pagos (Anexo 1) que forma parte integral del mismo."
           ),
         ],
       });
@@ -530,22 +574,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado adicionalmente perderá los beneficios acordados por la compra al contado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento. `
-          ),
-        ],
-      });
-    }
-
-    public createTextAntecedente3pt3(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `Si parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente, acordado en plan de pagos, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
+            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado adicionalmente perderá los beneficios acordados por la compra al contado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.`
           ),
         ],
       });
@@ -770,12 +799,35 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
-      const upperCaseNames = String(names).toUpperCase();
+      const upperCaseNames = String(representante).toUpperCase();
 
       return new Paragraph({
         children: [new TextRun({ text: upperCaseNames, bold: true })],
       });
     }
+
+    public createFirmas2rep(): Paragraph {
+      return new Paragraph({
+        children: [
+          new TextRun({
+            text: "En representación de el/la señor/a",
+          }),
+        ],
+      });
+    }
+
+    public createFirmas2rep2(): Paragraph {
+      const upperCaseNames = String(names).toUpperCase();
+      return new Paragraph({
+        children: [
+          new TextRun({
+            text: upperCaseNames,
+            bold: true,
+          }),
+        ],
+      });
+    }
+
     public createFirmas3(): Paragraph {
       return new Paragraph({
         children: [new TextRun({ text: `N. º ${cedula}`, bold: true })],
@@ -811,7 +863,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "a) Mediante escritura pública celebrada el 10 de enero del 2019 ante la Notaria Trigésima Primera del cantón Quito Dra. María José Palacios, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió a los cónyuges Carlos Augusto Witt Sánchez y Catalina del Carmen Chiriboga Acosta el lote de terreno signado con el número 5, legalmente inscrito en el Registro de la Propiedad del cantón Puerto Quito el 5 de febrero del 2019; b) Mediante ordenanza número 047-PQ-2019 se aprueba la urbanización para uso habitacional “El Edén de Puerto Quito”, otorgada el 28 de agosto del 2019 ante el notario Primero del cantón Pedro Vicente Maldonado, doctor Marcelo Javier Villacís Medina, legalmente inscrito en el registro de la propiedad de Puerto Quito el 30 de Octubre del 2019, la misma que está compuesta por 270 lotes de una superficie aproximada de 700m2, con sus respectivas áreas comunales, vías, red de agua potable y red eléctrica.",
+        "Mediante escritura pública celebrada el 10 de enero del 2019 ante la Notaria Trigésima Primera del cantón Quito Dra. María José Palacios, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió a los cónyuges Carlos Augusto Witt Sánchez y Catalina del Carmen Chiriboga Acosta el lote de terreno signado con el número 5, legalmente inscrito en el Registro de la Propiedad del cantón Puerto Quito el 5 de febrero del 2019;\n\nMediante ordenanza número 047-PQ-2019 se aprueba la urbanización para uso habitacional “El Edén de Puerto Quito”, otorgada el 28 de agosto del 2019 ante el notario Primero del cantón Pedro Vicente Maldonado, doctor Marcelo Javier Villacís Medina, legalmente inscrito en el registro de la propiedad de Puerto Quito el 30 de Octubre del 2019, la misma que está compuesta por 270 lotes de una superficie aproximada de 700m2, con sus respectivas áreas comunales, vías, red de agua potable y red eléctrica.",
       company: {
         name: "PRIMERA. - ANTECEDENTE",
       },
@@ -865,9 +917,9 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo, conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor.",
+        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere o incumpliere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo, conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados como gasto administrativo, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor.",
       company: {
-        name: "SEPTIMA. - DESISTIMIENTO",
+        name: "SEPTIMA. - DESISTIMIENTO/INCUMPLIMIENTO",
       },
     },
     {
@@ -891,7 +943,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
       summary:
         "En caso de que existan controversias o diferencias derivadas de la ejecución de este convenio, que no puedan ser resueltas por mutuo acuerdo, las partes renuncian fuero y domicilio y deciden someterse a la decisión en derecho del Tribunal de Arbitraje de la Cámara de Comercio de Quito, que se sujetará a lo dispuesto por la Ley de Arbitraje y Mediación, el reglamento del centro de Arbitraje y Mediación de la Cámara de Comercio de Quito y cualquier otra reglamentación que se expida sobre este particular. El arbitraje se llevará a cabo en equidad.",
       company: {
-        name: "NOVENA. - DOMICILIO JURISDICCIÓN Y COMPETENCIA",
+        name: "DECIMA. - DOMICILIO JURISDICCIÓN Y COMPETENCIA",
       },
     },
   ];

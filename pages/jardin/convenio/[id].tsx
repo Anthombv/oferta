@@ -26,13 +26,14 @@ export const getServerSideProps = async (context) => {
 const Convenio = ({ oneOfert, ofertID }) => {
   const { auth } = useAuth();
   const lote = oneOfert.data.map((item) => item.mae_codinv);
+  const tipoVenta = oneOfert.data.map((item) => item.cli_tipoVenta)
 
   return (
     <>
       <Navbar />
       <div className="historial Jardin w-full min-h-screen m-auto absolute Back">
         <p className="title-projects text-center xl:text-4xl md:text-3xl text-2xl leading-normal font-semibold my-4">
-          CONVENIO DEL LOTE {lote}
+          CONVENIO DEL LOTE {lote} - {tipoVenta}
           <img
             className="mx-auto w-12"
             src="http://grupoancon.com/wp-content/uploads/2020/07/icon-jardin-1-min.png"

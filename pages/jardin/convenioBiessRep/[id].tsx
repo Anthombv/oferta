@@ -223,6 +223,7 @@ import {
   BorderStyle,
   Document,
   HeadingLevel,
+  LevelFormat,
   Packer,
   Paragraph,
   TabStopPosition,
@@ -232,6 +233,7 @@ import {
   TableRow,
   TextRun,
   WidthType,
+  convertInchesToTwip,
 } from "docx";
 import { useAuth } from "../../../lib/hooks/use_auth";
 
@@ -286,6 +288,44 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
       antecedenteVarios,
     ]): Document {
       const document = new Document({
+        numbering: {
+          config: [
+            {
+              reference: "lista",
+              levels: [
+                {
+                  level: 0,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "a)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+
+                {
+                  level: 1,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "b)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
         sections: [
           {
             children: [
@@ -305,8 +345,92 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
                 },
               }),
               this.createContactFecha(),
-              this.createInfoClient(),
-              this.createInfoClient2(),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 0,
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun("Por una parte, el/la señor/a "),
+                  new TextRun({
+                    text: `${names[0].toUpperCase()}`,
+                    bold: true,
+                  }),
+                  new TextRun(", con cédula de identidad N° "),
+                  new TextRun({
+                    text: `${cedula}`,
+                    bold: true,
+                  }),
+                  new TextRun(", de estado civil "),
+                  new TextRun({
+                    text: `${estadoCivil}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con el/la señor/a "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : nameConyu[0].toUpperCase()
+                    }`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con cédula de identidad N° "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
+                    bold: true,
+                  }),
+                  new TextRun(", representado por el/la señor/a "),
+                  new TextRun({
+                    text: `${representante[0].toUpperCase()}`,
+                    bold: true,
+                  }),
+                  new TextRun(", con número de identificación "),
+                  new TextRun({
+                    text: `${representanteID}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    ", conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
+                  ),
+                ],
+              }),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 1,
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun(
+                    `La compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante Legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitante; parte a la que en adelante y para efectos del presente contrato, se le denominará EL VENDEDOR.`
+                  ),
+                ],
+              }),
+
               this.createContactInfo(),
 
               ...antecedentePrimera
@@ -359,6 +483,8 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
               this.createContactFirmas(),
               this.createFirmas(),
               this.createFirmas2(),
+              this.createFirmas2rep(),
+              this.createFirmas2rep2(),
               this.createFirmas3(),
               this.createFirmas4(),
               this.createFirmas5(),
@@ -395,77 +521,6 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
       });
     }
 
-    public createInfoClient(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun("Por una parte, el/la señor/a "),
-          new TextRun({
-            text: `${names[0].toUpperCase()}`,
-            bold: true,
-          }),
-          new TextRun(", con cédula de identidad N° "),
-          new TextRun({
-            text: `${cedula}`,
-            bold: true,
-          }),
-          new TextRun(", de estado civil "),
-          new TextRun({
-            text: `${estadoCivil}`,
-            bold: true,
-          }),
-           new TextRun(
-            `${nameConyu[0].toUpperCase() === "" ? "" : ", con el/la señor/a "}`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : nameConyu}`,
-            bold: true,
-          }),
-          new TextRun(
-            `${
-              nameConyu[0].toUpperCase() === "" ? "" : ", con cedula de identidad N° "
-            }`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
-            bold: true,
-          }),
-          new TextRun(", y en representación del señor/a "),
-          new TextRun({
-            text: `${representante[0].toUpperCase()} `,
-            bold: true,
-          }),
-          new TextRun("con número de identificación "),
-          new TextRun({
-            text: `${representanteID}`,
-            bold: true,
-          }),
-          new TextRun(
-            ", conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
-          ),
-        ],
-      });
-    }
-
-    public createInfoClient2(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `La compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante Legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitante; parte a la que en adelante y para efectos del presente contrato, se le denominará EL VENDEDOR.`
-          ),
-        ],
-      });
-    }
-
     public createTextAntecedente2(): Paragraph {
       return new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
@@ -498,14 +553,14 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
             bold: true,
           }),
           new TextRun(
-            `, se considera un descuento del ${porcentaje}%, por realizar crédito BIESS, por lo que el precio real del lote es de `
+            `, se considera un descuento del ${porcentaje}, por realizar crédito BIESS, por lo que el precio real del lote es de `
           ),
           new TextRun({
             text: `USD. ${preciofinaR} ${precioFinalTextR}`,
             bold: true,
           }),
           new TextRun(
-            ". Este valor será cancelado de acuerdo a la siguiente tabla de pagos."
+            ". En caso de que exista un cambio en el plan de pagos se considerara el precio real del inventario. Este valor será cancelado de acuerdo a la siguiente tabla de pagos."
           ),
         ],
       });
@@ -520,7 +575,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.\n\nSi parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
+            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% de interés por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento. Como parte del pago se va a realizar con Crédito Hipotecario los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado para la realización del crédito, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
           ),
         ],
       });
@@ -745,6 +800,20 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     }
 
     public createFirmas2(): Paragraph {
+      const upperCaseNames = String(representante).toUpperCase();
+
+      return new Paragraph({
+        children: [new TextRun({ text: upperCaseNames, bold: true })],
+      });
+    }
+    public createFirmas2rep(): Paragraph {
+      return new Paragraph({
+        children: [
+          new TextRun({ text: "En representación de el/la señor/a", bold: true }),
+        ],
+      });
+    }
+    public createFirmas2rep2(): Paragraph {
       const upperCaseNames = String(names).toUpperCase();
 
       return new Paragraph({
@@ -832,7 +901,7 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "Los clientes, que se encontraren al día en el pago de sus dividendos, conforme el plan de pagos,  aún  sin escritura de compraventa suscrita y en proceso pago o de registro,  pueden ingresar en calidad de visitantes del VENDEDOR, y por lo tanto se obligan a cumplir con las restricciones y condiciones de uso y goce de las áreas de la urbanización previstas en el Acuerdo Colectivo de Propietarios sobre el uso, mantenimiento y gestión de Áreas Verdes y Comunales de la Urbanización El Jardín de Puerto Quito. Para lo anterior solicitarán autorización al correo aperez@grupoancon.com con 48 HORAS de anticipación a la fecha de ingreso, con la lista de invitados, y el horario de entrada y salida y el día previsto para la visita. En caso de necesitar autorización para más de 10 personas se solicitará un pago anticipado, a partir del onceavo invitado, de USD 5,oo diario en días normales y USD. 10,oo en los feriados (incluye todos los días de feriado), que será cancelado de manera anticipada al VENDEDOR y posteriormente a la Administración (cuando el lote se encuentre entregado).En señal de aceptación, el Cliente o FUTUROS ADQUIRENTES, lo suscribe el cual deberá ser cumplido, y así lo acepta, luego de que se convierta en propietario de la Urbanización El Jardín de Puerto Quito, de esto que también se obliga a suscribir en conjunto con la escritura de compraventa del lote, la Carta de Adhesión a la Asociación de Propietarios de la Urbanización el Jardín de Puerto Quito, como habilitante para poder acceder a la Urbanización.",
+        "Los clientes, que se encontraren al día en el pago de sus dividendos, conforme el plan de pagos,  aún  sin escritura de compraventa suscrita y en proceso pago o de registro, pueden ingresar en calidad de visitantes del VENDEDOR, y por lo tanto se obligan a cumplir con las restricciones y condiciones de uso y goce de las áreas de la urbanización previstas en el Acuerdo Colectivo de Propietarios sobre el uso, mantenimiento y gestión de Áreas Verdes y Comunales de la Urbanización El Jardín de Puerto Quito. Para lo anterior solicitarán autorización al correo aperez@grupoancon.com con 48 HORAS de anticipación a la fecha de ingreso, con la lista de invitados, y el horario de entrada y salida y el día previsto para la visita. En caso de necesitar autorización para más de 10 personas se solicitará un pago anticipado, a partir del onceavo invitado, de USD 5,oo diario en días normales y USD. 10,oo en los feriados (incluye todos los días de feriado), que será cancelado de manera anticipada al VENDEDOR y posteriormente a la Administración (cuando el lote se encuentre entregado).En señal de aceptación, el Cliente o FUTUROS ADQUIRENTES, lo suscribe el cual deberá ser cumplido, y así lo acepta, luego de que se convierta en propietario de la Urbanización El Jardín de Puerto Quito, de esto que también se obliga a suscribir en conjunto con la escritura de compraventa del lote, la Carta de Adhesión a la Asociación de Propietarios de la Urbanización el Jardín de Puerto Quito, como habilitante para poder acceder a la Urbanización.",
       company: {
         name: "SEXTA. - VISITAS Y ACUERDO DE USO DE LA URBANIZACION:",
       },
@@ -840,9 +909,9 @@ const ConvenioBiessREP = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo,  conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compra venta, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor comprobada.",
+        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere o incumpliere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional,  multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo,  conforme lo siguiente: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso  en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos,  el VENDEDOR podrá terminar unilateralmente  este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados como gasto administrativo, en concepto de indemnización por daños y perjuicios convencional,  ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compra venta, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. -  Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor comprobada.",
       company: {
-        name: "SEPTIMA. - DESISTIMIENTO",
+        name: "SEPTIMA. - DESISTIMIENTO/INCUMPLIMIENTO",
       },
     },
     {

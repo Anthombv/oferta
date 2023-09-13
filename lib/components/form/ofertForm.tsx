@@ -142,8 +142,8 @@ type OptionAsesores = {
 
 let optionsAsesores: Array<OptionAsesores> = [
   {
-    label: "ANDRADE CORDOVA MIRIAM GERALDINE",
-    value: "ANDRADE CORDOVA MIRIAM GERALDINE",
+    label: "ANDRADE CONTRERAS MIRIAM GERALDINE",
+    value: "ANDRADE CONTRERAS MIRIAM GERALDINE",
   },
   {
     label: "ALCAZAR SANTOS JHOANNA ELIZABETH",
@@ -184,8 +184,8 @@ let optionsAsesores: Array<OptionAsesores> = [
   },
   { label: "ROSERO YASIG ANA BEATRIZ", value: "ROSERO YASIG ANA BEATRIZ" },
   {
-    label: "SARMIENTO CESPEDES CLAUDIA ALEJANDRA",
-    value: "SARMIENTO CESPEDES CLAUDIA ALEJANDRA",
+    label: "SARMIENTO MORALES CLAUDIA ALEJANDRA",
+    value: "SARMIENTO MORALES CLAUDIA ALEJANDRA",
   },
 ];
 
@@ -2573,6 +2573,15 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                       <option value="STAND QUICENTRO SUR">
                         STAND QUICENTRO SUR
                       </option>
+                      <option value="STAND EL PORTAL">STAND EL PORTAL</option>
+                      <option value="STAND SAN LUIS">STAND SAN LUIS</option>
+                    </optgroup>
+                    <optgroup label="FERIAS">
+                      <option value="FERIA CLAVE">FERIA CLAVE</option>
+                      <option value="FERIA CLAVE CUMBAYA">FERIA CLAVE CUMBAYA</option>
+                      <option value="FERIA BIESS">FERIA BIESS</option>
+                      <option value="FERIA EXPOVIVIENDA">FERIA EXPOVIVIENDA</option>
+                      <option value="FERIA OTROS">FERIA OTROS</option>
                     </optgroup>
                     <optgroup label="FACEBOOK">
                       <option value="FACEBOOK PERSONAL">
