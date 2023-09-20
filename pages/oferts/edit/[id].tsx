@@ -186,6 +186,8 @@ const EditOfert = () => {
   });
 
   useEffect(() => {
+    const descuentoPre =
+      formik.values.cli_valorOferta - formik.values.cli_descuentoAdd;
     const descuentosPorcentaje = {
       "0%": 0.0,
       "1%": 0.01,
@@ -197,15 +199,13 @@ const EditOfert = () => {
     };
 
     if (descuentosPorcentaje.hasOwnProperty(formik.values.cli_porcentaje)) {
-      const descuento =
-        formik.values.cli_valorOferta * descuentosPorcentaje[formik.values.cli_porcentaje];
-      formik.setFieldValue("cli_descuento", descuento);
+      formik.values.cli_descuento =
+        descuentoPre * descuentosPorcentaje[formik.values.cli_porcentaje];
     }
 
     const totalOferta =
-      formik.values.cli_valorOferta -
-      formik.values.cli_descuento -
-      formik.values.cli_descuentoAdd;
+      descuentoPre
+      formik.values.cli_descuento 
     formik.setFieldValue("cli_totalOferta", totalOferta);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

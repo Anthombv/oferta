@@ -223,6 +223,7 @@ import {
   BorderStyle,
   Document,
   HeadingLevel,
+  LevelFormat,
   Packer,
   Paragraph,
   TabStopPosition,
@@ -232,8 +233,10 @@ import {
   TableRow,
   TextRun,
   WidthType,
+  convertInchesToTwip,
 } from "docx";
 import { useAuth } from "../../../lib/hooks/use_auth";
+import { umask } from "process";
 
 export const getServerSideProps = async (context) => {
   const { data: oneOfert } = await axios.get(
@@ -286,6 +289,43 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       antecedenteVarios,
     ]): Document {
       const document = new Document({
+        numbering: {
+          config: [
+            {
+              reference: "lista",
+              levels: [
+                {
+                  level: 0,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "a)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+                {
+                  level: 1,
+                  format: LevelFormat.LOWER_LETTER,
+                  text: "b)",
+                  alignment: AlignmentType.START,
+                  style: {
+                    paragraph: {
+                      indent: {
+                        left: convertInchesToTwip(0.48),
+                        hanging: convertInchesToTwip(0.23),
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
         sections: [
           {
             children: [
@@ -305,21 +345,100 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 },
               }),
               this.createContactFecha(),
-              this.createInfoClient(),
-              this.createInfoClient2(),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 0,
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun("Por una parte, el/la señor/a "),
+                  new TextRun({
+                    text: `${names[0].toUpperCase()}`,
+                    bold: true,
+                  }),
+                  new TextRun(", con cédula de identidad N° "),
+                  new TextRun({
+                    text: `${cedula}`,
+                    bold: true,
+                  }),
+                  new TextRun(", de estado civil "),
+                  new TextRun({
+                    text: `${estadoCivil}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con el/la señor/a "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : nameConyu[0].toUpperCase()
+                    }`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    `${
+                      nameConyu[0].toUpperCase() === ""
+                        ? ""
+                        : ", con cédula de identidad N° "
+                    }`
+                  ),
+                  new TextRun({
+                    text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
+                    bold: true,
+                  }),
+                  new TextRun(
+                    ", por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
+                  )
+                ],
+              }),
+
+              new Paragraph({
+                numbering: {
+                  reference: "lista",
+                  level: 1
+                },
+                alignment: AlignmentType.JUSTIFIED,
+                spacing: {
+                  before: 200,
+                  after: 200,
+                },
+                children: [
+                  new TextRun(
+                    `La compañía INMOBILIARIO Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitantes; parte a la que en adelante y para efectos del presente contrato, se le denominará EL VENDEDOR.`
+                  )
+                ]
+              }),
+
               this.createContactInfo(),
 
               ...antecedentePrimera
                 .map((position) => {
                   const arr: Paragraph[] = [];
+
                   arr.push(this.createInstitutionHeader(position.company.name));
-                  arr.push(this.createText(position.summary));
+                  const bulletPoints = this.splitParagraphIntoBullets(
+                    position.summary
+                  );
+
+                  bulletPoints.forEach((bulletPoint) => {
+                    arr.push(this.createBullet(bulletPoint));
+                  });
 
                   return arr;
                 })
                 .reduce((prev, curr) => prev.concat(curr), []),
-              this.createAntecedentept2(),
-              this.createAntecedente1pt3(),
 
               ...antecedenteSegunda
                 .map((position) => {
@@ -340,7 +459,6 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
                 .reduce((prev, curr) => prev.concat(curr), []),
               this.createTextAntecedente3pt1(),
               this.createTextAntecedente3pt2(),
-              this.createTextAntecedente3pt3(),
 
               ...antecedenteVarios
                 .map((position) => {
@@ -389,68 +507,6 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       });
     }
 
-    public createInfoClient(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun("Por una parte, el/la señor/a "),
-          new TextRun({
-            text: `${names[0].toUpperCase()}`,
-            bold: true,
-          }),
-          new TextRun(", con cédula de identidad N° "),
-          new TextRun({
-            text: `${cedula}`,
-            bold: true,
-          }),
-          new TextRun(", de estado civil "),
-          new TextRun({
-            text: `${estadoCivil}`,
-            bold: true,
-          }),
-          new TextRun(
-            `${nameConyu[0].toUpperCase() === "" ? "" : ", con el/la señor/a "}`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : nameConyu}`,
-            bold: true,
-          }),
-          new TextRun(
-            `${
-              nameConyu[0].toUpperCase() === "" ? "" : ", con cedula de identidad N° "
-            }`
-          ),
-          new TextRun({
-            text: `${nameConyu[0].toUpperCase() === "" ? "" : idConyu}`,
-            bold: true,
-          }),
-          new TextRun(
-            ", por sus propios derechos, conforme consta en los documentos que se adjuntan como habilitantes; a quien se le denominará FUTUROS ADQUIRIENTES; y"
-          ),
-        ],
-      });
-    }
-
-    public createInfoClient2(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-          line: 276,
-        },
-        children: [
-          new TextRun(
-            `La compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., legalmente representada por su Gerente y Representante Legal, el señor DIEGO ROBERTO ANDRADE CONTRERAS, casado, conforme consta en el documento que se adjunta al presente instrumento como habilitante; parte a la que en adelante y para efectos del presente contrato, se le denominará EL VENDEDOR.`
-          ),
-        ],
-      });
-    }
-
     public createTextAntecedente2(): Paragraph {
       return new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
@@ -484,14 +540,14 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
             bold: true,
           }),
           new TextRun(
-            `, se considera un descuento del ${porcentaje}%, por realizar crédito BIESS, por lo que el precio real del lote es de `
+            `, se considera un descuento del ${porcentaje}, por realizar crédito BIESS, por lo que el precio real del lote es de `
           ),
           new TextRun({
             text: `USD. ${preciofinaR} ${precioFinalTextR}`,
             bold: true,
           }),
           new TextRun(
-            ". Este valor será cancelado de acuerdo a la siguiente tabla de pagos."
+            ". En caso de que exista un cambio en el plan de pagos se considerará el precio real del inventario. Este valor será cancelado de acuerdo a la siguiente tabla de pagos."
           ),
         ],
       });
@@ -507,7 +563,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         },
         children: [
           new TextRun(
-            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento.`
+            `En caso de mora en el pago de cualquiera de los dividendos señalados en este convenio, los FUTUROS ADQUIRIENTES pagarán adicionalmente desde la fecha de vencimiento de cada dividendo hasta la completa cancelación del mismo, el 12% por financiamiento más el máximo interés moratorio vigente a la fecha de vencimiento respectivo, calculado de acuerdo a lo dispuesto en las leyes de regulaciones pertinentes, sobre el valor de la cuota vencida y no pagado. Si la mora es mayor a 30 días calendario, se rescindirá el presente convenio aplicando la multa por desistimiento. Como parte del pago se va a realizar en Créditos Hipotecarios los FUTUROS ADQUIRIENTES deben presentar toda la documentación necesaria dos meses antes del vencimiento correspondiente acordado para la realización del crédito, además tienen la obligación de retransmitir al departamento de Gestión y Crédito todos los mensajes recibidos durante el proceso; recuerde que es responsabilidad del FUTURO ADQUIRIENTE la obtención del Crédito Hipotecario.`
           ),
         ],
       });
@@ -758,6 +814,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         children: [new TextRun({ text: upperCaseNames, bold: true })],
       });
     }
+
     public createFirmas3(): Paragraph {
       return new Paragraph({
         children: [new TextRun({ text: `N. º ${cedula}`, bold: true })],
@@ -780,6 +837,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
         ],
       });
     }
+
     public createFirmas6(): Paragraph {
       return new Paragraph({
         children: [
@@ -788,20 +846,6 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
       });
     }
 
-    public createAntecedentept2(): Paragraph {
-      return new Paragraph({
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          before: 200,
-          after: 200,
-        },
-        children: [
-          new TextRun(
-            `b) Sobre el terreno indicado anteriormente, se realiza la lotización rural “EL MANANTIAL”, el mismo que está compuesto por 299 lotes de una superficie estimada de 800m2, con sus respectivas áreas comunales, vía lastrada, red de agua potable y red eléctrica.`
-          ),
-        ],
-      });
-    }
     public createAntecedente1pt3(): Paragraph {
       return new Paragraph({
         alignment: AlignmentType.JUSTIFIED,
@@ -822,7 +866,7 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "a) Mediante escritura pública celebrada el treinta de mayo del dos mil diecisiete ante el Notario Primero del cantón Pedro Vicente Maldonado el Dr. Marcelo Javier Villacís Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió al señor Esteban Andres Olmedo Obando el lote de terreno signado con el número 19 y 19C, legalmente inscrito en el Registro de la Propiedad del mismo cantón con fecha trece de junio del dos mil diecisiete; con fecha 24 de agosto del 2017 se inscribió la unificación de los referidos lotes de terreno, ubicados en la parroquia y cantón Puerto Quito provincia de Pichincha cuya superficie total es de TREINTA Y SEIS PUNTO TREINTA Y SIETE HECTAREAS.",
+        "Mediante escritura pública celebrada el treinta de mayo del dos mil diecisiete ante el Notario Primero del cantón Pedro Vicente Maldonado el Dr. Marcelo Javier Villacís Molina, la Compañía INMOBILIARIA Y CONSTRUCCIONES INMOCONSTRUCCIONES CIA. LTDA., adquirió al señor Esteban Andres Olmedo Obando el lote de terreno signado con el número 19 y 19C, legalmente inscrito en el Registro de la Propiedad del mismo cantón con fecha trece de junio del dos mil diecisiete; con fecha 24 de agosto del 2017 se inscribió la unificación de los referidos lotes de terreno, ubicados en la parroquia y cantón Puerto Quito provincia de Pichincha cuya superficie total es de TREINTA Y SEIS PUNTO TREINTA Y SIETE HECTAREAS.\n\nSobre el terreno indicado anteriormente, se realiza la lotización rural “EL MANANTIAL”, el mismo que está compuesto por 299 lotes de una superficie estimada de 800m2, con sus respectivas áreas comunales, vía lastrada, red de agua potable y red eléctrica.",
       company: {
         name: "PRIMERA. - ANTECEDENTE",
       },
@@ -867,9 +911,9 @@ const ConvenioBiess = ({ oneOfert, ofertID }) => {
     {
       alignment: AlignmentType.JUSTIFIED,
       summary:
-        "En caso de que cualquiera de las partes el VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere respectivamente de la reserva y la adquisición del inmueble que se reserva, la parte que incumpla se obliga para con la otra a: Pagar una multa del DIEZ POR CIENTO del precio total del inmueble, multa que será pagada por la parte que incumpliere este contrato a la parte que se mantenga en el mismo, además queda establecido: UNO.- Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES en la forma, plazos establecidos y demás condiciones estipuladas en este contrato, sus anexos y la ley en materia, de hecho el promitente vendedor, rescindirá este contrato y hará efectivo el valor de la multa en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento sin derecho a reclamo alguno; en caso de que el valor cancelado por los FUTUROS ADQUIRIENTES sea mayor al 10% se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas si el incumplimiento es por parte del promitente VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compraventa, éste además de restituir los valores pagados por los FUTUROS ADQUIRIENTES deberán pagar también una multa del DIEZ POR CIENTO en concepto de indemnización de daños y perjuicios ocasionados por el incumplimiento, se excluye de la multa el incumplimiento por razones de caso fortuito o fuerza mayor.",
+        "En caso de que cualquiera de las partes EL VENDEDOR y/o los FUTUROS ADQUIRIENTES desistiere o incumpliere respectivamente de la reserva y la adquisición del inmueble materia de este instrumento, la parte que incumpla se obliga para con la otra a pagar una multa, en calidad de indemnización convencional, multa que será pagada por la parte que incumpliere este convenio a la parte que se mantenga en el mismo, conforme lo siguiente: UNO. - Si el incumplimiento es imputable a los FUTUROS ADQUIRIENTES, es decir que consistiera en más de un retraso en la forma, plazos y demás condiciones estipuladas en este contrato, sus anexos, EL VENDEDOR podrá terminar unilateralmente este contrato y hará efectivo el valor de la multa del 10% del precio del lote más el 10% de los abonos realizados como gasto administrativo, en concepto de indemnización por daños y perjuicios convencional, ocasionados por el incumplimiento SIN DERECHO A RECLAMO ALGUNO por parte de los FUTUROS ADQUIRIENTES, y se realizará una liquidación tomando en cuenta solamente el capital pagado. DOS. - Mas, si el incumplimiento es por parte del VENDEDOR, por causas imputables y no llegare a perfeccionarse y suscribirse la escritura definitiva de compra venta, encontrándose al día en sus pagos el Cliente o FUTUROS ADQUIRIENTES, éste además de restituir el valor de capital pagado por los FUTUROS ADQUIRIENTES deberá pagar también una multa del 10% del precio del lote en concepto de indemnización por daños y perjuicios ocasionados por el incumplimiento. TRES. - Se incluye como incumplimiento la no reparación de daños producidas por el Cliente o FUTUROS ADQUIRIENTES en la Urbanización por eventuales visitas. CUATRO. - Se excluye de las indemnizaciones convencionales aquí pactadas, en caso fortuito o fuerza mayor comprobada.",
       company: {
-        name: "SEXTA. - DESISTIMIENTO",
+        name: "SEXTA. - DESISTIMIENTO/INCUMPLIMIENTO",
       },
     },
     {

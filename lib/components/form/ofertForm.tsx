@@ -543,6 +543,7 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
         <form onSubmit={handleSubmit} className="m-2">
           {lote.map((item) => {
             ofert.cli_valorOferta = item.mae_preact;
+            const descuentoPre = ofert.cli_valorOferta - ofert.cli_descuentoAdd;
             const descuentosPorcentaje = {
               "0%": 0.0,
               "1%": 0.01,
@@ -554,12 +555,9 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
             };
             if (descuentosPorcentaje.hasOwnProperty(porcentaje)) {
               ofert.cli_descuento =
-                ofert.cli_valorOferta * descuentosPorcentaje[porcentaje];
+                descuentoPre * descuentosPorcentaje[porcentaje];
             }
-            ofert.cli_totalOferta =
-              ofert.cli_valorOferta -
-              ofert.cli_descuento -
-              ofert.cli_descuentoAdd;
+            ofert.cli_totalOferta = descuentoPre - ofert.cli_descuento;
             return (
               <div
                 key={item}
@@ -1685,8 +1683,8 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                 onClick={mostrarFormularioHandleroRepresentante}
               >
                 {mostrarFormularioRepresentante
-                  ? "Datos de Representante"
-                  : "Datos de Representante"}
+                  ? "Datos de Apoderado"
+                  : "Datos de Apoderado"}
               </button>
             </div>
             <Transition
@@ -2578,9 +2576,13 @@ const OfertForm = ({ loteID }: { loteID: string }) => {
                     </optgroup>
                     <optgroup label="FERIAS">
                       <option value="FERIA CLAVE">FERIA CLAVE</option>
-                      <option value="FERIA CLAVE CUMBAYA">FERIA CLAVE CUMBAYA</option>
+                      <option value="FERIA CLAVE CUMBAYA">
+                        FERIA CLAVE CUMBAYA
+                      </option>
                       <option value="FERIA BIESS">FERIA BIESS</option>
-                      <option value="FERIA EXPOVIVIENDA">FERIA EXPOVIVIENDA</option>
+                      <option value="FERIA EXPOVIVIENDA">
+                        FERIA EXPOVIVIENDA
+                      </option>
                       <option value="FERIA OTROS">FERIA OTROS</option>
                     </optgroup>
                     <optgroup label="FACEBOOK">

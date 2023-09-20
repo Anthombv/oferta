@@ -163,6 +163,15 @@ const CrearEncuesta = ({ ofertID, oneOfert }) => {
                 <option value="STAND RECREO">STAND RECREO</option>
                 <option value="STAND CONDADO">STAND CONDADO</option>
                 <option value="STAND QUICENTRO SUR">STAND QUICENTRO SUR</option>
+                <option value="STAND EL PORTAL">STAND EL PORTAL</option>
+                <option value="STAND SAN LUIS">STAND SAN LUIS</option>
+              </optgroup>
+              <optgroup label="FERIAS">
+                <option value="FERIA CLAVE">FERIA CLAVE</option>
+                <option value="FERIA CLAVE CUMBAYA">FERIA CLAVE CUMBAYA</option>
+                <option value="FERIA BIESS">FERIA BIESS</option>
+                <option value="FERIA EXPOVIVIENDA">FERIA EXPOVIVIENDA</option>
+                <option value="FERIA OTROS">FERIA OTROS</option>
               </optgroup>
               <optgroup label="FACEBOOK">
                 <option value="FACEBOOK PERSONAL">FACEBOOK PERSONAL</option>

@@ -19,7 +19,6 @@ const ReporteEncuesta = ({ oneOfertED }) => {
   return (
     <>
       <title>Informe de Encuesta</title>
-
       <div className="encuesta">
         {oneOfertED.data.map((item, index) => {
           return (
@@ -36,7 +35,7 @@ const ReporteEncuesta = ({ oneOfertED }) => {
                 Informe de Encuesta
               </h2>
               <div className="grid grid-cols-3  xl:mx-8 border border-gray-300 rounded-lg bg-gray-100 mb-6">
-                <p className="my-1 text-center">
+                <p className="my-1 text-center uppercase">
                   <strong>Cliente:</strong> {item.cli_name}
                 </p>
                 <p className="my-1 text-center">

@@ -967,7 +967,7 @@ const ConvenioContadoREP = ({ oneOfert, ofertID }) => {
     <>
       <div>
         <p>
-          <button onClick={generate}>Generar Convenio sin derechos</button>
+          <button onClick={generate}>Generar Convenio Apoderado</button>
         </p>
       </div>
     </>

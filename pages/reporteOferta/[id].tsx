@@ -128,11 +128,11 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                               <td className="border-r border-t border-black"></td>
                               <td className="border-r border-t border-black"></td>
                               <th className="border-r border-t border-black">
-                                Descuento
+                                Descuento Add
                               </th>
                               <td className="border-r border-t border-black">
                                 -
-                                {item.cli_descuento.toLocaleString("en-US", {
+                                {item.cli_descuentoAdd.toLocaleString("en-US", {
                                   style: "currency",
                                   currency: "USD",
                                 })}
@@ -142,11 +142,11 @@ const ReportOfertED = ({ oneOfertED, ofertID }) => {
                               <td className="border-r border-t border-black"></td>
                               <td className="border-r border-t border-black"></td>
                               <th className="border-r border-t border-black">
-                                Descuento Add
+                                Descuento
                               </th>
                               <td className="border-r border-t border-black">
                                 -
-                                {item.cli_descuentoAdd.toLocaleString("en-US", {
+                                {item.cli_descuento.toLocaleString("en-US", {
                                   style: "currency",
                                   currency: "USD",
                                 })}
