@@ -203,9 +203,7 @@ const EditOfert = () => {
         descuentoPre * descuentosPorcentaje[formik.values.cli_porcentaje];
     }
 
-    const totalOferta =
-      descuentoPre
-      formik.values.cli_descuento 
+    const totalOferta = descuentoPre - formik.values.cli_descuento 
     formik.setFieldValue("cli_totalOferta", totalOferta);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
